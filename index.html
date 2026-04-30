@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLAST RIFF — Prove You're Trve</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:   #060606;
+  --deep:    #0c0c0c;
+  --card:    #111111;
+  --card2:   #181818;
+  --border:  rgba(255,69,0,0.14);
+  --orange:  #FF4500;
+  --orange2: #cc3700;
+  --red:     #7a0000;
+  --gold:    #FFD700;
+  --green:   #00e070;
+  --white:   #EDE9E2;
+  --grey:    #555;
+  --grey2:   #888;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:'Oswald',sans-serif;
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+
+/* GRAIN */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.045'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9000;mix-blend-mode:overlay;
+}
+
+/* ══ MODAL OVERLAY ══ */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.88);
+  z-index:5000;align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  background:var(--card);
+  border:1px solid rgba(255,69,0,0.25);
+  max-width:420px;width:90%;
+  padding:40px 32px;position:relative;
+  animation:modal-in 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes modal-in{from{transform:translateY(30px) scale(0.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+.modal-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--orange),var(--gold),transparent);
+}
+.modal-close{
+  position:absolute;top:14px;right:14px;
+  background:none;border:none;color:var(--grey2);
+  font-size:22px;cursor:pointer;transition:color 0.2s;line-height:1;
+  font-family:'Oswald',sans-serif;
+}
+.modal-close:hover{color:var(--orange);}
+
+/* ══ LANG BAR ══ */
+.lang-bar{
+  position:fixed;top:0;width:100%;z-index:200;
+  background:rgba(6,6,6,0.97);
+  border-bottom:1px solid rgba(255,69,0,0.1);
+  padding:5px 32px;
+  display:flex;justify-content:flex-end;align-items:center;gap:4px;
+}
+.lang-btn{
+  background:transparent;border:1px solid rgba(255,69,0,0.15);
+  color:var(--grey2);font-family:'Oswald',sans-serif;
+  font-size:10px;letter-spacing:2px;padding:3px 10px;
+  cursor:pointer;transition:all 0.2s;text-transform:uppercase;
+}
+.lang-btn.active,.lang-btn:hover{background:var(--orange);border-color:var(--orange);color:var(--black);}
+
+/* ══ NAV ══ */
+nav{
+  position:fixed;top:30px;width:100%;z-index:100;
+  padding:14px 40px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:linear-gradient(180deg,rgba(6,6,6,0.97) 60%,transparent);
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:24px;letter-spacing:5px;
+  display:flex;align-items:center;gap:2px;
+}
+.nav-logo .nl-blast{color:var(--orange);}
+.nav-logo .nl-bolt{color:var(--gold);font-size:18px;}
+.nav-logo .nl-riff{color:var(--white);}
+
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{
+  color:var(--grey2);text-decoration:none;
+  font-size:11px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--orange);}
+.nav-cta{
+  background:var(--orange)!important;
+  color:var(--black)!important;
+  padding:7px 20px!important;font-weight:700!important;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+}
+.nav-cta:hover{background:var(--gold)!important;}
+
+/* ══ BUTTONS ══ */
+.btn{
+  font-family:'Bebas Neue',sans-serif;letter-spacing:3px;
+  cursor:pointer;transition:all 0.2s;border:none;
+  display:inline-flex;align-items:center;gap:8px;
+  text-decoration:none;justify-content:center;
+}
+.btn-primary{
+  background:var(--orange);color:var(--black);
+  padding:15px 40px;font-size:20px;
+  clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+  position:relative;overflow:hidden;
+}
+.btn-primary::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
+  transform:translateX(-100%);transition:transform 0.5s;
+}
+.btn-primary:hover::after{transform:translateX(100%);}
+.btn-primary:hover{background:var(--gold);transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,69,0,0.3);}
+.btn-ghost{
+  background:transparent;color:var(--white);
+  border:1px solid rgba(255,69,0,0.35);
+  padding:14px 36px;font-size:19px;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-2px);}
+.btn-full{width:100%;display:flex;}
+
+/* ══ SHARED ══ */
+.section-eyebrow{
+  font-size:10px;letter-spacing:5px;color:var(--orange);
+  text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:14px;
+}
+.section-eyebrow::before,.section-eyebrow::after{
+  content:'';flex:0 0 24px;height:1px;background:var(--orange);opacity:0.5;
+}
+.section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,6.5vw,76px);
+  letter-spacing:4px;line-height:0.95;margin-bottom:14px;
+}
+.section-sub{color:var(--grey2);font-size:14px;font-weight:300;letter-spacing:0.5px;line-height:1.8;margin-bottom:52px;}
+.hl{color:var(--orange);}
+.hlg{color:var(--gold);}
+.hlv{color:var(--green);}
+
+/* Reveal animation */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:0.1s;}
+.reveal-d2{transition-delay:0.2s;}
+.reveal-d3{transition-delay:0.3s;}
+.reveal-d4{transition-delay:0.4s;}
+
+/* ══ HERO ══ */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:0;
+  position:relative;overflow:hidden;
+  padding:140px 0 80px;
+}
+
+/* diagonal split */
+.hero::after{
+  content:'';position:absolute;
+  top:0;right:0;width:52%;height:100%;
+  background:linear-gradient(135deg,rgba(122,0,0,0.07) 0%,rgba(255,69,0,0.04) 100%);
+  clip-path:polygon(8% 0%,100% 0%,100% 100%,0% 100%);
+  pointer-events:none;
+}
+
+.hero-left{
+  padding:0 60px 0 80px;
+  position:relative;z-index:2;
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.25);
+  padding:6px 16px;margin-bottom:28px;
+  font-size:10px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;
+  animation:badge-in 0.8s cubic-bezier(0.16,1,0.3,1) forwards;opacity:0;
+}
+@keyframes badge-in{to{opacity:1;}}
+
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(64px,8vw,120px);
+  line-height:0.88;letter-spacing:6px;
+  margin-bottom:20px;
+  animation:title-in 0.9s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;
+  opacity:0;transform:translateX(-30px);
+}
+@keyframes title-in{to{opacity:1;transform:translateX(0);}}
+
+.hero-title .ht-blast{
+  display:block;color:var(--orange);
+  text-shadow:4px 4px 0 var(--red),0 0 60px rgba(255,69,0,0.2);
+}
+.hero-title .ht-bolt{
+  display:inline;color:var(--gold);font-size:0.75em;
+  vertical-align:middle;
+  filter:drop-shadow(0 0 10px rgba(255,215,0,0.4));
+}
+.hero-title .ht-riff{
+  display:block;color:var(--white);
+  text-shadow:4px 4px 0 rgba(0,0,0,0.4);
+}
+
+.hero-tagline{
+  font-family:'Special Elite',cursive;
+  font-size:clamp(13px,1.6vw,18px);
+  letter-spacing:5px;text-transform:uppercase;
+  color:var(--grey2);margin-bottom:36px;line-height:1.6;
+  animation:title-in 0.9s 0.2s cubic-bezier(0.16,1,0.3,1) forwards;
+  opacity:0;transform:translateX(-20px);
+}
+
+.hero-ctas{
+  display:flex;gap:14px;flex-wrap:wrap;
+  animation:title-in 0.9s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+  opacity:0;transform:translateX(-20px);
+}
+
+.hero-social-proof{
+  margin-top:32px;
+  display:flex;align-items:center;gap:16px;
+  animation:title-in 0.9s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+  opacity:0;
+}
+.avatar-stack{display:flex;}
+.avatar-stack span{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,var(--red),var(--orange));
+  border:2px solid var(--black);margin-left:-8px;
+  display:flex;align-items:center;justify-content:center;font-size:12px;
+}
+.avatar-stack span:first-child{margin-left:0;}
+.proof-text{font-size:12px;color:var(--grey2);letter-spacing:1px;line-height:1.4;}
+.proof-text strong{color:var(--white);}
+
+/* HERO RIGHT — mock phone */
+.hero-right{
+  position:relative;z-index:2;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 60px 0 20px;
+  animation:phone-in 1s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+  opacity:0;transform:translateY(20px);
+}
+@keyframes phone-in{to{opacity:1;transform:translateY(0);}}
+
+.phone-frame{
+  width:280px;
+  background:var(--card);
+  border:1px solid rgba(255,69,0,0.2);
+  border-radius:32px;
+  overflow:hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,69,0,0.08),
+    0 40px 80px rgba(0,0,0,0.8),
+    0 0 60px rgba(255,69,0,0.08),
+    inset 0 0 0 1px rgba(255,255,255,0.03);
+  position:relative;
+}
+.phone-frame::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:80px;height:22px;background:var(--black);border-radius:0 0 14px 14px;z-index:10;
+}
+.phone-screen{padding:28px 20px 24px;background:var(--black);}
+
+/* Question card inside phone */
+.pq-genre{
+  font-size:9px;letter-spacing:3px;color:var(--orange);
+  text-transform:uppercase;margin-bottom:12px;
+  display:flex;align-items:center;gap:6px;
+}
+.pq-text{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:18px;letter-spacing:1px;line-height:1.2;
+  margin-bottom:20px;color:var(--white);
+}
+.pq-opts{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
+.pq-opt{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  padding:9px 12px;font-size:12px;letter-spacing:0.5px;
+  display:flex;align-items:center;gap:8px;color:var(--white);
+  border-radius:2px;transition:all 0.3s;
+}
+.pq-opt.active-opt{
+  background:rgba(255,69,0,0.12);
+  border-color:var(--orange);color:var(--orange);
+}
+.pq-opt.correct-opt{
+  background:rgba(0,224,112,0.1);
+  border-color:var(--green);color:var(--green);
+}
+.pq-letter{
+  width:20px;height:20px;flex-shrink:0;
+  background:rgba(255,69,0,0.1);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--orange);
+  border-radius:2px;
+}
+.pq-opt.correct-opt .pq-letter{background:rgba(0,224,112,0.15);color:var(--green);}
+
+.pq-pts{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:18px;letter-spacing:2px;color:var(--gold);
+  text-align:center;padding:10px 0;
+  border-top:1px solid rgba(255,69,0,0.1);
+  animation:pts-flash 2s ease-in-out infinite;
+}
+@keyframes pts-flash{0%,100%{opacity:1}50%{opacity:0.6}}
+
+.phone-bottom-bar{
+  padding:12px 20px;
+  background:var(--card);
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid rgba(255,69,0,0.08);
+}
+.pbb-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-size:9px;letter-spacing:2px;color:var(--grey);text-transform:uppercase;
+}
+.pbb-item.active-tab{color:var(--orange);}
+
+/* EMBERS */
+.embers{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.ember{
+  position:absolute;border-radius:50%;background:var(--orange);opacity:0;
+  animation:ember-up linear infinite;
+}
+@keyframes ember-up{
+  0%{transform:translateY(100vh) scale(1);opacity:0.7;}
+  100%{transform:translateY(-5vh) scale(0.1);opacity:0;}
+}
+.e1{left:5%;width:2px;height:2px;animation-duration:5s;animation-delay:0s;}
+.e2{left:18%;width:3px;height:3px;animation-duration:7s;animation-delay:1.5s;background:#ff6600;}
+.e3{left:35%;width:2px;height:2px;animation-duration:4.5s;animation-delay:3s;}
+.e4{left:52%;width:3px;height:3px;animation-duration:8s;animation-delay:0.7s;background:var(--gold);}
+.e5{left:70%;width:2px;height:2px;animation-duration:6s;animation-delay:2.2s;}
+.e6{left:85%;width:3px;height:3px;animation-duration:5.5s;animation-delay:4s;background:#ff3300;}
+.e7{left:92%;width:2px;height:2px;animation-duration:7s;animation-delay:1s;}
+
+/* ══ REGISTER SECTION ══ */
+.register-section{
+  padding:100px 40px;
+  background:var(--deep);
+  border-top:1px solid rgba(255,69,0,0.08);
+  border-bottom:1px solid rgba(255,69,0,0.08);
+}
+.register-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.reg-left{}
+.reg-right{}
+
+.social-btn{
+  width:100%;padding:14px 20px;
+  display:flex;align-items:center;gap:14px;
+  background:var(--card2);border:1px solid rgba(255,255,255,0.07);
+  color:var(--white);font-family:'Oswald',sans-serif;
+  font-size:14px;letter-spacing:1.5px;font-weight:500;
+  cursor:pointer;transition:all 0.2s;
+  position:relative;overflow:hidden;margin-bottom:10px;
+}
+.social-btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(255,69,0,0.06),transparent);
+  transform:translateX(-100%);transition:transform 0.4s;
+}
+.social-btn:hover::after{transform:translateX(0);}
+.social-btn:hover{border-color:rgba(255,69,0,0.35);transform:translateX(4px);}
+.sb-icon{width:22px;height:22px;flex-shrink:0;}
+.sb-badge{
+  margin-left:auto;font-size:9px;letter-spacing:2px;
+  background:rgba(255,69,0,0.15);border:1px solid rgba(255,69,0,0.25);
+  color:var(--orange);padding:2px 8px;
+}
+.sb-google {border-left:3px solid #4285F4;}
+.sb-facebook{border-left:3px solid #1877F2;}
+.sb-apple  {border-left:3px solid #e8e8e8;}
+.sb-email  {border-left:3px solid var(--orange);}
+
+.or-line{
+  display:flex;align-items:center;gap:12px;
+  color:var(--grey);font-size:10px;letter-spacing:3px;margin:14px 0;text-transform:uppercase;
+}
+.or-line::before,.or-line::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.06);}
+
+.input-f{
+  width:100%;background:var(--card2);
+  border:1px solid rgba(255,69,0,0.18);
+  padding:13px 18px;font-family:'Oswald',sans-serif;
+  font-size:14px;color:var(--white);outline:none;letter-spacing:1px;
+  transition:border-color 0.2s;margin-bottom:10px;display:block;
+}
+.input-f:focus{border-color:var(--orange);}
+.input-f::placeholder{color:var(--grey);}
+
+/* BENEFITS LIST */
+.benefits-list{list-style:none;margin-top:28px;}
+.benefits-list li{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.04);
+  font-size:14px;color:var(--grey2);letter-spacing:0.5px;line-height:1.5;
+}
+.benefits-list li:last-child{border-bottom:none;}
+.bl-icon{
+  width:36px;height:36px;flex-shrink:0;
+  background:rgba(255,69,0,0.08);border:1px solid rgba(255,69,0,0.2);
+  display:flex;align-items:center;justify-content:center;
+}
+.benefits-list strong{color:var(--white);}
+
+/* ══ TRIVIA DEMO ══ */
+.trivia-section{
+  padding:100px 40px;max-width:900px;margin:0 auto;text-align:center;
+}
+.trivia-card{
+  background:var(--card);border:1px solid var(--border);
+  padding:48px 44px;position:relative;
+  clip-path:polygon(18px 0%,100% 0%,calc(100% - 18px) 100%,0% 100%);
+  text-align:left;
+}
+.trivia-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--orange),var(--gold),transparent);
+}
+.tq-meta{
+  display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap;
+}
+.tq-genre{
+  background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.25);
+  color:var(--orange);font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;padding:5px 14px;
+  display:flex;align-items:center;gap:6px;
+}
+.tq-diff{
+  font-size:10px;letter-spacing:2px;color:var(--grey2);text-transform:uppercase;
+}
+.tq-text{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(22px,3.5vw,38px);
+  letter-spacing:1.5px;line-height:1.15;margin-bottom:30px;
+}
+.tq-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+.tq-opt{
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);
+  padding:14px 18px;cursor:pointer;
+  font-family:'Oswald',sans-serif;font-size:14px;font-weight:400;
+  color:var(--white);letter-spacing:0.5px;transition:all 0.18s;
+  display:flex;align-items:center;gap:12px;text-align:left;
+  position:relative;overflow:hidden;
+}
+.tq-opt::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(255,69,0,0.07),transparent);
+  transform:translateX(-100%);transition:transform 0.3s;
+}
+.tq-opt:hover::after{transform:translateX(0);}
+.tq-opt:hover{border-color:var(--orange);transform:translateX(4px);}
+.tq-opt.correct{background:rgba(0,224,112,0.08);border-color:var(--green);color:var(--green);}
+.tq-opt.wrong{background:rgba(200,0,0,0.08);border-color:var(--red);color:#ff5555;}
+.tq-opt-letter{
+  width:28px;height:28px;flex-shrink:0;
+  background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--orange);
+}
+.tq-opt.correct .tq-opt-letter{background:rgba(0,224,112,0.12);border-color:var(--green);color:var(--green);}
+.tq-opt.wrong .tq-opt-letter{background:rgba(200,0,0,0.12);border-color:var(--red);color:#ff5555;}
+.tq-explain{
+  display:none;padding:14px 18px;
+  background:rgba(255,69,0,0.06);border-left:3px solid var(--orange);
+  font-size:13px;color:var(--grey2);line-height:1.7;margin-bottom:16px;
+}
+.tq-explain.show{display:block;animation:fade-up 0.3s ease;}
+@keyframes fade-up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.tq-explain strong{color:var(--white);}
+.tq-pts{
+  display:none;font-family:'Bebas Neue',sans-serif;
+  font-size:26px;letter-spacing:2px;color:var(--gold);
+  align-items:center;gap:8px;
+}
+.tq-pts.show{display:flex;animation:pts-pop 0.5s cubic-bezier(0.16,1,0.3,1);}
+@keyframes pts-pop{from{transform:scale(0.4);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* MUSIC LINKS */
+.music-links{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);
+  font-size:11px;color:var(--grey2);letter-spacing:1px;flex-wrap:wrap;
+}
+.music-links span{flex-shrink:0;}
+.music-link-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 12px;font-size:10px;letter-spacing:2px;
+  font-family:'Oswald',sans-serif;font-weight:600;
+  cursor:pointer;border:none;transition:all 0.2s;text-decoration:none;
+}
+.ml-yt {background:#FF0000;color:#fff;}
+.ml-am {background:linear-gradient(135deg,#fc3c44,#ff6482);color:#fff;}
+.ml-sp {background:#1DB954;color:#000;}
+.music-link-btn:hover{transform:translateY(-2px);opacity:0.9;}
+
+/* ══ LEVELS ══ */
+.levels-section{
+  padding:100px 40px;
+  background:var(--deep);
+  border-top:1px solid rgba(255,69,0,0.07);
+  border-bottom:1px solid rgba(255,69,0,0.07);
+}
+.levels-inner{max-width:1100px;margin:0 auto;text-align:center;}
+.levels-grid{
+  display:grid;grid-template-columns:repeat(6,1fr);
+  gap:2px;margin-top:52px;
+}
+.level-card{
+  background:var(--card);padding:36px 12px;
+  position:relative;transition:all 0.3s;
+  border-top:3px solid transparent;cursor:default;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.level-card:hover{background:rgba(255,69,0,0.05);border-top-color:var(--orange);transform:translateY(-6px);}
+.lv-icon{width:48px;height:48px;}
+.lv-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;}
+.lv-pts{font-size:10px;letter-spacing:2px;color:var(--orange);text-transform:uppercase;}
+.lv-1 .lv-icon path{stroke:var(--grey)!important;}
+.lv-1 .lv-name{color:var(--grey);}
+.lv-6 .lv-name{color:var(--gold);text-shadow:0 0 14px rgba(255,215,0,0.4);}
+
+/* ══ FEATURES ══ */
+.features-section{padding:100px 40px;max-width:1100px;margin:0 auto;}
+.features-header{text-align:center;margin-bottom:0;}
+.features-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;margin-top:52px;
+}
+.feature-card{
+  background:var(--card);padding:40px 28px;
+  position:relative;overflow:hidden;transition:all 0.3s;
+}
+.feature-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent);
+  transform:scaleX(0);transition:transform 0.35s;
+}
+.feature-card:hover::after{transform:scaleX(1);}
+.feature-card:hover{background:rgba(255,69,0,0.04);}
+.fc-icon{width:44px;height:44px;margin-bottom:18px;}
+.fc-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--orange);margin-bottom:10px;}
+.fc-desc{color:var(--grey2);font-size:13px;font-weight:300;line-height:1.75;letter-spacing:0.3px;}
+
+/* ══ GENRES TICKER ══ */
+.genres-section{
+  padding:60px 0;background:var(--deep);
+  border-top:1px solid rgba(255,69,0,0.07);
+  border-bottom:1px solid rgba(255,69,0,0.07);
+  overflow:hidden;position:relative;
+}
+.genres-section::before,.genres-section::after{
+  content:'';position:absolute;top:0;bottom:0;width:160px;z-index:2;pointer-events:none;
+}
+.genres-section::before{left:0;background:linear-gradient(90deg,var(--deep),transparent);}
+.genres-section::after{right:0;background:linear-gradient(-90deg,var(--deep),transparent);}
+.ticker{display:flex;gap:12px;width:max-content;animation:ticker 28s linear infinite;}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.genre-chip{
+  background:transparent;border:1px solid rgba(255,69,0,0.18);
+  padding:8px 20px;font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--grey2);white-space:nowrap;
+  display:flex;align-items:center;gap:7px;transition:all 0.2s;
+  clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+}
+.genre-chip:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,69,0,0.06);}
+.genre-chip svg{width:12px;height:12px;flex-shrink:0;}
+
+/* ══ TRVE PASS ══ */
+.pass-section{padding:100px 40px;max-width:820px;margin:0 auto;text-align:center;}
+.pass-card{
+  background:linear-gradient(145deg,#140800,#0a0500);
+  border:1px solid rgba(255,69,0,0.25);
+  padding:56px 48px;position:relative;overflow:hidden;
+}
+.pass-card::before{
+  content:'';position:absolute;top:-30%;left:-20%;
+  width:160%;height:160%;
+  background:radial-gradient(ellipse at 40% 40%,rgba(255,69,0,0.06) 0%,transparent 60%);
+  pointer-events:none;
+}
+.pass-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--orange),var(--red));
+  color:var(--white);font-family:'Bebas Neue',sans-serif;
+  font-size:12px;letter-spacing:4px;padding:7px 24px;margin-bottom:24px;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+}
+.pass-price{
+  font-family:'Bebas Neue',sans-serif;font-size:96px;
+  color:var(--white);line-height:1;margin:14px 0;
+}
+.pass-price sup{font-size:40px;color:var(--orange);vertical-align:top;margin-top:20px;display:inline-block;}
+.pass-price sub{font-size:24px;color:var(--grey2);}
+.pass-period{font-size:11px;letter-spacing:3px;color:var(--grey2);text-transform:uppercase;margin-bottom:4px;}
+.pass-annual{
+  display:inline-block;
+  background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);
+  color:var(--gold);font-size:11px;letter-spacing:2px;
+  padding:4px 14px;margin-bottom:28px;text-transform:uppercase;
+}
+.pass-features-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;text-align:left;margin:28px 0;
+}
+.pf-item{
+  padding:14px 12px;border-bottom:1px solid rgba(255,255,255,0.04);
+  display:flex;align-items:flex-start;gap:12px;
+  font-size:13px;color:var(--grey2);letter-spacing:0.3px;line-height:1.4;
+}
+.pf-item:nth-child(odd){border-right:1px solid rgba(255,255,255,0.04);}
+.pf-icon{width:20px;height:20px;flex-shrink:0;margin-top:2px;}
+.pf-item strong{color:var(--white);}
+
+/* ══ WAITLIST ══ */
+.waitlist-section{
+  padding:120px 40px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.waitlist-section::before{
+  content:'';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:700px;height:700px;
+  background:radial-gradient(ellipse,rgba(122,0,0,0.1) 0%,transparent 70%);
+  pointer-events:none;
+}
+.waitlist-inner{max-width:560px;margin:0 auto;position:relative;}
+.wl-form{
+  display:flex;margin-top:36px;
+  max-width:480px;margin-left:auto;margin-right:auto;
+}
+.wl-input{
+  flex:1;background:var(--card);
+  border:1px solid rgba(255,69,0,0.25);border-right:none;
+  padding:15px 20px;font-family:'Oswald',sans-serif;
+  font-size:14px;color:var(--white);outline:none;letter-spacing:1px;
+}
+.wl-input:focus{border-color:var(--orange);}
+.wl-input::placeholder{color:var(--grey);}
+.wl-btn{
+  background:var(--orange);border:none;padding:15px 28px;
+  font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;
+  color:var(--black);cursor:pointer;transition:background 0.2s;white-space:nowrap;
+}
+.wl-btn:hover{background:var(--gold);}
+.wl-note{margin-top:12px;font-size:10px;letter-spacing:2px;color:var(--grey);text-transform:uppercase;}
+.wl-success{
+  display:none;margin-top:24px;padding:18px 24px;
+  background:rgba(255,69,0,0.08);border:1px solid rgba(255,69,0,0.25);
+  font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--orange);
+}
+
+/* ══ FOOTER ══ */
+footer{
+  padding:64px 60px 36px;
+  border-top:1px solid rgba(255,69,0,0.09);
+  background:var(--deep);
+}
+.footer-top{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px;
+}
+.footer-brand .fb-logo{
+  font-family:'Bebas Neue',sans-serif;font-size:32px;
+  letter-spacing:6px;margin-bottom:12px;display:block;
+}
+.footer-brand .fb-logo .fbl-blast{color:var(--orange);}
+.footer-brand .fb-logo .fbl-bolt{color:var(--gold);}
+.footer-brand p{font-size:12px;letter-spacing:1px;color:var(--grey2);line-height:1.7;max-width:260px;}
+
+.footer-col h4{
+  font-family:'Bebas Neue',sans-serif;letter-spacing:3px;
+  font-size:15px;color:var(--white);margin-bottom:16px;
+}
+.footer-col ul{list-style:none;}
+.footer-col li{margin-bottom:10px;}
+.footer-col a{
+  color:var(--grey2);text-decoration:none;
+  font-size:12px;letter-spacing:1px;transition:color 0.2s;
+  display:flex;align-items:center;gap:7px;
+}
+.footer-col a:hover{color:var(--orange);}
+.footer-col a svg{width:12px;height:12px;opacity:0.5;}
+
+.footer-bottom{
+  max-width:1100px;margin:0 auto;padding-top:24px;
+  border-top:1px solid rgba(255,255,255,0.04);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+}
+.footer-bottom p{font-size:10px;color:var(--grey);letter-spacing:2px;text-transform:uppercase;}
+
+/* ══ CURSOR GLOW ══ */
+#cg{
+  position:fixed;width:350px;height:350px;
+  background:radial-gradient(circle,rgba(255,69,0,0.03) 0%,transparent 70%);
+  pointer-events:none;z-index:9001;border-radius:50%;
+  transition:left 0.06s,top 0.06s;will-change:left,top;
+}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:140px 0 60px;}
+  .hero-left{padding:0 24px;}
+  .hero-right{display:none;}
+  .hero::after{display:none;}
+  .register-inner{grid-template-columns:1fr;}
+  .levels-grid{grid-template-columns:repeat(3,1fr);}
+  .features-grid{grid-template-columns:1fr 1fr;}
+  .pass-features-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+  nav{padding:10px 20px;}
+  .nav-links{display:none;}
+  .tq-opts{grid-template-columns:1fr;}
+  .lang-bar{padding:5px 16px;flex-wrap:wrap;justify-content:center;}
+}
+@media(max-width:600px){
+  .hero-left{text-align:center;}
+  .hero-ctas{justify-content:center;}
+  .hero-social-proof{justify-content:center;}
+  .features-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div id="cg"></div>
+
+<!-- ══ REGISTER MODAL ══ -->
+<div class="modal-overlay" id="reg-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div style="margin-bottom:6px">
+      <div class="section-eyebrow" style="justify-content:center">
+        <span data-i18n="reg_eyebrow">Join free — 10 seconds</span>
+      </div>
+    </div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;text-align:center;margin-bottom:4px">
+      <span data-i18n="reg_title">CREATE YOUR</span><br>
+      <span class="hl">METAL IDENTITY</span>
+    </div>
+    <p style="font-size:12px;color:var(--grey2);letter-spacing:1px;text-align:center;margin-bottom:20px;line-height:1.5" data-i18n="reg_sub">Track TRVE POINTS · Challenge friends · Climb the throne</p>
+
+    <!-- SOCIAL BTNS -->
+    <button class="social-btn sb-google" onclick="doRegister('Google')">
+      <svg class="sb-icon" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      <span data-i18n="reg_google">Continue with Google</span>
+      <span class="sb-badge" data-i18n="reg_rec">RECOMMENDED</span>
+    </button>
+    <button class="social-btn sb-facebook" onclick="doRegister('Facebook')">
+      <svg class="sb-icon" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
+      <span data-i18n="reg_facebook">Continue with Facebook</span>
+    </button>
+    <button class="social-btn sb-apple" onclick="doRegister('Apple')">
+      <svg class="sb-icon" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="#f5f5f5"/></svg>
+      <span data-i18n="reg_apple">Continue with Apple</span>
+    </button>
+    <div class="or-line" data-i18n="reg_or">or use email</div>
+    <input type="text"     class="input-f" id="m-user"  data-i18n-ph="ph_user"  placeholder="Your metalhead username" />
+    <input type="email"    class="input-f" id="m-email" data-i18n-ph="ph_email" placeholder="Email address" />
+    <input type="password" class="input-f" id="m-pass"  data-i18n-ph="ph_pass"  placeholder="Password" />
+    <button class="btn btn-primary btn-full" style="margin-top:6px" onclick="doRegister('Email')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3m0 0a5 5 0 1 0-7-7 5 5 0 0 0 7 7z"/></svg>
+      <span data-i18n="reg_cta">CREATE MY METAL IDENTITY</span>
+    </button>
+    <p style="font-size:10px;color:var(--grey);letter-spacing:1px;text-align:center;margin-top:14px;line-height:1.5">
+      <span data-i18n="reg_terms">By joining you agree to our</span>
+      <a href="#" style="color:var(--orange);text-decoration:none" data-i18n="reg_terms_link">Terms of Riffs</a>.
+      <span data-i18n="reg_no_spam">No spam. No poseurs.</span>
+    </p>
+  </div>
+</div>
+
+<!-- ══ LANG BAR ══ -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('en',this)">🇺🇸 EN</button>
+  <button class="lang-btn" onclick="setLang('es',this)">🇪🇸 ES</button>
+  <button class="lang-btn" onclick="setLang('pt',this)">🇧🇷 PT</button>
+  <button class="lang-btn" onclick="setLang('de',this)">🇩🇪 DE</button>
+  <button class="lang-btn" onclick="setLang('ja',this)">🇯🇵 JA</button>
+  <button class="lang-btn" onclick="setLang('fi',this)">🇫🇮 FI</button>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">
+    <span class="nl-blast">BLAST</span>
+    <span class="nl-bolt">⚡</span>
+    <span class="nl-riff">RIFF</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#play"     data-i18n="nav_play">Play</a></li>
+    <li><a href="#levels"   data-i18n="nav_levels">Levels</a></li>
+    <li><a href="#features" data-i18n="nav_modes">Game Modes</a></li>
+    <li><a href="#pass"     data-i18n="nav_pass">TRVE Pass</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal()" data-i18n="nav_join">JOIN FREE</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="embers">
+    <div class="ember e1"></div><div class="ember e2"></div><div class="ember e3"></div>
+    <div class="ember e4"></div><div class="ember e5"></div><div class="ember e6"></div>
+    <div class="ember e7"></div>
+  </div>
+
+  <div class="hero-left">
+    <div class="hero-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--orange)"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+      <span data-i18n="hero_badge">#1 HEAVY METAL TRIVIA GAME — WORLDWIDE</span>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="ht-blast">BLAST</span>
+      <span class="ht-bolt">⚡</span>
+      <span class="ht-riff">RIFF</span>
+    </h1>
+
+    <p class="hero-tagline">
+      <span data-i18n="hero_tag1">Prove you're a</span> <span class="hl">Trve Metalhead</span>
+    </p>
+
+    <div class="hero-ctas">
+      <button class="btn btn-primary" onclick="openModal()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>
+        <span data-i18n="hero_cta1">PLAY FREE NOW</span>
+      </button>
+      <a href="#pass" class="btn btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span data-i18n="hero_cta2">TRVE PASS</span>
+      </a>
+    </div>
+
+    <div class="hero-social-proof">
+      <div class="avatar-stack">
+        <span>🤘</span><span>☠️</span><span>🎸</span><span>⚡</span>
+      </div>
+      <div class="proof-text">
+        <strong>4,847</strong> <span data-i18n="proof_text">metalheads waiting</span><br>
+        <span data-i18n="proof_sub">First 1,000 get 30 days TRVE PASS free</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHONE MOCKUP -->
+  <div class="hero-right">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="pq-genre">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          THRASH METAL · HEADBANGER
+        </div>
+        <div class="pq-text">Who wrote the iconic opening riff of "Enter Sandman"?</div>
+        <div class="pq-opts">
+          <div class="pq-opt">
+            <div class="pq-letter">A</div>James Hetfield
+          </div>
+          <div class="pq-opt active-opt">
+            <div class="pq-letter" style="background:rgba(255,69,0,0.2)">B</div>Kirk Hammett
+          </div>
+          <div class="pq-opt correct-opt">
+            <div class="pq-letter">C</div>Kirk Hammett
+          </div>
+          <div class="pq-opt">
+            <div class="pq-letter">D</div>Lars Ulrich
+          </div>
+        </div>
+        <div class="pq-pts">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--gold)"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.1z"/></svg>
+          +175 TRVE POINTS
+        </div>
+      </div>
+      <div class="phone-bottom-bar">
+        <div class="pbb-item active-tab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
+          <span>PLAY</span>
+        </div>
+        <div class="pbb-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>RANKS</span>
+        </div>
+        <div class="pbb-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>LORE</span>
+        </div>
+        <div class="pbb-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>PROFILE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REGISTER ══ -->
+<section class="register-section" id="register">
+  <div class="register-inner">
+    <div class="reg-left reveal">
+      <div class="section-eyebrow" data-i18n="reg_eyebrow2">Join the community</div>
+      <h2 class="section-title"><span data-i18n="reg_section_title">YOUR</span><br><span class="hl" data-i18n="reg_section_title2">METAL IDENTITY</span><br><span data-i18n="reg_section_title3">AWAITS</span></h2>
+      <p class="section-sub" data-i18n="reg_section_sub">One account. All platforms. Sign up once and carry your TRVE POINTS, rank, and Grimoire across web, iOS and Android.</p>
+      <ul class="benefits-list">
+        <li>
+          <div class="bl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+          <div><strong data-i18n="b1_title">TRVE POINTS persist forever</strong><br><span data-i18n="b1_sub">Never lose your rank. Your score follows you everywhere.</span></div>
+        </li>
+        <li>
+          <div class="bl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="m17 21-5-4-5 4V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2z"/></svg></div>
+          <div><strong data-i18n="b2_title">Challenge leaderboard</strong><br><span data-i18n="b2_sub">Send challenges, receive challenges, steal points.</span></div>
+        </li>
+        <li>
+          <div class="bl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <div><strong data-i18n="b3_title">The Grimoire unlocks</strong><br><span data-i18n="b3_sub">Deep metal lore, band histories and gear guides.</span></div>
+        </li>
+        <li>
+          <div class="bl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div><strong data-i18n="b4_title">100% free forever</strong><br><span data-i18n="b4_sub">Core game is always free. TRVE PASS is optional.</span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="reg-right reveal reveal-d2">
+      <button class="social-btn sb-google" onclick="openModal()">
+        <svg class="sb-icon" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        <span data-i18n="reg_google">Continue with Google</span>
+        <span class="sb-badge" data-i18n="reg_rec">RECOMMENDED</span>
+      </button>
+      <button class="social-btn sb-facebook" onclick="openModal()">
+        <svg class="sb-icon" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
+        <span data-i18n="reg_facebook">Continue with Facebook</span>
+      </button>
+      <button class="social-btn sb-apple" onclick="openModal()">
+        <svg class="sb-icon" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="#e8e8e8"/></svg>
+        <span data-i18n="reg_apple">Continue with Apple</span>
+      </button>
+      <div class="or-line" data-i18n="reg_or">or use email</div>
+      <input type="text"  class="input-f" data-i18n-ph="ph_user"  placeholder="Your metalhead username" />
+      <input type="email" class="input-f" data-i18n-ph="ph_email" placeholder="Email address" />
+      <button class="btn btn-primary btn-full" onclick="openModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3m0 0a5 5 0 1 0-7-7 5 5 0 0 0 7 7z"/></svg>
+        <span data-i18n="reg_cta">CREATE MY METAL IDENTITY</span>
+      </button>
+      <p style="font-size:10px;color:var(--grey);letter-spacing:1px;text-align:center;margin-top:12px;line-height:1.5">
+        <span data-i18n="reg_signin">Already TRVE?</span>
+        <a href="#" style="color:var(--orange);text-decoration:none" data-i18n="reg_signin_link">Sign in here</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRIVIA DEMO ══ -->
+<section class="trivia-section" id="play">
+  <div class="section-eyebrow" style="justify-content:center" data-i18n="trivia_eyebrow">Try a question</div>
+  <h2 class="section-title"><span data-i18n="trivia_t1">THINK YOU KNOW</span> <span class="hl">METAL?</span></h2>
+  <p class="section-sub" data-i18n="trivia_sub">Answer correctly. Earn TRVE POINTS. Stop being a poseur.</p>
+
+  <div class="trivia-card reveal">
+    <div class="tq-meta">
+      <div class="tq-genre">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        <span data-i18n="tq_genre">Thrash Metal</span>
+      </div>
+      <div class="tq-diff">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--gold)" style="vertical-align:middle"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        <span data-i18n="tq_diff">HEADBANGER LEVEL</span>
+      </div>
+    </div>
+    <div class="tq-text" data-i18n="tq_text">Which band released 'Master of Puppets' in 1986 — widely considered the greatest thrash metal album ever recorded?</div>
+    <div class="tq-opts" id="demo-opts">
+      <button class="tq-opt" onclick="demoAnswer(this,false)"><span class="tq-opt-letter">A</span><span data-i18n="tq_a">Slayer</span></button>
+      <button class="tq-opt" onclick="demoAnswer(this,true)"><span class="tq-opt-letter">B</span><span data-i18n="tq_b">Metallica</span></button>
+      <button class="tq-opt" onclick="demoAnswer(this,false)"><span class="tq-opt-letter">C</span><span data-i18n="tq_c">Megadeth</span></button>
+      <button class="tq-opt" onclick="demoAnswer(this,false)"><span class="tq-opt-letter">D</span><span data-i18n="tq_d">Anthrax</span></button>
+    </div>
+    <div class="tq-explain" id="demo-explain">
+      <strong data-i18n="tq_trve">🤘 TRVE.</strong>
+      <span data-i18n="tq_explain">Metallica's 'Master of Puppets' (1986) was recorded at Sweet Silence Studios in Denmark for $150,000. It debuted at #29 on the Billboard 200 without any radio play — purely on word of mouth within the metal underground. It remains the highest-certified thrash metal album in history.</span>
+    </div>
+    <div class="tq-pts" id="demo-pts">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--gold)"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.1z"/></svg>
+      +150 <span data-i18n="tq_pts_label">TRVE POINTS EARNED</span>
+    </div>
+
+    <!-- MUSIC LINKS (shown after answering) -->
+    <div class="music-links" id="demo-music" style="display:none;margin-top:16px;animation:fade-up 0.4s ease">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--grey2)" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <span data-i18n="music_listen">Listen now:</span>
+      <a class="music-link-btn ml-yt" href="https://www.youtube.com/results?search_query=Metallica+Master+of+Puppets" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.55 3.5 12 3.5 12 3.5s-7.55 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.83.55 9.38.55 9.38.55s7.55 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+        YouTube
+      </a>
+      <a class="music-link-btn ml-am" href="https://music.apple.com/search?term=Metallica+Master+of+Puppets" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-1.38 2.83z"/></svg>
+        Apple Music
+      </a>
+      <a class="music-link-btn ml-sp" href="https://open.spotify.com/search/Metallica%20Master%20of%20Puppets" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="black"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        Spotify
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LEVELS ══ -->
+<section class="levels-section" id="levels">
+  <div class="levels-inner">
+    <div class="section-eyebrow" style="justify-content:center" data-i18n="levels_eyebrow">The path</div>
+    <h2 class="section-title"><span data-i18n="levels_t1">EARN YOUR</span> <span class="hl">TRVE POINTS</span></h2>
+    <p class="section-sub" data-i18n="levels_sub">You start as a POSEUR. The only way out is knowledge.</p>
+
+    <div class="levels-grid">
+      <!-- Level 1: Poseur -->
+      <div class="level-card lv-1 reveal">
+        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="20" r="10" stroke="#555" stroke-width="2"/>
+          <path d="M8 42c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#555" stroke-width="2"/>
+          <path d="M18 18c0 0 2-4 6-4s6 4 6 4" stroke="#555" stroke-width="1.5"/>
+          <path d="M20 22 c1 1 3 1 4 0" stroke="#555" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="lv-name" data-i18n="lv1">POSEUR</div>
+        <div class="lv-pts">0 TP</div>
+      </div>
+      <!-- Level 2: Headbanger -->
+      <div class="level-card reveal reveal-d1">
+        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+          <path d="M12 36 C12 26 20 18 24 14 C28 18 36 26 36 36" stroke="var(--orange)" stroke-width="2"/>
+          <path d="M8 42 L12 36 L36 36 L40 42" stroke="var(--orange)" stroke-width="2"/>
+          <path d="M16 14 L8 6" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M32 14 L40 6" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="24" cy="10" r="3" fill="var(--orange)" opacity="0.6"/>
+        </svg>
+        <div class="lv-name" data-i18n="lv2">HEADBANGER</div>
+        <div class="lv-pts">500 TP</div>
+      </div>
+      <!-- Level 3: Metalhead -->
+      <div class="level-card reveal reveal-d2">
+        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="22" r="12" stroke="var(--white)" stroke-width="2"/>
+          <circle cx="20" cy="19" r="2" fill="var(--white)"/>
+          <circle cx="28" cy="19" r="2" fill="var(--white)"/>
+          <path d="M18 27 Q24 31 30 27" stroke="var(--white)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M12 10 L8 4 M36 10 L40 4" stroke="var(--orange)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M8 18 L4 16 M40 18 L44 16" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="lv-name" data-i18n="lv3">METALHEAD</div>
+        <div class="lv-pts">2,000 TP</div>
+      </div>
+      <!-- Level 4: Cult Member -->
+      <div class="level-card reveal reveal-d3">
+        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+          <polygon points="24,4 28,16 40,16 31,24 34,36 24,29 14,36 17,24 8,16 20,16" stroke="var(--orange)" stroke-width="2" fill="rgba(255,69,0,0.1)"/>
+          <circle cx="24" cy="20" r="4" fill="var(--orange)" opacity="0.7"/>
+        </svg>
+        <div class="lv-name" data-i18n="lv4">CULT MEMBER</div>
+        <div class="lv-pts">8,000 TP</div>
+      </div>
+      <!-- Level 5: TRVE KVLT -->
+      <div class="level-card reveal reveal-d4">
+        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="18" stroke="var(--red)" stroke-width="1.5" opacity="0.5"/>
+          <line x1="24" y1="6" x2="24" y2="42" stroke="var(--red)" stroke-width="1.5"/>
+          <line x1="24" y1="6" x2="36" y2="32" stroke="var(--red)" stroke-width="1.5"/>
+          <line x1="24" y1="6" x2="12" y2="32" stroke="var(--red)" stroke-width="1.5"/>
+          <line x1="36" y1="32" x2="12" y2="32" stroke="var(--red)" stroke-width="1.5"/>
+          <line x1="12" y1="20" x2="36" y2="20" stroke="var(--red)" stroke-width="1.5"/>
+          <circle cx="24" cy="24" r="3" fill="var(--red)"/>
+        </svg>
+        <div class="lv-name" data-i18n="lv5">TRVE KVLT</div>
+        <div class="lv-pts">25,000 TP</div>
+      </div>
+      <!-- Level 6: Blast Riff -->
+      <div class="level-card lv-6 reveal reveal-d4">
+        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+          <path d="M24 4 L28 18 L42 14 L32 24 L42 34 L28 30 L24 44 L20 30 L6 34 L16 24 L6 14 L20 18 Z" stroke="var(--gold)" stroke-width="1.5" fill="rgba(255,215,0,0.08)"/>
+          <circle cx="24" cy="24" r="6" fill="var(--gold)" opacity="0.9"/>
+          <circle cx="24" cy="24" r="3" fill="var(--black)"/>
+        </svg>
+        <div class="lv-name" data-i18n="lv6">BLAST RIFF</div>
+        <div class="lv-pts">100,000 TP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section class="features-section" id="features">
+  <div class="features-header">
+    <div class="section-eyebrow" style="justify-content:center" data-i18n="feat_eyebrow">Game modes</div>
+    <h2 class="section-title"><span data-i18n="feat_t1">HOW YOU</span> <span class="hl" data-i18n="feat_t2">PROVE IT</span></h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <svg class="fc-icon" viewBox="0 0 44 44" fill="none">
+        <path d="M22 4 L38 22 L22 40 L6 22 Z" stroke="var(--orange)" stroke-width="1.5"/>
+        <path d="M22 10 L34 22 L22 34 L10 22 Z" stroke="var(--orange)" stroke-width="1" opacity="0.4"/>
+        <circle cx="22" cy="22" r="4" fill="var(--orange)"/>
+      </svg>
+      <div class="fc-title" data-i18n="f1_title">THE GAUNTLET</div>
+      <p class="fc-desc" data-i18n="f1_desc">Solo trivia through every metal subgenre. Start at Classic Heavy Metal, advance through Thrash, Death, Black, Doom, Sludge and Blackened Crust. Each tier harder than the last.</p>
+    </div>
+    <div class="feature-card reveal reveal-d1">
+      <svg class="fc-icon" viewBox="0 0 44 44" fill="none">
+        <path d="M8 22 L18 12 L36 30 L26 40" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M36 22 L26 12 L8 30 L18 40" stroke="var(--red)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <circle cx="22" cy="22" r="4" fill="var(--orange)" opacity="0.8"/>
+      </svg>
+      <div class="fc-title" data-i18n="f2_title">BATTLE OF THE RIFFS</div>
+      <p class="fc-desc" data-i18n="f2_desc">1v1 real-time duels. The winner steals TRVE POINTS from the loser. Challenge your circle. Post results. Let the metal community decide who's real.</p>
+    </div>
+    <div class="feature-card reveal reveal-d2">
+      <svg class="fc-icon" viewBox="0 0 44 44" fill="none">
+        <path d="M6 34 Q10 20 22 8 Q34 20 38 34" stroke="var(--orange)" stroke-width="2" fill="none"/>
+        <circle cx="6" cy="34" r="3" fill="var(--orange)"/>
+        <circle cx="38" cy="34" r="3" fill="var(--orange)"/>
+        <path d="M14 28 Q22 14 30 28" stroke="var(--orange)" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <line x1="22" y1="8" x2="22" y2="4" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <div class="fc-title" data-i18n="f3_title">IDENTIFY THE RIFF</div>
+      <p class="fc-desc" data-i18n="f3_desc">5 seconds of audio. One legendary riff. Name the band, album and year. The most viral mode — nothing divides metalheads faster than a riff they can't place.</p>
+    </div>
+    <div class="feature-card reveal">
+      <svg class="fc-icon" viewBox="0 0 44 44" fill="none">
+        <rect x="6" y="24" width="6" height="14" fill="var(--orange)" opacity="0.9"/>
+        <rect x="15" y="16" width="6" height="22" fill="var(--orange)"/>
+        <rect x="24" y="8" width="6" height="30" fill="var(--gold)"/>
+        <rect x="33" y="18" width="6" height="20" fill="var(--orange)" opacity="0.6"/>
+        <line x1="4" y1="38" x2="40" y2="38" stroke="var(--grey)" stroke-width="1"/>
+      </svg>
+      <div class="fc-title" data-i18n="f4_title">THE TRVE THRONE</div>
+      <p class="fc-desc" data-i18n="f4_desc">Weekly global rankings by subgenre. Top 10 worldwide and by country. Shareable rank cards for Instagram Stories and TikTok. Compete or be called a poseur.</p>
+    </div>
+    <div class="feature-card reveal reveal-d1">
+      <svg class="fc-icon" viewBox="0 0 44 44" fill="none">
+        <path d="M8 36 L8 10 L36 10 L36 36 Z" stroke="var(--orange)" stroke-width="1.5"/>
+        <line x1="14" y1="18" x2="30" y2="18" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        <line x1="14" y1="23" x2="30" y2="23" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        <line x1="14" y1="28" x2="22" y2="28" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        <path d="M6 6 L38 6" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <div class="fc-title" data-i18n="f5_title">THE GRIMOIRE</div>
+      <p class="fc-desc" data-i18n="f5_desc">Deep metal lore unlocked with TRVE POINTS. Band histories, subgenre timelines, gear breakdowns, iconic albums. Knowledge is the heaviest riff of all.</p>
+    </div>
+    <div class="feature-card reveal reveal-d2">
+      <svg class="fc-icon" viewBox="0 0 44 44" fill="none">
+        <polygon points="22,4 26,15 38,15 28,22 32,34 22,27 12,34 16,22 6,15 18,15" stroke="var(--orange)" stroke-width="1.5" fill="rgba(255,69,0,0.07)"/>
+        <circle cx="22" cy="22" r="5" fill="var(--orange)" opacity="0.8"/>
+        <path d="M10 40 L22 32 L34 40" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+      </svg>
+      <div class="fc-title" data-i18n="f6_title">TRVE WARS</div>
+      <p class="fc-desc" data-i18n="f6_desc">Monthly tournament. $2 entry. Top 3 win exclusive merch. The digital mosh pit where only the most knowledgeable metalheads survive the night.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GENRES TICKER ══ -->
+<div class="genres-section">
+  <div class="ticker" id="ticker">
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="var(--orange)"><polygon points="6,1 7.5,4.5 11,5 8.5,7.5 9.2,11 6,9.3 2.8,11 3.5,7.5 1,5 4.5,4.5"/></svg>THRASH METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="var(--orange)"><circle cx="6" cy="6" r="5" fill="none" stroke="var(--orange)" stroke-width="1.5"/><path d="M4 4l4 4M8 4l-4 4" stroke="var(--orange)" stroke-width="1.5"/></svg>DEATH METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="var(--orange)" stroke-width="1.5"/></svg>BLACK METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4" stroke="var(--orange)" stroke-width="1.5"/><circle cx="6" cy="6" r="1.5" fill="var(--orange)"/></svg>DOOM METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 10 Q6 2 10 10" stroke="var(--orange)" stroke-width="1.5" fill="none"/></svg>SLUDGE METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="var(--orange)" opacity="0.8"><polygon points="6,1 8,5 12,5.5 9,8.5 10,12 6,10 2,12 3,8.5 0,5.5 4,5"/></svg>BLACKENED CRUST</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3.5L11 5l-2.5 2.5.6 3.5L6 9.3 2.9 11l.6-3.5L1 5l3.5-.5z" stroke="var(--orange)" stroke-width="1.2"/></svg>POWER METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="var(--orange)" stroke-width="1.2"/><path d="M4 4l4 8M8 4l-4 8" stroke="var(--orange)" stroke-width="1" opacity="0.5"/></svg>PROGRESSIVE METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><rect x="1" y="4" width="2" height="6" fill="var(--orange)"/><rect x="5" y="2" width="2" height="8" fill="var(--orange)"/><rect x="9" y="5" width="2" height="5" fill="var(--orange)"/></svg>GROOVE METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 9 L6 2 L10 9" stroke="var(--orange)" stroke-width="1.5"/><line x1="3.5" y1="7" x2="8.5" y2="7" stroke="var(--orange)" stroke-width="1.5"/></svg>HEAVY METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6 L6 1 L10 6 L6 11Z" stroke="var(--orange)" stroke-width="1.2"/></svg>SPEED METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2 L6 10 L10 2" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke="var(--orange)" stroke-width="1.2" opacity="0.5"/></svg>VIKING METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4" stroke="var(--orange)" stroke-width="1.2"/><circle cx="6" cy="6" r="1" fill="var(--orange)"/><line x1="6" y1="2" x2="6" y2="1" stroke="var(--orange)" stroke-width="1.5"/></svg>SYMPHONIC METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M1 6 L6 1 L11 6 L6 11Z" fill="rgba(255,69,0,0.15)" stroke="var(--orange)" stroke-width="1.2"/><path d="M4 6 L6 4 L8 6 L6 8Z" fill="var(--orange)"/></svg>GRINDCORE</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M3 1 L9 1 L11 6 L6 11 L1 6Z" stroke="var(--orange)" stroke-width="1.2"/></svg>METALCORE</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2 L10 2 L10 10 L2 10Z" stroke="var(--orange)" stroke-width="1.2"/><path d="M4 4 L8 4 L8 8 L4 8Z" fill="var(--orange)" opacity="0.4"/></svg>DEATHCORE</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 10 Q4 2 6 6 Q8 10 10 2" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round"/></svg>DJENT</div>
+    <!-- duplicate -->
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="var(--orange)"><polygon points="6,1 7.5,4.5 11,5 8.5,7.5 9.2,11 6,9.3 2.8,11 3.5,7.5 1,5 4.5,4.5"/></svg>THRASH METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="var(--orange)"><circle cx="6" cy="6" r="5" fill="none" stroke="var(--orange)" stroke-width="1.5"/><path d="M4 4l4 4M8 4l-4 4" stroke="var(--orange)" stroke-width="1.5"/></svg>DEATH METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="var(--orange)" stroke-width="1.5"/></svg>BLACK METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4" stroke="var(--orange)" stroke-width="1.5"/><circle cx="6" cy="6" r="1.5" fill="var(--orange)"/></svg>DOOM METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 10 Q6 2 10 10" stroke="var(--orange)" stroke-width="1.5" fill="none"/></svg>SLUDGE METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="var(--orange)" opacity="0.8"><polygon points="6,1 8,5 12,5.5 9,8.5 10,12 6,10 2,12 3,8.5 0,5.5 4,5"/></svg>BLACKENED CRUST</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3.5L11 5l-2.5 2.5.6 3.5L6 9.3 2.9 11l.6-3.5L1 5l3.5-.5z" stroke="var(--orange)" stroke-width="1.2"/></svg>POWER METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="var(--orange)" stroke-width="1.2"/></svg>PROGRESSIVE METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><rect x="1" y="4" width="2" height="6" fill="var(--orange)"/><rect x="5" y="2" width="2" height="8" fill="var(--orange)"/><rect x="9" y="5" width="2" height="5" fill="var(--orange)"/></svg>GROOVE METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 9 L6 2 L10 9" stroke="var(--orange)" stroke-width="1.5"/><line x1="3.5" y1="7" x2="8.5" y2="7" stroke="var(--orange)" stroke-width="1.5"/></svg>HEAVY METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6 L6 1 L10 6 L6 11Z" stroke="var(--orange)" stroke-width="1.2"/></svg>SPEED METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2 L6 10 L10 2" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round"/></svg>VIKING METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4" stroke="var(--orange)" stroke-width="1.2"/></svg>SYMPHONIC METAL</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M1 6 L6 1 L11 6 L6 11Z" fill="rgba(255,69,0,0.15)" stroke="var(--orange)" stroke-width="1.2"/></svg>GRINDCORE</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M3 1 L9 1 L11 6 L6 11 L1 6Z" stroke="var(--orange)" stroke-width="1.2"/></svg>METALCORE</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2 L10 2 L10 10 L2 10Z" stroke="var(--orange)" stroke-width="1.2"/></svg>DEATHCORE</div>
+    <div class="genre-chip"><svg viewBox="0 0 12 12" fill="none"><path d="M2 10 Q4 2 6 6 Q8 10 10 2" stroke="var(--orange)" stroke-width="1.5"/></svg>DJENT</div>
+  </div>
+</div>
+
+<!-- ══ TRVE PASS ══ -->
+<section class="pass-section" id="pass">
+  <div class="section-eyebrow" style="justify-content:center" data-i18n="pass_eyebrow">Premium</div>
+  <h2 class="section-title"><span data-i18n="pass_t1">THE</span> <span class="hl">TRVE PASS</span></h2>
+  <p class="section-sub" data-i18n="pass_sub">For those who refuse to be called a poseur. Ever.</p>
+
+  <div class="pass-card reveal">
+    <div class="pass-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span data-i18n="pass_badge">TRVE KVLT PASS</span>
+    </div>
+    <div class="pass-price"><sup>$</sup>4<span style="font-size:64px">.99</span><sub>/mo</sub></div>
+    <div class="pass-period" data-i18n="pass_period">PER MONTH · CANCEL ANYTIME</div>
+    <div class="pass-annual" data-i18n="pass_annual">OR $39.99/YEAR — SAVE 33%</div>
+
+    <div class="pass-features-grid">
+      <div class="pf-item">
+        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="var(--orange)" stroke-width="1.5"/><path d="M7 10l2 2 4-4" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span><strong data-i18n="pf1a">Zero ads.</strong> <span data-i18n="pf1b">Pure metal.</span></span>
+      </div>
+      <div class="pf-item">
+        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><polygon points="10,2 12.4,7.5 18.5,8.1 14,12.2 15.5,18.2 10,15 4.5,18.2 6,12.2 1.5,8.1 7.6,7.5" stroke="var(--gold)" stroke-width="1.5" fill="rgba(255,215,0,0.1)"/></svg>
+        <span><strong data-i18n="pf2a">+20% TRVE POINTS</strong> <span data-i18n="pf2b">every answer</span></span>
+      </div>
+      <div class="pf-item">
+        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><path d="M4 17 L4 5 L16 5 L16 17Z" stroke="var(--orange)" stroke-width="1.5"/><line x1="7" y1="9" x2="13" y2="9" stroke="var(--orange)" stroke-width="1.2" opacity="0.6"/><line x1="7" y1="12" x2="13" y2="12" stroke="var(--orange)" stroke-width="1.2" opacity="0.6"/></svg>
+        <span><strong data-i18n="pf3a">Full Grimoire</strong> <span data-i18n="pf3b">all lore unlocked</span></span>
+      </div>
+      <div class="pf-item">
+        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><path d="M10 2 L12 8 L18 8 L13.5 11.5 L15 17.5 L10 14 L5 17.5 L6.5 11.5 L2 8 L8 8Z" stroke="var(--orange)" stroke-width="1.5" fill="rgba(255,69,0,0.08)"/></svg>
+        <span><strong data-i18n="pf4a">TRVE KVLT badge</strong> <span data-i18n="pf4b">on your profile</span></span>
+      </div>
+      <div class="pf-item">
+        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><path d="M10 2 L13 8 L19 9 L14.5 13.5 L15.5 19.5 L10 16.5 L4.5 19.5 L5.5 13.5 L1 9 L7 8Z" stroke="var(--orange)" stroke-width="1.2"/><circle cx="10" cy="10" r="2" fill="var(--orange)" opacity="0.7"/></svg>
+        <span><strong data-i18n="pf5a">TRVE WARS</strong> <span data-i18n="pf5b">priority access</span></span>
+      </div>
+      <div class="pf-item">
+        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="10" rx="1" stroke="var(--orange)" stroke-width="1.5"/><path d="M8 5V4a2 2 0 0 1 4 0v1" stroke="var(--orange)" stroke-width="1.5"/><circle cx="10" cy="10" r="2" fill="var(--orange)" opacity="0.7"/></svg>
+        <span><strong data-i18n="pf6a">Exclusive cards</strong> <span data-i18n="pf6b">for Stories</span></span>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-full" style="margin-top:8px;font-size:20px" onclick="openModal()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span data-i18n="pass_cta">JOIN WAITLIST — 30 DAYS FREE</span>
+    </button>
+  </div>
+</section>
+
+<!-- ══ WAITLIST ══ -->
+<section class="waitlist-section" id="waitlist">
+  <div class="waitlist-inner reveal">
+    <div class="section-eyebrow" style="justify-content:center" data-i18n="wl_eyebrow">Early Access</div>
+    <h2 class="section-title"><span data-i18n="wl_t1">STOP BEING A</span> <span class="hl">POSEUR</span></h2>
+    <p class="section-sub">
+      <span data-i18n="wl_sub">Join the waitlist. Be first in the pit.</span><br>
+      <span data-i18n="wl_bonus">First 1,000 get</span> <span class="hlg">30 <span data-i18n="wl_free">days TRVE PASS free.</span></span>
+    </p>
+    <div class="wl-form">
+      <input type="email" class="wl-input" id="wl-email" data-i18n-ph="wl_ph" placeholder="your@email.com" />
+      <button class="wl-btn" onclick="joinWL()">
+        <span data-i18n="wl_btn">I'M TRVE</span>
+      </button>
+    </div>
+    <p class="wl-note" data-i18n="wl_note">No spam. No poseurs. Unsubscribe anytime.</p>
+    <div class="wl-success" id="wl-success">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" style="vertical-align:middle;margin-right:8px"><path d="M20 6L9 17l-5-5"/></svg>
+      <span data-i18n="wl_ok">YOU'RE IN THE PIT. WE'LL HIT YOU WHEN WE LAUNCH.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="fb-logo">
+        <span class="fbl-blast">BLAST</span><span class="fbl-bolt">⚡</span><span>RIFF</span>
+      </span>
+      <p data-i18n="footer_desc">The world's most extreme heavy metal trivia game. Prove you're a Trve Metalhead or stay a poseur forever.</p>
+      <div style="margin-top:16px;display:flex;gap:10px;">
+        <a href="#" style="color:var(--grey2);transition:color 0.2s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--grey2)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="#" style="color:var(--grey2);transition:color 0.2s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--grey2)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+        </a>
+        <a href="#" style="color:var(--grey2);transition:color 0.2s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--grey2)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer_game">GAME</h4>
+      <ul>
+        <li><a href="#play" data-i18n="nav_play">Play Now</a></li>
+        <li><a href="#levels" data-i18n="nav_levels">Levels & TRVE POINTS</a></li>
+        <li><a href="#features" data-i18n="nav_modes">Game Modes</a></li>
+        <li><a href="#" data-i18n="footer_lb">Leaderboard</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>METAL</h4>
+      <ul>
+        <li><a href="#" data-i18n="footer_genres">Subgenres</a></li>
+        <li><a href="#" data-i18n="footer_grimoire">The Grimoire</a></li>
+        <li><a href="#" data-i18n="footer_wars">TRVE WARS</a></li>
+        <li><a href="#" data-i18n="footer_merch">Merch</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer_connect">CONNECT</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">Discord</a></li>
+        <li><a href="#">X / Twitter</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p data-i18n="footer_built">Built for metalheads. By metalheads. 🤘</p>
+    <p style="font-size:10px;color:rgba(255,69,0,0.3);letter-spacing:1px;">BLAST RIFF™ · TRVE POINTS™ · TRVE PASS™</p>
+  </div>
+</footer>
+
+<script>
+/* ══ TRANSLATIONS (core keys) ══ */
+const T={
+  en:{nav_play:"Play",nav_levels:"Levels",nav_modes:"Game Modes",nav_pass:"TRVE Pass",nav_join:"JOIN FREE",
+    hero_badge:"#1 HEAVY METAL TRIVIA GAME — WORLDWIDE",hero_tag1:"Prove you're a",
+    hero_cta1:"PLAY FREE NOW",hero_cta2:"TRVE PASS",proof_text:"metalheads waiting",proof_sub:"First 1,000 get 30 days TRVE PASS free",
+    reg_eyebrow:"Join free — 10 seconds",reg_title:"CREATE YOUR",reg_sub:"Track TRVE POINTS · Challenge friends · Climb the throne",
+    reg_eyebrow2:"Join the community",reg_section_title:"YOUR",reg_section_title2:"METAL IDENTITY",reg_section_title3:"AWAITS",
+    reg_section_sub:"One account. All platforms. Sign up once and carry your TRVE POINTS, rank, and Grimoire across web, iOS and Android.",
+    reg_google:"Continue with Google",reg_facebook:"Continue with Facebook",reg_apple:"Continue with Apple",
+    reg_rec:"RECOMMENDED",reg_or:"or use email",reg_cta:"CREATE MY METAL IDENTITY",
+    reg_terms:"By joining you agree to our",reg_terms_link:"Terms of Riffs",reg_no_spam:"No spam. No poseurs.",
+    reg_signin:"Already TRVE?",reg_signin_link:"Sign in here",
+    b1_title:"TRVE POINTS persist forever",b1_sub:"Never lose your rank. Your score follows you everywhere.",
+    b2_title:"Challenge leaderboard",b2_sub:"Send challenges, receive challenges, steal points.",
+    b3_title:"The Grimoire unlocks",b3_sub:"Deep metal lore, band histories and gear guides.",
+    b4_title:"100% free forever",b4_sub:"Core game is always free. TRVE PASS is optional.",
+    ph_user:"Your metalhead username",ph_email:"Email address",ph_pass:"Password",
+    trivia_eyebrow:"Try a question",trivia_t1:"THINK YOU KNOW",trivia_sub:"Answer correctly. Earn TRVE POINTS. Stop being a poseur.",
+    tq_genre:"Thrash Metal",tq_diff:"HEADBANGER LEVEL",
+    tq_text:"Which band released 'Master of Puppets' in 1986 — widely considered the greatest thrash metal album ever recorded?",
+    tq_a:"Slayer",tq_b:"Metallica",tq_c:"Megadeth",tq_d:"Anthrax",
+    tq_trve:"🤘 TRVE.",tq_explain:"Metallica's 'Master of Puppets' (1986) was recorded at Sweet Silence Studios in Denmark for $150,000. It debuted at #29 on Billboard 200 without any radio play — purely word of mouth within the metal underground.",
+    tq_pts_label:"TRVE POINTS EARNED",music_listen:"Listen now:",
+    levels_eyebrow:"The path",levels_t1:"EARN YOUR",levels_sub:"You start as a POSEUR. The only way out is knowledge.",
+    lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALHEAD",lv4:"CULT MEMBER",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
+    feat_eyebrow:"Game modes",feat_t1:"HOW YOU",feat_t2:"PROVE IT",
+    f1_title:"THE GAUNTLET",f1_desc:"Solo trivia through every metal subgenre. Start at Classic Heavy Metal, advance through Thrash, Death, Black, Doom, Sludge and Blackened Crust.",
+    f2_title:"BATTLE OF THE RIFFS",f2_desc:"1v1 real-time duels. The winner steals TRVE POINTS from the loser. Challenge your circle. Post results.",
+    f3_title:"IDENTIFY THE RIFF",f3_desc:"5 seconds of audio. One legendary riff. Name the band, album and year. The most viral mode.",
+    f4_title:"THE TRVE THRONE",f4_desc:"Weekly global rankings by subgenre. Top 10 worldwide and by country. Shareable cards for Stories.",
+    f5_title:"THE GRIMOIRE",f5_desc:"Deep metal lore unlocked with TRVE POINTS. Band histories, subgenre timelines, gear breakdowns.",
+    f6_title:"TRVE WARS",f6_desc:"Monthly tournament. $2 entry. Top 3 win exclusive merch. The digital mosh pit.",
+    pass_eyebrow:"Premium",pass_t1:"THE",pass_sub:"For those who refuse to be called a poseur. Ever.",
+    pass_badge:"TRVE KVLT PASS",pass_period:"PER MONTH · CANCEL ANYTIME",pass_annual:"OR $39.99/YEAR — SAVE 33%",
+    pf1a:"Zero ads.",pf1b:"Pure metal.",pf2a:"+20% TRVE POINTS",pf2b:"every answer",
+    pf3a:"Full Grimoire",pf3b:"all lore unlocked",pf4a:"TRVE KVLT badge",pf4b:"on your profile",
+    pf5a:"TRVE WARS",pf5b:"priority access",pf6a:"Exclusive cards",pf6b:"for Stories",
+    pass_cta:"JOIN WAITLIST — 30 DAYS FREE",
+    wl_eyebrow:"Early Access",wl_t1:"STOP BEING A",wl_sub:"Join the waitlist. Be first in the pit.",
+    wl_bonus:"First 1,000 get",wl_free:"days TRVE PASS free.",wl_btn:"I'M TRVE",
+    wl_note:"No spam. No poseurs. Unsubscribe anytime.",wl_ph:"your@email.com",
+    wl_ok:"YOU'RE IN THE PIT. WE'LL HIT YOU WHEN WE LAUNCH.",
+    footer_desc:"The world's most extreme heavy metal trivia game. Prove you're a Trve Metalhead or stay a poseur forever.",
+    footer_game:"GAME",footer_lb:"Leaderboard",footer_genres:"Subgenres",footer_grimoire:"The Grimoire",
+    footer_wars:"TRVE WARS",footer_merch:"Merch",footer_connect:"CONNECT",footer_built:"Built for metalheads. By metalheads. 🤘"},
+  es:{nav_play:"Jugar",nav_levels:"Niveles",nav_modes:"Modos",nav_pass:"Pase TRVE",nav_join:"ÚNETE GRATIS",
+    hero_badge:"#1 JUEGO DE TRIVIA HEAVY METAL — MUNDIAL",hero_tag1:"Demuestra que eres un",
+    hero_cta1:"JUGAR GRATIS",hero_cta2:"PASE TRVE",proof_text:"metaleros esperando",proof_sub:"Los primeros 1,000 reciben 30 días de TRVE PASS gratis",
+    reg_eyebrow:"Únete gratis — 10 segundos",reg_title:"CREA TU",reg_sub:"Rastrea TRVE POINTS · Reta amigos · Sube al trono",
+    reg_eyebrow2:"Únete a la comunidad",reg_section_title:"TU",reg_section_title2:"IDENTIDAD METAL",reg_section_title3:"TE ESPERA",
+    reg_section_sub:"Una cuenta. Todas las plataformas. Regístrate una vez y lleva tus TRVE POINTS en web, iOS y Android.",
+    reg_google:"Continuar con Google",reg_facebook:"Continuar con Facebook",reg_apple:"Continuar con Apple",
+    reg_rec:"RECOMENDADO",reg_or:"o usa tu email",reg_cta:"CREAR MI IDENTIDAD METAL",
+    reg_terms:"Al unirte aceptas nuestros",reg_terms_link:"Términos de Riffs",reg_no_spam:"Sin spam. Sin poseurs.",
+    reg_signin:"¿Ya eres TRVE?",reg_signin_link:"Inicia sesión",
+    b1_title:"TRVE POINTS permanentes",b1_sub:"Nunca pierdas tu rango. Tu puntuación te sigue a todos lados.",
+    b2_title:"Tablero de retos",b2_sub:"Envía retos, recibe retos, roba puntos.",
+    b3_title:"El Grimorio se desbloquea",b3_sub:"Lore profundo del metal, historias de bandas y guías de equipo.",
+    b4_title:"100% gratis para siempre",b4_sub:"El juego base es siempre gratis. El TRVE PASS es opcional.",
+    ph_user:"Tu nombre metalero",ph_email:"Correo electrónico",ph_pass:"Contraseña",
+    trivia_eyebrow:"Prueba una pregunta",trivia_t1:"¿CONOCES EL",trivia_sub:"Responde bien. Gana TRVE POINTS. Deja de ser un poseur.",
+    tq_genre:"Thrash Metal",tq_diff:"NIVEL HEADBANGER",
+    tq_text:"¿Qué banda lanzó 'Master of Puppets' en 1986 — considerado el mejor álbum de thrash metal jamás grabado?",
+    tq_a:"Slayer",tq_b:"Metallica",tq_c:"Megadeth",tq_d:"Anthrax",
+    tq_trve:"🤘 TRVE.",tq_explain:"'Master of Puppets' de Metallica (1986) fue grabado en Sweet Silence Studios, Dinamarca, por $150,000. Debutó en el puesto #29 del Billboard 200 sin ninguna reproducción en radio — solo por recomendación boca a boca en el underground metal.",
+    tq_pts_label:"TRVE POINTS GANADOS",music_listen:"Escuchar ahora:",
+    levels_eyebrow:"El camino",levels_t1:"GANA TUS",levels_sub:"Empiezas como POSEUR. La única salida es el conocimiento.",
+    lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALERO",lv4:"MIEMBRO DEL CULTO",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
+    feat_eyebrow:"Modos de juego",feat_t1:"CÓMO LO",feat_t2:"DEMUESTRAS",
+    f1_title:"EL GAUNTLET",f1_desc:"Trivia en solitario por todos los subgéneros del metal. Desde Heavy Metal Clásico hasta Thrash, Death, Black, Doom y Blackened Crust.",
+    f2_title:"BATALLA DE RIFFS",f2_desc:"Duelos 1v1 en tiempo real. El ganador roba TRVE POINTS al perdedor. Reta a tu círculo. Publica los resultados.",
+    f3_title:"IDENTIFICA EL RIFF",f3_desc:"5 segundos de audio. Un riff legendario. Adivina banda, álbum y año. El modo más viral.",
+    f4_title:"EL TRONO TRVE",f4_desc:"Rankings globales semanales por subgénero. Top 10 mundial y por país. Cards para Stories.",
+    f5_title:"EL GRIMORIO",f5_desc:"Lore profundo del metal desbloqueado con TRVE POINTS. Historias de bandas, líneas de tiempo, equipo.",
+    f6_title:"TRVE WARS",f6_desc:"Torneo mensual. Entrada $2 USD. Los 3 primeros ganan merch exclusivo. El mosh pit digital.",
+    pass_eyebrow:"Premium",pass_t1:"EL",pass_sub:"Para quienes se niegan a que les llamen poseur. Jamás.",
+    pass_badge:"PASE TRVE KVLT",pass_period:"POR MES · CANCELA CUANDO QUIERAS",pass_annual:"O $39.99/AÑO — AHORRA 33%",
+    pf1a:"Sin anuncios.",pf1b:"Metal puro.",pf2a:"+20% TRVE POINTS",pf2b:"en cada respuesta",
+    pf3a:"Grimorio completo",pf3b:"todo el lore desbloqueado",pf4a:"Insignia TRVE KVLT",pf4b:"en tu perfil",
+    pf5a:"TRVE WARS",pf5b:"acceso prioritario",pf6a:"Cards exclusivas",pf6b:"para Stories",
+    pass_cta:"ÚNETE A LA LISTA — 30 DÍAS GRATIS",
+    wl_eyebrow:"Acceso Anticipado",wl_t1:"DEJA DE SER UN",wl_sub:"Únete a la lista. Sé el primero en el pit.",
+    wl_bonus:"Los primeros 1,000 reciben",wl_free:"días de TRVE PASS gratis.",wl_btn:"SOY TRVE",
+    wl_note:"Sin spam. Sin poseurs. Cancela cuando quieras.",wl_ph:"tu@email.com",
+    wl_ok:"ESTÁS EN EL PIT. TE AVISAMOS CUANDO LANCEMOS.",
+    footer_desc:"El juego de trivia de heavy metal más extremo del mundo. Demuestra que eres un Trve Metalero o quédate de poseur para siempre.",
+    footer_game:"JUEGO",footer_lb:"Clasificación",footer_genres:"Subgéneros",footer_grimoire:"El Grimorio",
+    footer_wars:"TRVE WARS",footer_merch:"Merch",footer_connect:"CONÉCTATE",footer_built:"Hecho por metaleros. Para metaleros. 🤘"},
+  pt:{nav_play:"Jogar",nav_levels:"Níveis",nav_modes:"Modos",nav_pass:"Passe TRVE",nav_join:"ENTRE GRÁTIS",
+    hero_tag1:"Prove que você é um",hero_cta1:"JOGAR GRÁTIS",hero_cta2:"PASSE TRVE",
+    proof_text:"metaleiros esperando",proof_sub:"Os primeiros 1.000 ganham 30 dias de TRVE PASS grátis",
+    reg_cta:"CRIAR MINHA IDENTIDADE METAL",reg_google:"Continuar com Google",reg_facebook:"Continuar com Facebook",reg_apple:"Continuar com Apple",
+    reg_rec:"RECOMENDADO",reg_or:"ou use seu email",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALEIRO",lv4:"MEMBRO DO CULTO",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
+    trivia_t1:"VOCÊ CONHECE O",tq_trve:"🤘 TRVE.",tq_pts_label:"TRVE POINTS GANHOS",music_listen:"Ouvir agora:",
+    wl_t1:"PARE DE SER UM",wl_btn:"SOU TRVE",wl_ph:"seu@email.com",wl_ok:"VOCÊ ESTÁ NO PIT. A GENTE TE AVISA QUANDO LANÇAR.",
+    pass_cta:"ENTRAR NA LISTA — 30 DIAS GRÁTIS",footer_built:"Feito por metaleiros. Para metaleiros. 🤘"},
+  de:{nav_play:"Spielen",nav_levels:"Level",nav_modes:"Spielmodi",nav_pass:"TRVE Pass",nav_join:"KOSTENLOS",
+    hero_tag1:"Beweise, dass du ein",hero_cta1:"KOSTENLOS SPIELEN",hero_cta2:"TRVE PASS",
+    proof_text:"Metalheads warten",proof_sub:"Die ersten 1.000 erhalten 30 Tage TRVE PASS gratis",
+    reg_cta:"MEINE METAL-IDENTITÄT ERSTELLEN",reg_google:"Mit Google fortfahren",reg_facebook:"Mit Facebook fortfahren",reg_apple:"Mit Apple fortfahren",
+    reg_rec:"EMPFOHLEN",reg_or:"oder E-Mail verwenden",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALHEAD",lv4:"KULTMITGLIED",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
+    trivia_t1:"KENNST DU",tq_trve:"🤘 TRVE.",tq_pts_label:"TRVE POINTS VERDIENT",music_listen:"Jetzt hören:",
+    wl_t1:"HÖR AUF, EIN",wl_btn:"ICH BIN TRVE",wl_ph:"deine@email.de",wl_ok:"DU BIST IM PIT. WIR MELDEN UNS BEIM LAUNCH.",
+    pass_cta:"WARTELISTE — 30 TAGE GRATIS",footer_built:"Gemacht von Metalheads. Für Metalheads. 🤘"},
+  ja:{nav_play:"プレイ",nav_levels:"レベル",nav_modes:"ゲームモード",nav_pass:"TRVEパス",nav_join:"無料参加",
+    hero_tag1:"本物の",hero_cta1:"無料でプレイ",hero_cta2:"TRVEパス",
+    proof_text:"メタラーが待機中",proof_sub:"先着1,000名にTRVEパス30日間無料",
+    reg_cta:"メタルIDを作成",reg_google:"Googleで続ける",reg_facebook:"Facebookで続ける",reg_apple:"Appleで続ける",
+    reg_rec:"推奨",reg_or:"またはメールで",lv1:"ポーザー",lv2:"ヘッドバンガー",lv3:"メタラー",lv4:"カルト会員",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
+    trivia_t1:"メタルを知っているか",tq_trve:"🤘 TRVE！",tq_pts_label:"TRVEポイント獲得",music_listen:"今すぐ聴く：",
+    wl_t1:"ポーザーを卒業しろ",wl_btn:"俺はTRVEだ",wl_ph:"your@email.com",wl_ok:"あなたはピットの中にいる。ローンチ時に連絡する。",
+    pass_cta:"ウェイトリスト — 30日間無料",footer_built:"メタラーによる、メタラーのための。🤘"},
+  fi:{nav_play:"Pelaa",nav_levels:"Tasot",nav_modes:"Pelitilat",nav_pass:"TRVE-passi",nav_join:"LIITY ILMAISEKSI",
+    hero_tag1:"Todista olevasi",hero_cta1:"PELAA ILMAISEKSI",hero_cta2:"TRVE-PASSI",
+    proof_text:"metallipäätä odottaa",proof_sub:"Ensimmäiset 1 000 saavat 30 päivää TRVE PASS ilmaiseksi",
+    reg_cta:"LUO METALLIIDENTITEETTINI",reg_google:"Jatka Googlella",reg_facebook:"Jatka Facebookilla",reg_apple:"Jatka Applella",
+    reg_rec:"SUOSITELTU",reg_or:"tai käytä sähköpostia",lv1:"POSERI",lv2:"HEADBANGER",lv3:"METALLIPÄÄ",lv4:"KULTIN JÄSEN",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
+    trivia_t1:"TUNNETKO",tq_trve:"🤘 TRVE.",tq_pts_label:"TRVE POINTS ANSAITTU",music_listen:"Kuuntele nyt:",
+    wl_t1:"LOPETA POSERINA OLEMINEN",wl_btn:"OLEN TRVE",wl_ph:"sinun@email.fi",wl_ok:"OLET PITISSÄ. ILMOITAMME KUN JULKAISEMME.",
+    pass_cta:"ODOTUSLISTALLE — 30 PÄIVÄÄ ILMAISEKSI",footer_built:"Tehty metallipäille. Metallipäiden toimesta. 🤘"}
+};
+
+let lang='en';
+function setLang(l,btn){
+  lang=l;
+  const t=T[l]||T.en;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined) el.innerHTML=t[k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const k=el.getAttribute('data-i18n-ph');
+    if(t[k]) el.placeholder=t[k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('html-root').lang=l;
+}
+
+/* ══ MODAL ══ */
+function openModal(){document.getElementById('reg-modal').classList.add('open');}
+function closeModal(){document.getElementById('reg-modal').classList.remove('open');}
+document.getElementById('reg-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+function doRegister(m){
+  closeModal();
+  const t=T[lang]||T.en;
+  showToast('🤘 '+(t.wl_ok||"YOU'RE IN!"));
+}
+
+/* ══ TRIVIA DEMO ══ */
+let demoAnswered=false;
+function demoAnswer(btn,correct){
+  if(demoAnswered)return;
+  demoAnswered=true;
+  document.querySelectorAll('.tq-opt').forEach(o=>o.style.pointerEvents='none');
+  if(correct){
+    btn.classList.add('correct');
+    document.getElementById('demo-pts').classList.add('show');
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.tq-opt')[1].classList.add('correct');
+  }
+  document.getElementById('demo-explain').classList.add('show');
+  document.getElementById('demo-music').style.display='flex';
+}
+
+/* ══ WAITLIST ══ */
+function joinWL(){
+  const e=document.getElementById('wl-email');
+  if(!e.value||!e.value.includes('@')){e.style.borderColor='#ff4444';return;}
+  document.querySelector('.wl-form').style.display='none';
+  document.getElementById('wl-success').style.display='block';
+  showToast('🤘 '+(T[lang]?.wl_ok||"YOU'RE IN THE PIT!"));
+}
+
+/* ══ SCROLL REVEAL ══ */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+/* ══ CURSOR GLOW ══ */
+const cg=document.getElementById('cg');
+document.addEventListener('mousemove',e=>{
+  cg.style.left=(e.clientX-175)+'px';
+  cg.style.top=(e.clientY-175)+'px';
+});
+
+/* ══ TOAST ══ */
+let toastT;
+function showToast(msg){
+  let t=document.getElementById('_toast');
+  if(!t){
+    t=document.createElement('div');t.id='_toast';
+    Object.assign(t.style,{
+      position:'fixed',bottom:'24px',left:'50%',transform:'translateX(-50%)',
+      background:'#141414',border:'1px solid rgba(255,69,0,0.35)',
+      padding:'12px 28px',fontFamily:"'Bebas Neue',sans-serif",
+      fontSize:'16px',letterSpacing:'2px',color:'var(--orange)',
+      zIndex:'9999',opacity:'0',transition:'opacity 0.3s',
+      clipPath:'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)',
+      whiteSpace:'nowrap',pointerEvents:'none'
+    });
+    document.body.appendChild(t);
+  }
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(toastT);
+  toastT=setTimeout(()=>t.style.opacity='0',2800);
+}
+</script>
+</body>
+</html>
