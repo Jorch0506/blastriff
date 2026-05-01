@@ -1793,10 +1793,40 @@ function setLang(l,btn){
 
 /* ══ MODAL ══ */
 function openModal(){
+  // If already logged in, just start game
+  const saved = localStorage.getItem('br_user');
+  if (saved) {
+    try {
+      currentUser = JSON.parse(saved);
+      updateNavForUser();
+      startG();
+      return;
+    } catch(e) {}
+  }
   document.getElementById('reg-modal').classList.add('open');
-  // Reset error
   const err = document.getElementById('auth-error');
   if(err) err.style.display='none';
+  // Show quick login if user was here before
+  const link = document.getElementById('already-trve-link');
+  if (link) {
+    const savedName = localStorage.getItem('br_last_user');
+    if (savedName) {
+      link.innerHTML = 'Welcome back, <strong style="color:var(--orange)">' + savedName + '</strong>! <span onclick="quickSignIn()" style="color:var(--orange);cursor:pointer;text-decoration:underline;">Tap to sign in instantly</span>';
+    } else {
+      link.innerHTML = 'Already TRVE? <span onclick="switchTab(\'login\')" style="color:var(--orange);cursor:pointer;text-decoration:underline;">Sign in here</span>';
+    }
+  }
+}
+
+function quickSignIn() {
+  const saved = localStorage.getItem('br_user');
+  if (saved) {
+    currentUser = JSON.parse(saved);
+    closeModal();
+    showToast('🤘 WELCOME BACK ' + currentUser.username + '!');
+    updateNavForUser();
+    setTimeout(() => startG(), 800);
+  }
 }
 function closeModal(){document.getElementById('reg-modal').classList.remove('open');}
 document.getElementById('reg-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
@@ -1847,7 +1877,7 @@ document.addEventListener('mousemove',e=>{
 
 
 /* ══ AUTH SYSTEM ══ */
-let currentUser = JSON.parse(sessionStorage.getItem('br_user') || 'null');
+let currentUser = JSON.parse(localStorage.getItem('br_user') || 'null');
 
 function switchTab(tab) {
   const isLogin = tab === 'login';
@@ -1872,7 +1902,8 @@ function socialLogin(provider) {
     joinedAt: Date.now(),
     certifications: []
   };
-  sessionStorage.setItem('br_user', JSON.stringify(user));
+  localStorage.setItem('br_user', JSON.stringify(user));
+  localStorage.setItem('br_last_user', user.username);
   currentUser = user;
   closeModal();
   showToast('🤘 WELCOME ' + user.username.toUpperCase() + '! ENTERING THE PIT...');
@@ -1917,7 +1948,8 @@ function emailAuth() {
       joinedAt: Date.now(),
       certifications: []
     };
-    sessionStorage.setItem('br_user', JSON.stringify(user));
+    localStorage.setItem('br_user', JSON.stringify(user));
+    localStorage.setItem('br_last_user', user.username);
     currentUser = user;
     closeModal();
     showToast('🤘 WELCOME ' + user.username + '! ENTERING THE PIT...');
@@ -1966,8 +1998,16 @@ function getLevelName(pts) {
   return 'POSEUR';
 }
 
-// Restore session
-if (currentUser) updateNavForUser();
+// Restore session from localStorage
+const _saved = localStorage.getItem('br_user');
+if (_saved) {
+  try {
+    currentUser = JSON.parse(_saved);
+    updateNavForUser();
+  } catch(e) {
+    localStorage.removeItem('br_user');
+  }
+}
 
 
 
