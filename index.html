@@ -25,8 +25,8 @@
 
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{
-background:var(–black);
+html{background:#060606;}body{
+background:#060606 !important;
 color:var(–white);
 font-family:‘Oswald’,sans-serif;
 overflow-x:hidden;
@@ -1552,25 +1552,9 @@ function demoAnswer(btn,correct){
 function joinWL(){
   const e=document.getElementById('wl-email');
   if(!e.value||!e.value.includes('@')){e.style.borderColor='#ff4444';return;}
-  const btn=document.querySelector('.wl-btn');
-  btn.disabled=true;btn.textContent='SENDING...';
-  fetch('https://formspree.io/f/mnjwqqnr',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({email:e.value,_subject:'New Blast Riff Waitlist 🤘',source:'blastriff.com',lang:lang})
-  }).then(r=>{
-    if(r.ok){
-      document.querySelector('.wl-form').style.display='none';
-      document.getElementById('wl-success').style.display='block';
-      showToast('🤘 '+(T[lang]?.wl_ok||"YOU'RE IN THE PIT!"));
-    } else {
-      btn.disabled=false;btn.innerHTML='<span data-i18n="wl_btn">I\'M TRVE</span>';
-      alert('Something went wrong. Try again.');
-    }
-  }).catch(()=>{
-    btn.disabled=false;btn.innerHTML='<span data-i18n="wl_btn">I\'M TRVE</span>';
-    alert('Connection error. Try again.');
-  });
+  document.querySelector('.wl-form').style.display='none';
+  document.getElementById('wl-success').style.display='block';
+  showToast('🤘 '+(T[lang]?.wl_ok||"YOU'RE IN THE PIT!"));
 }
 
 /* ══ SCROLL REVEAL ══ */
