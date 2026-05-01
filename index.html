@@ -1821,11 +1821,11 @@ function openModal(){
 function quickSignIn() {
   const saved = localStorage.getItem('br_user');
   if (saved) {
-    currentUser = JSON.parse(saved);
-    closeModal();
-    showToast('🤘 WELCOME BACK ' + currentUser.username + '!');
-    updateNavForUser();
-    setTimeout(() => startG(), 800);
+    try {
+      currentUser = JSON.parse(saved);
+      closeModal();
+      startG();
+    } catch(e) {}
   }
 }
 function closeModal(){document.getElementById('reg-modal').classList.remove('open');}
@@ -1960,33 +1960,65 @@ function emailAuth() {
 
 function updateNavForUser() {
   if (!currentUser) return;
+
+  // Update JOIN FREE button → show username + sign out
   const joinBtn = document.querySelector('.nav-cta');
   if (joinBtn) {
-    const name = currentUser.username.substring(0,12);
-    joinBtn.textContent = '☠️ ' + name;
+    joinBtn.textContent = '☠️ ' + currentUser.username.substring(0,10);
     joinBtn.style.background = 'var(--green)';
     joinBtn.style.webkitTextFillColor = '#000';
     joinBtn.onclick = (e) => {
       e.preventDefault();
-      showToast('⚡ ' + (currentUser.trvePoints||0) + ' TRVE POINTS · ' + getLevelName(currentUser.trvePoints||0));
+      signOut();
     };
   }
-  // Show play button prominently
-  const playBtn = document.querySelector('.btn-primary');
-  if (playBtn) {
-    playBtn.textContent = '▶ PLAY NOW, ' + currentUser.username.substring(0,8).toUpperCase() + '!';
-  }
-  // Add user bar below nav
+
+  // Update PLAY FREE NOW button
+  document.querySelectorAll('.btn-primary').forEach(btn => {
+    if (btn.closest('#game-modal') || btn.closest('.pass-card') || btn.closest('.waitlist-section')) return;
+    btn.onclick = (e) => { e.preventDefault(); startG(); };
+    if (btn.closest('.hero')) {
+      btn.innerHTML = '▶ PLAY NOW, ' + currentUser.username.substring(0,8).toUpperCase() + '!';
+    }
+  });
+
+  // User bar — fixed below nav
   let userBar = document.getElementById('user-bar');
   if (!userBar) {
     userBar = document.createElement('div');
     userBar.id = 'user-bar';
-    userBar.style.cssText = 'position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(0,224,112,0.1);border-bottom:1px solid rgba(0,224,112,0.3);padding:6px 20px;display:flex;align-items:center;justify-content:space-between;font-family:Bebas Neue,sans-serif;font-size:13px;letter-spacing:2px;';
+    userBar.style.cssText = 'position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(0,224,112,0.12);border-bottom:1px solid rgba(0,224,112,0.3);padding:7px 20px;display:flex;align-items:center;justify-content:space-between;font-family:Bebas Neue,sans-serif;font-size:13px;letter-spacing:2px;';
     document.body.appendChild(userBar);
   }
-  userBar.innerHTML = '<span style="color:var(--green)">✅ ' + currentUser.username + '</span>' +
-    '<span style="color:var(--gold)">⚡ ' + (currentUser.trvePoints||0) + ' TRVE POINTS</span>' +
-    '<span style="color:var(--orange);cursor:pointer" onclick="startG()">▶ PLAY NOW</span>';
+  userBar.innerHTML =
+    '<span style="color:var(--green);-webkit-text-fill-color:var(--green)">✅ ' + currentUser.username + '</span>' +
+    '<span style="color:var(--gold);-webkit-text-fill-color:var(--gold)">⚡ ' + (currentUser.trvePoints||0) + ' TP</span>' +
+    '<span style="color:var(--orange);-webkit-text-fill-color:var(--orange);cursor:pointer;background:rgba(255,69,0,0.15);padding:4px 12px;" onclick="startG()">▶ PLAY</span>' +
+    '<span style="color:var(--grey2);-webkit-text-fill-color:var(--grey2);cursor:pointer;font-size:11px;" onclick="signOut()">EXIT</span>';
+}
+
+function signOut() {
+  localStorage.removeItem('br_user');
+  currentUser = null;
+  // Remove user bar
+  const ub = document.getElementById('user-bar');
+  if (ub) ub.remove();
+  // Reset JOIN FREE button
+  const joinBtn = document.querySelector('.nav-cta');
+  if (joinBtn) {
+    joinBtn.textContent = 'JOIN FREE';
+    joinBtn.style.background = 'var(--orange)';
+    joinBtn.style.webkitTextFillColor = 'var(--black)';
+    joinBtn.onclick = (e) => { e.preventDefault(); openModal(); };
+  }
+  // Reset play button
+  document.querySelectorAll('.btn-primary').forEach(btn => {
+    if (btn.closest('.hero')) {
+      btn.onclick = (e) => { e.preventDefault(); openModal(); };
+      btn.innerHTML = '▶ PLAY FREE NOW';
+    }
+  });
+  showToast('👋 Signed out. See you in the pit!');
 }
 
 function getLevelName(pts) {
