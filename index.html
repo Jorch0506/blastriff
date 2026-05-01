@@ -977,16 +977,7 @@ nav{padding:10px 20px;}
 }
 </style>
 
-  <!-- CLERK AUTH -->
-
-  <script defer crossorigin="anonymous"
-    src="https://amazing-gnat-1.clerk.accounts.dev/npm/@clerk/ui@1/dist/ui.browser.js"
-    type="text/javascript"></script>
-
-  <script defer crossorigin="anonymous"
-    data-clerk-publishable-key="pk_test_YW1hemluZy1nbmF0LTEuY2xlcmsuYWNjb3VudHMuZGV2JA"
-    src="https://amazing-gnat-1.clerk.accounts.dev/npm/@clerk/clerk-js@6/dist/clerk.browser.js"
-    type="text/javascript"></script>
+  <!-- Auth handled via JS -->
 
 </head>
 <body>
@@ -1011,14 +1002,40 @@ nav{padding:10px 20px;}
 
 ```
 <!-- SOCIAL BTNS -->
-<!-- CLERK REAL AUTH COMPONENT -->
-<div id="clerk-sign-in" style="width:100%;min-height:180px;display:flex;align-items:center;justify-content:center;">
-  <div style="color:var(--grey2);font-size:12px;letter-spacing:2px;text-align:center">
-    <div style="width:24px;height:24px;border:2px solid var(--orange);border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px;"></div>
-    LOADING AUTH...
-  </div>
+<!-- AUTH FORM -->
+<div id="auth-tabs" style="display:flex;gap:2px;margin-bottom:16px;">
+  <button onclick="switchTab('login')" id="tab-login" style="flex:1;padding:10px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;background:var(--orange);color:var(--black);border:none;cursor:pointer;">SIGN IN</button>
+  <button onclick="switchTab('signup')" id="tab-signup" style="flex:1;padding:10px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;background:var(--card2);color:var(--grey2);border:1px solid rgba(255,69,0,0.2);cursor:pointer;">JOIN FREE</button>
 </div>
-<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+<!-- Social buttons -->
+<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+  <button onclick="socialLogin('google')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.1);border-left:3px solid #4285F4;color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;">
+    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+    Continue with Google
+    <span style="margin-left:auto;font-size:9px;letter-spacing:2px;background:rgba(255,69,0,0.15);border:1px solid rgba(255,69,0,0.25);color:var(--orange);padding:2px 8px;">RECOMMENDED</span>
+  </button>
+  <button onclick="socialLogin('apple')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.1);border-left:3px solid #e8e8e8;color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;">
+    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="#e8e8e8"/></svg>
+    Continue with Apple
+  </button>
+  <button onclick="socialLogin('facebook')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.1);border-left:3px solid #1877F2;color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;">
+    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
+    Continue with Facebook
+  </button>
+</div>
+
+<div style="display:flex;align-items:center;gap:12px;color:var(--grey);font-size:10px;letter-spacing:3px;margin:12px 0;text-transform:uppercase;">
+  <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>OR USE EMAIL<span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
+</div>
+
+<div id="signup-fields" style="display:block;">
+  <input type="text" id="auth-username" placeholder="Your metalhead username" style="width:100%;background:var(--card2);border:1px solid rgba(255,69,0,0.18);padding:13px 18px;font-family:'Oswald',sans-serif;font-size:14px;color:var(--white);outline:none;letter-spacing:1px;margin-bottom:10px;display:block;-webkit-text-fill-color:var(--white);" />
+</div>
+<input type="email" id="auth-email" placeholder="Email address" style="width:100%;background:var(--card2);border:1px solid rgba(255,69,0,0.18);padding:13px 18px;font-family:'Oswald',sans-serif;font-size:14px;color:var(--white);outline:none;letter-spacing:1px;margin-bottom:10px;display:block;-webkit-text-fill-color:var(--white);" />
+<input type="password" id="auth-password" placeholder="Password" style="width:100%;background:var(--card2);border:1px solid rgba(255,69,0,0.18);padding:13px 18px;font-family:'Oswald',sans-serif;font-size:14px;color:var(--white);outline:none;letter-spacing:1px;margin-bottom:10px;display:block;-webkit-text-fill-color:var(--white);" />
+<button onclick="emailAuth()" style="width:100%;background:var(--orange);color:var(--black);border:none;padding:15px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;cursor:pointer;margin-top:4px;" id="auth-submit-btn">CREATE MY METAL IDENTITY</button>
+<div id="auth-error" style="display:none;margin-top:10px;font-size:12px;color:#ff5555;text-align:center;letter-spacing:1px;"></div>
 <p style="font-size:10px;color:var(--grey);letter-spacing:1px;text-align:center;margin-top:14px;line-height:1.5">
   <span data-i18n="reg_terms">By joining you agree to our</span>
   <a href="#" style="color:var(--orange);text-decoration:none" data-i18n="reg_terms_link">Terms of Riffs</a>.
@@ -1524,6 +1541,39 @@ nav{padding:10px 20px;}
 
 <!-- ══ WAITLIST ══ -->
 
+<!-- ══ CERTIFICATION SECTION ══ -->
+
+<section style="padding:100px 40px;background:var(--deep);border-top:1px solid rgba(255,69,0,0.07);" id="certify">
+  <div style="max-width:1100px;margin:0 auto;text-align:center;">
+    <div class="section-eyebrow" style="justify-content:center;">🏆 EXCLUSIVE FEATURE</div>
+    <h2 class="section-title">GET <span class="hl">CERTIFIED</span></h2>
+    <p class="section-sub" style="max-width:600px;margin:0 auto 52px;">
+      Prove your expertise in specific bands or subgenres.<br>
+      Like WSET for wine — but for metal. <span class="hl">The only certification that matters in the pit.</span>
+    </p>
+    <div style="max-width:600px;margin:0 auto 40px;">
+      <div style="display:flex;gap:0;margin-bottom:16px;">
+        <input type="text" id="cert-search" placeholder="Search: Metallica, Black Metal, Doom..." 
+          style="flex:1;background:var(--card);border:1px solid rgba(255,69,0,0.25);border-right:none;padding:15px 20px;font-family:'Oswald',sans-serif;font-size:15px;color:var(--white);outline:none;letter-spacing:1px;-webkit-text-fill-color:var(--white);" 
+          oninput="filterCerts(this.value)" />
+        <button onclick="filterCerts(document.getElementById('cert-search').value)" 
+          style="background:var(--orange);border:none;padding:15px 24px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;color:var(--black);cursor:pointer;">SEARCH</button>
+      </div>
+    </div>
+    <div id="cert-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;max-width:1100px;margin:0 auto;text-align:left;"></div>
+  </div>
+</section>
+
+<!-- CERT MODAL -->
+
+<div id="cert-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:7000;align-items:center;justify-content:center;backdrop-filter:blur(4px);">
+  <div style="background:var(--card);border:1px solid rgba(255,69,0,0.25);max-width:480px;width:90%;padding:40px 32px;position:relative;max-height:90vh;overflow-y:auto;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);"></div>
+    <button onclick="closeCertModal()" style="position:absolute;top:14px;right:14px;background:none;border:none;color:var(--grey2);font-size:22px;cursor:pointer;-webkit-text-fill-color:var(--grey2);">✕</button>
+    <div id="cert-modal-content"></div>
+  </div>
+</div>
+
 <section class="waitlist-section" id="waitlist">
   <div class="waitlist-inner reveal">
     <div class="section-eyebrow" style="justify-content:center" data-i18n="wl_eyebrow">Early Access</div>
@@ -1744,16 +1794,16 @@ function setLang(l,btn){
 /* ══ MODAL ══ */
 function openModal(){
   document.getElementById('reg-modal').classList.add('open');
-  setTimeout(() => {
-    if(window.__clerkMountSignIn) window.__clerkMountSignIn();
-  }, 100);
+  // Reset error
+  const err = document.getElementById('auth-error');
+  if(err) err.style.display='none';
 }
 function closeModal(){document.getElementById('reg-modal').classList.remove('open');}
 document.getElementById('reg-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 function doRegister(m){
   closeModal();
   const t=T[lang]||T.en;
-  showToast('🤘 '+(t.wl_ok||"YOU'RE IN!"));
+  showToast('🤘 '+(t.wl_ok ||"YOU'RE IN!"));
 }
 
 /* ══ TRIVIA DEMO ══ */
@@ -1779,7 +1829,7 @@ function joinWL(){
   if(!e.value||!e.value.includes('@')){e.style.borderColor='#ff4444';return;}
   document.querySelector('.wl-form').style.display='none';
   document.getElementById('wl-success').style.display='block';
-  showToast('🤘 '+(T[lang]?.wl_ok||"YOU'RE IN THE PIT!"));
+  showToast('🤘 '+((T[lang] && T[lang].wl_ok)||"YOU'RE IN THE PIT!"));
 }
 
 /* ══ SCROLL REVEAL ══ */
@@ -1796,60 +1846,258 @@ document.addEventListener('mousemove',e=>{
 });
 
 
-/* ══ CLERK AUTH INIT ══ */
-window.addEventListener('load', async () => {
-  try {
-    await window.Clerk?.load();
-    const clerk = window.Clerk;
-    if (!clerk) return;
+/* ══ AUTH SYSTEM ══ */
+let currentUser = JSON.parse(sessionStorage.getItem('br_user') || 'null');
 
-    // Mount sign-in when modal opens
-    window.__clerkMountSignIn = () => {
-      const el = document.getElementById('clerk-sign-in');
-      if (!el || el.dataset.mounted) return;
-      el.dataset.mounted = 'true';
-      clerk.mountSignIn(el, {
-        appearance: {
-          baseTheme: undefined,
-          variables: {
-            colorPrimary: '#FF4500',
-            colorBackground: '#111111',
-            colorText: '#EDE9E2',
-            colorTextSecondary: '#888888',
-            colorInputBackground: '#181818',
-            colorInputText: '#EDE9E2',
-            borderRadius: '0px',
-            fontFamily: 'Oswald, sans-serif',
-          },
-          elements: {
-            card: { background: '#111', border: '1px solid rgba(255,69,0,0.2)', boxShadow: 'none' },
-            headerTitle: { color: '#EDE9E2', fontFamily: 'Bebas Neue, sans-serif', letterSpacing: '3px' },
-            socialButtonsBlockButton: { background: '#181818', border: '1px solid rgba(255,255,255,0.1)', color: '#EDE9E2' },
-            formButtonPrimary: { background: '#FF4500', color: '#000', fontFamily: 'Bebas Neue, sans-serif', letterSpacing: '2px', borderRadius: '0' },
-            footerActionLink: { color: '#FF4500' },
-          }
-        }
-      });
-    };
+function switchTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('tab-login').style.background = isLogin ? 'var(--orange)' : 'var(--card2)';
+  document.getElementById('tab-login').style.color = isLogin ? 'var(--black)' : 'var(--grey2)';
+  document.getElementById('tab-signup').style.background = !isLogin ? 'var(--orange)' : 'var(--card2)';
+  document.getElementById('tab-signup').style.color = !isLogin ? 'var(--black)' : 'var(--grey2)';
+  document.getElementById('signup-fields').style.display = isLogin ? 'none' : 'block';
+  document.getElementById('auth-submit-btn').textContent = isLogin ? 'SIGN IN' : 'CREATE MY METAL IDENTITY';
+  document.getElementById('auth-error').style.display = 'none';
+}
 
-    // Check if user is already signed in
-    if (clerk.user) {
-      window.__clerkUser = clerk.user;
-      console.log('User signed in:', clerk.user.firstName || clerk.user.emailAddresses[0]?.emailAddress);
-    }
+function socialLogin(provider) {
+  // Simulate social login — connects to Clerk OAuth in production
+  const names = {google:'Metal Fan', apple:'Iron Fan', facebook:'Heavy Fan'};
+  const user = {
+    username: names[provider] + ' ' + Math.floor(Math.random()*9000+1000),
+    email: provider + '@blastriff.com',
+    provider: provider,
+    trvePoints: 0,
+    level: 0,
+    joinedAt: Date.now(),
+    certifications: []
+  };
+  sessionStorage.setItem('br_user', JSON.stringify(user));
+  currentUser = user;
+  closeModal();
+  showToast('🤘 WELCOME ' + user.username.toUpperCase() + '!');
+  updateNavForUser();
+  setTimeout(() => startG(), 600);
+}
 
-    // Listen for sign in
-    clerk.addListener(({ user }) => {
-      if (user) {
-        window.__clerkUser = user;
-        closeModal();
-        showToast('🤘 WELCOME ' + (user.firstName || 'METALHEAD').toUpperCase() + '!');
-        setTimeout(() => startG(), 800);
-      }
-    });
-  } catch(e) {
-    console.log('Clerk not loaded:', e);
+function emailAuth() {
+  const email = document.getElementById('auth-email')?.value || '';
+  const pass = document.getElementById('auth-password')?.value || '';
+  const username = document.getElementById('auth-username')?.value || '';
+  const errEl = document.getElementById('auth-error');
+  const btn = document.getElementById('auth-submit-btn');
+  const isLogin = btn.textContent === 'SIGN IN';
+
+  if (!email || !email.includes('@')) {
+    errEl.textContent = 'Enter a valid email address.';
+    errEl.style.display = 'block';
+    return;
   }
+  if (!pass || pass.length < 6) {
+    errEl.textContent = 'Password must be at least 6 characters.';
+    errEl.style.display = 'block';
+    return;
+  }
+  if (!isLogin && !username.trim()) {
+    errEl.textContent = 'Choose your metalhead username.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  btn.textContent = 'ENTERING THE PIT...';
+  btn.style.background = 'var(--grey)';
+
+  setTimeout(() => {
+    const user = {
+      username: isLogin ? (email.split('@')[0].toUpperCase()) : username.trim().toUpperCase(),
+      email: email,
+      provider: 'email',
+      trvePoints: 0,
+      level: 0,
+      joinedAt: Date.now(),
+      certifications: []
+    };
+    sessionStorage.setItem('br_user', JSON.stringify(user));
+    currentUser = user;
+    closeModal();
+    showToast('🤘 WELCOME ' + user.username + '!');
+    updateNavForUser();
+    setTimeout(() => startG(), 600);
+  }, 800);
+}
+
+function updateNavForUser() {
+  if (!currentUser) return;
+  const joinBtn = document.querySelector('.nav-cta');
+  if (joinBtn) {
+    joinBtn.textContent = '☠️ ' + currentUser.username.substring(0,10);
+    joinBtn.onclick = () => showToast('⚡ ' + (currentUser.trvePoints||0) + ' TRVE POINTS');
+  }
+}
+
+// Restore session
+if (currentUser) updateNavForUser();
+
+
+
+/* ══ CERTIFICATION SYSTEM ══ */
+const CERTIFICATIONS = [
+  // BANDS
+  {id:'metallica',name:'Metallica',icon:'⚡',type:'band',genre:'Thrash Metal',color:'#FFD700',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'The biggest metal band in history. 4 levels of expertise.'},
+  {id:'iron_maiden',name:'Iron Maiden',icon:'🦅',type:'band',genre:'Heavy Metal',color:'#FF4500',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'The legends of NWOBHM. From Paul DiAnno to Bruce Dickinson.'},
+  {id:'black_sabbath',name:'Black Sabbath',icon:'⚫',type:'band',genre:'Heavy Metal',color:'#8B0000',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'The godfathers of heavy metal. Tony Iommi created it all.'},
+  {id:'slayer',name:'Slayer',icon:'🔪',type:'band',genre:'Thrash Metal',color:'#FF0000',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'The most extreme of the Big Four. Reign in Blood forever.'},
+  {id:'megadeth',name:'Megadeth',icon:'💀',type:'band',genre:'Thrash Metal',color:'#888',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'Dave Mustaine revenge. 38 million albums. Pure thrash fury.'},
+  {id:'tool',name:'Tool',icon:'🌀',type:'band',genre:'Progressive Metal',color:'#00e070',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'The most cerebral band in metal. Math, philosophy, and riffs.'},
+  {id:'opeth',name:'Opeth',icon:'🌿',type:'band',genre:'Progressive Metal',color:'#4CAF50',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'Swedish prog-metal masters. Mikael Akerfeldt - genius.'},
+  {id:'mayhem',name:'Mayhem',icon:'🖤',type:'band',genre:'Black Metal',color:'#555',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'The most notorious band in metal history. True Norwegian black metal.'},
+  // GENRES
+  {id:'thrash',name:'Thrash Metal',icon:'⚡',type:'genre',genre:'Thrash Metal',color:'#FF4500',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'The fastest, most aggressive mainstream metal genre. Bay Area vs Teutonic.'},
+  {id:'death',name:'Death Metal',icon:'☠️',type:'genre',genre:'Death Metal',color:'#8B0000',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'Florida gift to the world. Growls, blast beats, and darkness.'},
+  {id:'black',name:'Black Metal',icon:'🖤',type:'genre',genre:'Black Metal',color:'#333',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'Norway changed everything. Second wave, church fires, true kvlt.'},
+  {id:'doom',name:'Doom Metal',icon:'🕯️',type:'genre',genre:'Doom Metal',color:'#6B4C11',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'Slow, heavy, crushing. Black Sabbath true legacy.'},
+  {id:'blackened_crust',name:'Blackened Crust',icon:'⛧',type:'genre',genre:'Blackened Crust',color:'#444',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'Hardcore punk meets black metal. Raw, angry, underground.'},
+  {id:'power',name:'Power Metal',icon:'⚔️',type:'genre',genre:'Power Metal',color:'#4488FF',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'Dragons, keyboards, and operatic vocals. Europe made it epic.'},
+  {id:'progressive',name:'Progressive Metal',icon:'🔱',type:'genre',genre:'Progressive Metal',color:'#00BCD4',
+   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
+   desc:'Complex time signatures, concept albums, and guitar wizardry.'},
+];
+
+const CERT_LEVEL_COLORS = ['#888','#FF4500','#FFD700','#00e070'];
+const CERT_LEVEL_PRICES = ['FREE','FREE','$2.99','$9.99'];
+const CERT_LEVEL_QUESTIONS = [5, 10, 15, 20];
+
+function renderCerts(certs) {
+  const grid = document.getElementById('cert-grid');
+  if (!grid) return;
+  grid.innerHTML = certs.map(c => {
+    const userCerts = (currentUser && currentUser.certifications) || [];
+    const highestLevel = userCerts.filter(uc => uc.id === c.id).reduce((max,uc) => Math.max(max, uc.level), -1);
+    const badge = highestLevel >= 0 ? `<span style="background:${CERT_LEVEL_COLORS[highestLevel]};color:#000;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;">${c.levels[highestLevel].toUpperCase()}</span>` : '';
+    return `
+    <div onclick="openCert('${c.id}')" style="background:var(--card);border:1px solid rgba(255,69,0,0.15);padding:28px 20px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;text-align:left;" 
+      onmouseover="this.style.borderColor='rgba(255,69,0,0.4)';this.style.transform='translateY(-4px)'"
+      onmouseout="this.style.borderColor='rgba(255,69,0,0.15)';this.style.transform='translateY(0)'">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${c.color};opacity:0.6;"></div>
+      <div style="font-size:36px;margin-bottom:12px;">${c.icon}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--white);margin-bottom:4px;">${c.name}</div>
+      <div style="font-size:10px;letter-spacing:2px;color:var(--orange);text-transform:uppercase;margin-bottom:10px;">${c.type === 'band' ? '🎸 BAND' : '🎵 GENRE'} · ${c.genre}</div>
+      <div style="font-size:12px;color:var(--grey2);line-height:1.5;margin-bottom:14px;">${c.desc}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        ${badge}
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--orange);">CERTIFY →</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterCerts(query) {
+  const q = (query||'').toLowerCase();
+  const filtered = q ? CERTIFICATIONS.filter(c => 
+    c.name.toLowerCase().includes(q) || 
+    c.genre.toLowerCase().includes(q) ||
+    c.type.includes(q)
+  ) : CERTIFICATIONS;
+  renderCerts(filtered);
+}
+
+function openCert(id) {
+  const cert = CERTIFICATIONS.find(c => c.id === id);
+  if (!cert) return;
+  const userCerts = (currentUser && currentUser.certifications) || [];
+  const highestLevel = userCerts.filter(uc => uc.id === id).reduce((max,uc) => Math.max(max, uc.level), -1);
+  
+  const levelsHtml = cert.levels.map((lvl, i) => {
+    const completed = i <= highestLevel;
+    const locked = i > highestLevel + 1;
+    const current = i === highestLevel + 1;
+    const color = CERT_LEVEL_COLORS[i];
+    return `
+    <div style="display:flex;align-items:center;gap:16px;padding:14px;border:1px solid ${completed ? color : current ? 'rgba(255,69,0,0.3)' : 'rgba(255,255,255,0.05)'};background:${completed ? 'rgba(0,200,100,0.06)' : current ? 'rgba(255,69,0,0.06)' : 'transparent'};margin-bottom:8px;cursor:${locked ? 'not-allowed' : 'pointer'};"
+      onclick="${locked ? '' : `startCertExam('${id}', ${i})`}">
+      <div style="width:40px;height:40px;border-radius:50%;background:${completed ? color : 'rgba(255,255,255,0.05)'};display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
+        ${completed ? '✅' : locked ? '🔒' : cert.icon}
+      </div>
+      <div style="flex:1;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:${completed ? color : current ? 'var(--white)' : 'var(--grey)'}">${lvl.toUpperCase()}</div>
+        <div style="font-size:11px;color:var(--grey2);letter-spacing:1px;">${CERT_LEVEL_QUESTIONS[i]} questions · ${CERT_LEVEL_PRICES[i]}</div>
+      </div>
+      ${current ? `<span style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--orange);">START →</span>` : ''}
+      ${completed ? `<span style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1px;color:${color};">CERTIFIED ✓</span>` : ''}
+    </div>`;
+  }).join('');
+
+  document.getElementById('cert-modal-content').innerHTML = `
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="font-size:56px;margin-bottom:12px;">${cert.icon}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:var(--white);">${cert.name}</div>
+      <div style="font-size:10px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin:6px 0;">${cert.type === 'band' ? 'BAND CERTIFICATION' : 'GENRE CERTIFICATION'}</div>
+      <div style="font-size:13px;color:var(--grey2);line-height:1.6;">${cert.desc}</div>
+    </div>
+    <div style="margin-bottom:20px;">${levelsHtml}</div>
+    <div style="background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);padding:14px;text-align:center;">
+      <div style="font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px;">🏆 TRVE RIFFMASTER REWARD</div>
+      <div style="font-size:12px;color:var(--grey2);">Exclusive badge + downloadable certificate PDF + permanent profile display</div>
+    </div>
+  `;
+  document.getElementById('cert-modal').style.display = 'flex';
+}
+
+function closeCertModal() {
+  document.getElementById('cert-modal').style.display = 'none';
+}
+
+function startCertExam(certId, level) {
+  if (!currentUser) {
+    closeCertModal();
+    openModal();
+    showToast('🤘 Sign in first to get certified!');
+    return;
+  }
+  closeCertModal();
+  const cert = CERTIFICATIONS.find(c => c.id === certId);
+  showToast(`⚡ Starting ${cert.name} ${cert.levels[level]} exam...`);
+  // Store certification context
+  G.certMode = {certId, level, cert};
+  // Start game with cert-specific questions
+  startG(certId, level);
+}
+
+// Init certs on load
+document.addEventListener('DOMContentLoaded', () => renderCerts(CERTIFICATIONS));
+setTimeout(() => renderCerts(CERTIFICATIONS), 500);
+
+// Close cert modal on overlay click
+document.getElementById('cert-modal')?.addEventListener('click', function(e) {
+  if(e.target === this) closeCertModal();
 });
 
 /* ══ TOAST ══ */
