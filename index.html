@@ -7,248 +7,26 @@
 <title>BLAST RIFF — Prove You're Trve</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
-/* ═══ SAFARI MOBILE CRITICAL FIXES ═══ */
-html, body {
-  background: #060606 !important;
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2;
-}
-h1, h2, h3, h4, h5, h6 {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-p, span, div, li, a {
-  -webkit-text-fill-color: inherit;
-}
-.ht-blast {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-.ht-riff {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-.hl {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-.nl-blast {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-.nl-riff {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-.section-title {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-.section-sub {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.hero-tagline {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.hero-badge {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-.btn-primary {
-  background: #FF4500 !important;
-  color: #060606 !important;
-  -webkit-text-fill-color: #060606 !important;
-}
-.btn-ghost {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-  border-color: rgba(255,69,0,0.35) !important;
-}
-.proof-text {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.proof-text strong {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-.nav-links a {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.nav-cta {
-  color: #060606 !important;
-  -webkit-text-fill-color: #060606 !important;
-}
-.section-eyebrow {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-.q-text {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-.q-opt {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-  background: rgba(255,255,255,0.04) !important;
-}
-.q-opt-letter {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-.q-genre-tag {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-.q-diff {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.lv-name {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-.lv-pts {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-.lv-1 .lv-name {
-  color: #555 !important;
-  -webkit-text-fill-color: #555 !important;
-}
-.lv-6 .lv-name {
-  color: #FFD700 !important;
-  -webkit-text-fill-color: #FFD700 !important;
-}
-.fc-title {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-.fc-desc {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.pass-price {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-.pass-price sup {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-.pass-price sub {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.pass-annual {
-  color: #FFD700 !important;
-  -webkit-text-fill-color: #FFD700 !important;
-}
-.pf-item {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.pf-item strong {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-.wl-input {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-  background: #111 !important;
-}
-.wl-btn {
-  color: #060606 !important;
-  -webkit-text-fill-color: #060606 !important;
-  background: #FF4500 !important;
-}
-.wl-note {
-  color: #555 !important;
-  -webkit-text-fill-color: #555 !important;
-}
-.genre-chip {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.footer-col a {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.footer-col h4 {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-.footer-brand p {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.benefits-list li {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.benefits-list strong {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-.social-btn {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-  background: #181818 !important;
-}
-.input-f {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-  background: #181818 !important;
-}
-.pq-text {
-  color: #EDE9E2 !important;
-  -webkit-text-fill-color: #EDE9E2 !important;
-}
-.pq-pts {
-  color: #FFD700 !important;
-  -webkit-text-fill-color: #FFD700 !important;
-}
-.gh-logo {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-.gh-score {
-  color: #FFD700 !important;
-  -webkit-text-fill-color: #FFD700 !important;
-}
-.gh-counter {
-  color: #888 !important;
-  -webkit-text-fill-color: #888 !important;
-}
-.gh-counter span {
-  color: #FF4500 !important;
-  -webkit-text-fill-color: #FF4500 !important;
-}
-/* ═══ END SAFARI FIXES ═══ */
-
 :root {
-–black:   #060606;
-–deep:    #0c0c0c;
-–card:    #111111;
-–card2:   #181818;
-–border:  rgba(255,69,0,0.14);
-–orange:  #FF4500;
-–orange2: #cc3700;
-–red:     #7a0000;
-–gold:    #FFD700;
-–green:   #00e070;
-–white:   #EDE9E2;
-–grey:    #555;
-–grey2:   #888;
+  --black:   #060606;
+  --deep:    #0c0c0c;
+  --card:    #111111;
+  --card2:   #181818;
+  --border:  rgba(255,69,0,0.14);
+  --orange:  #FF4500;
+  --orange2: #cc3700;
+  --red:     #7a0000;
+  --gold:    #FFD700;
+  --green:   #00e070;
+  --white:   #EDE9E2;
+  --grey:    #555;
+  --grey2:   #888;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-html{background:#060606;}body{
-background:#060606 !important;
+body{
+background:var(–black);
 color:var(–white);
 font-family:‘Oswald’,sans-serif;
 overflow-x:hidden;
@@ -975,9 +753,20 @@ nav{padding:10px 20px;}
 .features-grid{grid-template-columns:1fr;}
 .footer-top{grid-template-columns:1fr;}
 }
+#game-modal.open{display:flex!important;}
+.q-explain.show{display:block!important;animation:fade-up 0.3s ease}
+.q-pts-earned.show{display:flex!important}
+.q-music-links.show{display:flex!important}
+.next-btn-wrap.show{display:block!important}
+.win-text{color:var(–green)!important;-webkit-text-fill-color:var(–green)!important;text-shadow:0 0 40px rgba(0,224,112,0.4)}
+.lose-text{color:var(–red)!important;-webkit-text-fill-color:var(–red)!important}
+#grv.show{display:block!important}
+.q-opt.correct{background:rgba(0,224,112,0.08)!important;border-color:var(–green)!important;color:var(–green)!important;-webkit-text-fill-color:var(–green)!important}
+.q-opt.wrong{background:rgba(200,0,0,0.08)!important;border-color:var(–red)!important;color:#ff5555!important;-webkit-text-fill-color:#ff5555!important}
+.q-opt{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);padding:14px 18px;cursor:pointer;font-family:Oswald,sans-serif;font-size:14px;font-weight:400;color:var(–white);-webkit-text-fill-color:var(–white);letter-spacing:0.5px;transition:all 0.18s;display:flex;align-items:center;gap:12px;text-align:left;width:100%;}
+.q-opt:hover{border-color:var(–orange);transform:translateX(4px)}
+.q-opt-letter{width:28px;height:28px;flex-shrink:0;background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.25);display:flex;align-items:center;justify-content:center;font-family:Bebas Neue,sans-serif;font-size:15px;color:var(–orange);-webkit-text-fill-color:var(–orange);}
 </style>
-
-  <!-- Auth handled via JS -->
 
 </head>
 <body>
@@ -988,61 +777,61 @@ nav{padding:10px 20px;}
 
 <div class="modal-overlay" id="reg-modal">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div style="margin-bottom:6px">
-      <div class="section-eyebrow" style="justify-content:center">
-        <span data-i18n="reg_eyebrow">Join free — 10 seconds</span>
-      </div>
+    <button class="modal-close" onclick="closeRegModal()">✕</button>
+    <div style="text-align:center;margin-bottom:18px">
+      <div style="font-size:10px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;margin-bottom:6px">JOIN FREE — 10 SECONDS</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px">CREATE YOUR <span style="color:var(--orange)">METAL IDENTITY</span></div>
     </div>
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;text-align:center;margin-bottom:4px">
-      <span data-i18n="reg_title">CREATE YOUR</span><br>
-      <span class="hl">METAL IDENTITY</span>
+    <button onclick="socialLogin('google')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #4285F4;color:var(--white);-webkit-text-fill-color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;margin-bottom:8px;">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Continue with Google
+      <span style="margin-left:auto;font-size:9px;background:rgba(255,69,0,0.15);border:1px solid rgba(255,69,0,0.3);color:var(--orange);-webkit-text-fill-color:var(--orange);padding:2px 8px;">RECOMMENDED</span>
+    </button>
+    <button onclick="socialLogin('apple')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #e8e8e8;color:var(--white);-webkit-text-fill-color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;margin-bottom:8px;">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-1.38 2.83z" fill="#e8e8e8"/></svg>
+      Continue with Apple
+    </button>
+    <button onclick="socialLogin('facebook')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #1877F2;color:var(--white);-webkit-text-fill-color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;margin-bottom:14px;">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
+      Continue with Facebook
+    </button>
+    <div style="display:flex;align-items:center;gap:10px;color:var(--grey);font-size:10px;letter-spacing:3px;margin-bottom:12px;text-transform:uppercase;"><span style="flex:1;height:1px;background:rgba(255,255,255,0.06)"></span>OR EMAIL<span style="flex:1;height:1px;background:rgba(255,255,255,0.06)"></span></div>
+    <input type="text" id="reg-username" placeholder="Your metalhead username" style="width:100%;background:var(--card2);border:1px solid rgba(255,69,0,0.2);padding:12px 16px;font-family:'Oswald',sans-serif;font-size:14px;color:var(--white);-webkit-text-fill-color:var(--white);outline:none;margin-bottom:8px;display:block;">
+    <input type="email" id="reg-email" placeholder="Email address" style="width:100%;background:var(--card2);border:1px solid rgba(255,69,0,0.2);padding:12px 16px;font-family:'Oswald',sans-serif;font-size:14px;color:var(--white);-webkit-text-fill-color:var(--white);outline:none;margin-bottom:8px;display:block;">
+    <input type="password" id="reg-pass" placeholder="Password (min 4 chars)" style="width:100%;background:var(--card2);border:1px solid rgba(255,69,0,0.2);padding:12px 16px;font-family:'Oswald',sans-serif;font-size:14px;color:var(--white);-webkit-text-fill-color:var(--white);outline:none;margin-bottom:10px;display:block;">
+    <button id="reg-btn" onclick="doRegister()" style="width:100%;background:var(--orange);border:none;padding:14px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--black);-webkit-text-fill-color:var(--black);cursor:pointer;">CREATE MY METAL IDENTITY</button>
+    <div id="reg-error" style="display:none;color:#f55;font-size:12px;text-align:center;margin-top:8px;"></div>
+    <p style="font-size:11px;color:var(--grey);-webkit-text-fill-color:var(--grey);text-align:center;margin-top:12px;">Already have an account? <span onclick="openLoginModal()" style="color:var(--orange);-webkit-text-fill-color:var(--orange);cursor:pointer;text-decoration:underline;">Sign in here</span></p>
+  </div>
+</div>
+
+<!-- ══ LOGIN MODAL ══ -->
+
+<div class="modal-overlay" id="login-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeLoginModal()">✕</button>
+    <div style="text-align:center;margin-bottom:18px">
+      <div style="font-size:10px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;margin-bottom:6px">WELCOME BACK</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px">SIGN IN TO <span style="color:var(--orange)">BLAST RIFF</span></div>
     </div>
-    <p style="font-size:12px;color:var(--grey2);letter-spacing:1px;text-align:center;margin-bottom:20px;line-height:1.5" data-i18n="reg_sub">Track TRVE POINTS · Challenge friends · Climb the throne</p>
-
-```
-<!-- SOCIAL BTNS -->
-<!-- AUTH FORM -->
-<div id="auth-tabs" style="display:flex;gap:2px;margin-bottom:16px;">
-  <button onclick="switchTab('login')" id="tab-login" style="flex:1;padding:10px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;background:var(--orange);color:var(--black);border:none;cursor:pointer;">SIGN IN</button>
-  <button onclick="switchTab('signup')" id="tab-signup" style="flex:1;padding:10px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;background:var(--card2);color:var(--grey2);border:1px solid rgba(255,69,0,0.2);cursor:pointer;">JOIN FREE</button>
-</div>
-
-<!-- Social buttons -->
-<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
-  <button onclick="socialLogin('google')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.1);border-left:3px solid #4285F4;color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;">
-    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-    Continue with Google
-    <span style="margin-left:auto;font-size:9px;letter-spacing:2px;background:rgba(255,69,0,0.15);border:1px solid rgba(255,69,0,0.25);color:var(--orange);padding:2px 8px;">RECOMMENDED</span>
-  </button>
-  <button onclick="socialLogin('apple')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.1);border-left:3px solid #e8e8e8;color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;">
-    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="#e8e8e8"/></svg>
-    Continue with Apple
-  </button>
-  <button onclick="socialLogin('facebook')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.1);border-left:3px solid #1877F2;color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;">
-    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
-    Continue with Facebook
-  </button>
-</div>
-
-<div style="display:flex;align-items:center;gap:12px;color:var(--grey);font-size:10px;letter-spacing:3px;margin:12px 0;text-transform:uppercase;">
-  <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>OR USE EMAIL<span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
-</div>
-
-<div id="signup-fields" style="display:block;">
-  <input type="text" id="auth-username" placeholder="Your metalhead username" style="width:100%;background:var(--card2);border:1px solid rgba(255,69,0,0.18);padding:13px 18px;font-family:'Oswald',sans-serif;font-size:14px;color:var(--white);outline:none;letter-spacing:1px;margin-bottom:10px;display:block;-webkit-text-fill-color:var(--white);" />
-</div>
-<input type="email" id="auth-email" placeholder="Email address" style="width:100%;background:var(--card2);border:1px solid rgba(255,69,0,0.18);padding:13px 18px;font-family:'Oswald',sans-serif;font-size:14px;color:var(--white);outline:none;letter-spacing:1px;margin-bottom:10px;display:block;-webkit-text-fill-color:var(--white);" />
-<input type="password" id="auth-password" placeholder="Password" style="width:100%;background:var(--card2);border:1px solid rgba(255,69,0,0.18);padding:13px 18px;font-family:'Oswald',sans-serif;font-size:14px;color:var(--white);outline:none;letter-spacing:1px;margin-bottom:10px;display:block;-webkit-text-fill-color:var(--white);" />
-<button onclick="emailAuth()" style="width:100%;background:var(--orange);color:var(--black);border:none;padding:15px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;cursor:pointer;margin-top:4px;" id="auth-submit-btn">CREATE MY METAL IDENTITY</button>
-<div id="auth-error" style="display:none;margin-top:10px;font-size:12px;color:#ff5555;text-align:center;letter-spacing:1px;"></div>
-<p style="font-size:10px;color:var(--grey);letter-spacing:1px;text-align:center;margin-top:14px;line-height:1.5">
-  <span data-i18n="reg_terms">By joining you agree to our</span>
-  <a href="#" style="color:var(--orange);text-decoration:none" data-i18n="reg_terms_link">Terms of Riffs</a>.
-  <span data-i18n="reg_no_spam">No spam. No poseurs.</span>
-</p>
-```
-
+    <button onclick="socialLogin('google')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #4285F4;color:var(--white);-webkit-text-fill-color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;margin-bottom:8px;">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Continue with Google
+    </button>
+    <button onclick="socialLogin('apple')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #e8e8e8;color:var(--white);-webkit-text-fill-color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;margin-bottom:8px;">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-1.38 2.83z" fill="#e8e8e8"/></svg>
+      Continue with Apple
+    </button>
+    <button onclick="socialLogin('facebook')" style="width:100%;padding:12px 16px;display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #1877F2;color:var(--white);-webkit-text-fill-color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;margin-bottom:14px;">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
+      Continue with Facebook
+    </button>
+    <div style="display:flex;align-items:center;gap:10px;color:var(--grey);font-size:10px;letter-spacing:3px;margin-bottom:12px;text-transform:uppercase;"><span style="flex:1;height:1px;background:rgba(255,255,255,0.06)"></span>OR EMAIL<span style="flex:1;height:1px;background:rgba(255,255,255,0.06)"></span></div>
+    <input type="email" id="login-email" placeholder="Email address" style="width:100%;background:var(--card2);border:1px solid rgba(255,69,0,0.2);padding:12px 16px;font-family:'Oswald',sans-serif;font-size:14px;color:var(--white);-webkit-text-fill-color:var(--white);outline:none;margin-bottom:8px;display:block;">
+    <input type="password" id="login-pass" placeholder="Password" style="width:100%;background:var(--card2);border:1px solid rgba(255,69,0,0.2);padding:12px 16px;font-family:'Oswald',sans-serif;font-size:14px;color:var(--white);-webkit-text-fill-color:var(--white);outline:none;margin-bottom:10px;display:block;">
+    <button id="login-btn" onclick="doLogin()" style="width:100%;background:var(--orange);border:none;padding:14px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--black);-webkit-text-fill-color:var(--black);cursor:pointer;">SIGN IN</button>
+    <div id="login-error" style="display:none;color:#f55;font-size:12px;text-align:center;margin-top:8px;"></div>
+    <p style="font-size:11px;color:var(--grey);-webkit-text-fill-color:var(--grey);text-align:center;margin-top:12px;">New here? <span onclick="openRegModal()" style="color:var(--orange);-webkit-text-fill-color:var(--orange);cursor:pointer;text-decoration:underline;">Create your Metal Identity</span></p>
   </div>
 </div>
 
@@ -1070,7 +859,7 @@ nav{padding:10px 20px;}
     <li><a href="#levels"   data-i18n="nav_levels">Levels</a></li>
     <li><a href="#features" data-i18n="nav_modes">Game Modes</a></li>
     <li><a href="#pass"     data-i18n="nav_pass">TRVE Pass</a></li>
-    <li><a href="#" class="nav-cta" onclick="currentUser ? startG() : openModal()" data-i18n="nav_join">JOIN FREE</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal()" data-i18n="nav_join">JOIN FREE</a></li>
   </ul>
 </nav>
 
@@ -1101,7 +890,7 @@ nav{padding:10px 20px;}
 </p>
 
 <div class="hero-ctas">
-  <button class="btn btn-primary" onclick="openModal()">
+  <button class="btn btn-primary" onclick="openRegModal()">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>
     <span data-i18n="hero_cta1">PLAY FREE NOW</span>
   </button>
@@ -1203,31 +992,25 @@ nav{padding:10px 20px;}
       </ul>
     </div>
     <div class="reg-right reveal reveal-d2">
-      <button class="social-btn sb-google" onclick="openModal()">
-        <svg class="sb-icon" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-        <span data-i18n="reg_google">Continue with Google</span>
-        <span class="sb-badge" data-i18n="reg_rec">RECOMMENDED</span>
-      </button>
-      <button class="social-btn sb-facebook" onclick="openModal()">
-        <svg class="sb-icon" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
-        <span data-i18n="reg_facebook">Continue with Facebook</span>
-      </button>
-      <button class="social-btn sb-apple" onclick="openModal()">
-        <svg class="sb-icon" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="#e8e8e8"/></svg>
-        <span data-i18n="reg_apple">Continue with Apple</span>
-      </button>
-      <div class="or-line" data-i18n="reg_or">or use email</div>
-      <input type="text"  class="input-f" data-i18n-ph="ph_user"  placeholder="Your metalhead username" />
-      <input type="email" class="input-f" data-i18n-ph="ph_email" placeholder="Email address" />
-      <button class="btn btn-primary btn-full" onclick="openModal()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3m0 0a5 5 0 1 0-7-7 5 5 0 0 0 7 7z"/></svg>
-        <span data-i18n="reg_cta">CREATE MY METAL IDENTITY</span>
-      </button>
-      <p style="font-size:10px;color:var(--grey);letter-spacing:1px;text-align:center;margin-top:12px;line-height:1.5">
-        <span data-i18n="reg_signin">Already TRVE?</span>
-        <a href="#" style="color:var(--orange);text-decoration:none" data-i18n="reg_signin_link">Sign in here</a>
-      </p>
+      <div id="auth-cta-section">
+        <p style="font-size:12px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);letter-spacing:1px;margin-bottom:20px;line-height:1.6;">One account. All platforms. Your TRVE POINTS, rank, and Grimoire everywhere.</p>
+        <button onclick="openRegModal()" style="width:100%;background:var(--orange);border:none;padding:18px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--black);-webkit-text-fill-color:var(--black);cursor:pointer;display:block;margin-bottom:12px;">🤘 REGISTER — IT'S FREE</button>
+        <button onclick="openLoginModal()" style="width:100%;background:transparent;border:1px solid rgba(255,69,0,0.35);padding:18px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--white);-webkit-text-fill-color:var(--white);cursor:pointer;display:block;margin-bottom:20px;">☠️ HAVE AN ACCOUNT? SIGN IN</button>
+        <div style="display:flex;gap:12px;justify-content:center;margin-top:4px;">
+          <button onclick="socialLogin('google')" style="background:var(--card2);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #4285F4;padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);flex:1;"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google</button>
+          <button onclick="socialLogin('apple')" style="background:var(--card2);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #e8e8e8;padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);flex:1;"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-1.38 2.83z" fill="#e8e8e8"/></svg>Apple</button>
+          <button onclick="socialLogin('facebook')" style="background:var(--card2);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #1877F2;padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);flex:1;"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>Facebook</button>
+        </div>
+      </div>
+      <div id="logged-in-section" style="display:none;text-align:center;">
+        <div style="font-size:64px;margin-bottom:16px;">🤘</div>
+        <div id="welcome-name" style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#00e070;-webkit-text-fill-color:#00e070;margin-bottom:8px;">WELCOME BACK!</div>
+        <div id="welcome-pts" style="font-size:13px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);margin-bottom:24px;">0 TRVE POINTS</div>
+        <button onclick="startG()" style="width:100%;background:var(--orange);border:none;padding:18px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--black);-webkit-text-fill-color:var(--black);cursor:pointer;margin-bottom:12px;">▶ PLAY NOW</button>
+        <button onclick="signOut()" style="width:100%;background:transparent;border:1px solid rgba(255,255,255,0.15);padding:12px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);cursor:pointer;">EXIT / SIGN OUT</button>
+      </div>
     </div>
+  </div>
   </div>
 </section>
 
@@ -1541,39 +1324,6 @@ nav{padding:10px 20px;}
 
 <!-- ══ WAITLIST ══ -->
 
-<!-- ══ CERTIFICATION SECTION ══ -->
-
-<section style="padding:100px 40px;background:var(--deep);border-top:1px solid rgba(255,69,0,0.07);" id="certify">
-  <div style="max-width:1100px;margin:0 auto;text-align:center;">
-    <div class="section-eyebrow" style="justify-content:center;">🏆 EXCLUSIVE FEATURE</div>
-    <h2 class="section-title">GET <span class="hl">CERTIFIED</span></h2>
-    <p class="section-sub" style="max-width:600px;margin:0 auto 52px;">
-      Prove your expertise in specific bands or subgenres.<br>
-      Like WSET for wine — but for metal. <span class="hl">The only certification that matters in the pit.</span>
-    </p>
-    <div style="max-width:600px;margin:0 auto 40px;">
-      <div style="display:flex;gap:0;margin-bottom:16px;">
-        <input type="text" id="cert-search" placeholder="Search: Metallica, Black Metal, Doom..." 
-          style="flex:1;background:var(--card);border:1px solid rgba(255,69,0,0.25);border-right:none;padding:15px 20px;font-family:'Oswald',sans-serif;font-size:15px;color:var(--white);outline:none;letter-spacing:1px;-webkit-text-fill-color:var(--white);" 
-          oninput="filterCerts(this.value)" />
-        <button onclick="filterCerts(document.getElementById('cert-search').value)" 
-          style="background:var(--orange);border:none;padding:15px 24px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;color:var(--black);cursor:pointer;">SEARCH</button>
-      </div>
-    </div>
-    <div id="cert-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;max-width:1100px;margin:0 auto;text-align:left;"></div>
-  </div>
-</section>
-
-<!-- CERT MODAL -->
-
-<div id="cert-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:7000;align-items:center;justify-content:center;backdrop-filter:blur(4px);">
-  <div style="background:var(--card);border:1px solid rgba(255,69,0,0.25);max-width:480px;width:90%;padding:40px 32px;position:relative;max-height:90vh;overflow-y:auto;">
-    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);"></div>
-    <button onclick="closeCertModal()" style="position:absolute;top:14px;right:14px;background:none;border:none;color:var(--grey2);font-size:22px;cursor:pointer;-webkit-text-fill-color:var(--grey2);">✕</button>
-    <div id="cert-modal-content"></div>
-  </div>
-</div>
-
 <section class="waitlist-section" id="waitlist">
   <div class="waitlist-inner reveal">
     <div class="section-eyebrow" style="justify-content:center" data-i18n="wl_eyebrow">Early Access</div>
@@ -1652,670 +1402,425 @@ nav{padding:10px 20px;}
 </footer>
 
 <script>
-/* ══ STATE ══ */
-let G = {
-  questions:[], currentQ:0, score:0, trvePoints:0,
-  correctCount:0, streak:0, bestStreak:0,
-  answered:false, timerInterval:null, timeLeft:15,
-  startTime:null, totalTime:0, lang:'en'
-};
+const QUESTIONS=[
+  {id:"hm_001",subgenre:"Heavy Metal",difficulty:"easy",points:100,artist:"Iron Maiden",song:"The Trooper",
+   en:{q:"Who is the vocalist of Iron Maiden?",opts:["Rob Halford","Bruce Dickinson","Ronnie James Dio","Ozzy Osbourne"],correct:1,exp:"Bruce Dickinson joined Iron Maiden in 1982. Known as The Air Raid Siren, he is also a commercial airline pilot."},
+   es:{q:"¿Quién es el vocalista de Iron Maiden?",opts:["Rob Halford","Bruce Dickinson","Ronnie James Dio","Ozzy Osbourne"],correct:1,exp:"Bruce Dickinson se unió a Iron Maiden en 1982. También es piloto de aerolínea comercial."}},
+  {id:"hm_002",subgenre:"Heavy Metal",difficulty:"easy",points:100,artist:"Black Sabbath",song:"Black Sabbath",
+   en:{q:"In which city was Black Sabbath formed in 1968?",opts:["London","Manchester","Birmingham","Liverpool"],correct:2,exp:"Black Sabbath formed in Birmingham, England. The industrial city's working-class atmosphere shaped their dark, heavy sound."},
+   es:{q:"¿En qué ciudad se formó Black Sabbath en 1968?",opts:["Londres","Manchester","Birmingham","Liverpool"],correct:2,exp:"Black Sabbath se formó en Birmingham, Inglaterra. El ambiente industrial de la ciudad moldeó su sonido oscuro y pesado."}},
+  {id:"thrash_001",subgenre:"Thrash Metal",difficulty:"easy",points:100,artist:"Metallica",song:"Master of Puppets",
+   en:{q:"Which four bands make up the Big Four of thrash metal?",opts:["Metallica, Slayer, Megadeth, Anthrax","Metallica, Slayer, Pantera, Anthrax","Metallica, Exodus, Megadeth, Anthrax","Metallica, Slayer, Megadeth, Testament"],correct:0,exp:"Metallica, Slayer, Megadeth and Anthrax are the Big Four — credited with creating and popularizing thrash metal in the early 1980s."},
+   es:{q:"¿Qué cuatro bandas conforman los Big Four del thrash metal?",opts:["Metallica, Slayer, Megadeth, Anthrax","Metallica, Slayer, Pantera, Anthrax","Metallica, Exodus, Megadeth, Anthrax","Metallica, Slayer, Megadeth, Testament"],correct:0,exp:"Metallica, Slayer, Megadeth y Anthrax son los Big Four, los creadores del thrash metal a principios de los 80."}},
+  {id:"thrash_002",subgenre:"Thrash Metal",difficulty:"medium",points:150,artist:"Metallica",song:"Fade to Black",
+   en:{q:"In which country was Metallica's Master of Puppets recorded?",opts:["United States","Germany","Denmark","Sweden"],correct:2,exp:"Master of Puppets was recorded at Sweet Silence Studios in Copenhagen, Denmark in 1985-1986, produced by Flemming Rasmussen."},
+   es:{q:"¿En qué país fue grabado Master of Puppets de Metallica?",opts:["Estados Unidos","Alemania","Dinamarca","Suecia"],correct:2,exp:"Master of Puppets fue grabado en Sweet Silence Studios en Copenhague, Dinamarca en 1985-1986, producido por Flemming Rasmussen."}},
+  {id:"thrash_003",subgenre:"Thrash Metal",difficulty:"easy",points:100,artist:"Megadeth",song:"Peace Sells",
+   en:{q:"Dave Mustaine was fired from Metallica and went on to form which band?",opts:["Exodus","Megadeth","Testament","Anthrax"],correct:1,exp:"Dave Mustaine was fired from Metallica in 1983 and formed Megadeth. He went on to sell over 38 million albums worldwide."},
+   es:{q:"¿Qué banda formó Dave Mustaine después de ser despedido de Metallica?",opts:["Exodus","Megadeth","Testament","Anthrax"],correct:1,exp:"Dave Mustaine fue despedido de Metallica en 1983 y formó Megadeth. Vendió más de 38 millones de álbumes en todo el mundo."}},
+  {id:"death_001",subgenre:"Death Metal",difficulty:"easy",points:100,artist:"Death",song:"Scream Bloody Gore",
+   en:{q:"Which band released the first death metal album Scream Bloody Gore in 1987?",opts:["Morbid Angel","Obituary","Death","Cannibal Corpse"],correct:2,exp:"Death, led by Chuck Schuldiner, released Scream Bloody Gore in 1987. Chuck Schuldiner is called The Father of Death Metal."},
+   es:{q:"¿Qué banda lanzó el primer álbum de death metal, Scream Bloody Gore, en 1987?",opts:["Morbid Angel","Obituary","Death","Cannibal Corpse"],correct:2,exp:"Death, liderada por Chuck Schuldiner, lanzó Scream Bloody Gore en 1987. Chuck Schuldiner es llamado El Padre del Death Metal."}},
+  {id:"black_001",subgenre:"Black Metal",difficulty:"easy",points:100,artist:"Mayhem",song:"Freezing Moon",
+   en:{q:"In which country did the second wave of black metal emerge in the early 1990s?",opts:["Sweden","Finland","Denmark","Norway"],correct:3,exp:"Norway exploded with black metal in the early 90s — Mayhem, Darkthrone, Burzum, Emperor and Immortal. The scene became infamous worldwide."},
+   es:{q:"¿En qué país surgió la segunda ola del black metal a principios de los años 90?",opts:["Suecia","Finlandia","Dinamarca","Noruega"],correct:3,exp:"Noruega explotó con el black metal a principios de los 90 — Mayhem, Darkthrone, Burzum, Emperor e Immortal. La escena se hizo famosa mundialmente."}},
+  {id:"black_002",subgenre:"Black Metal",difficulty:"medium",points:150,artist:"Darkthrone",song:"Transilvanian Hunger",
+   en:{q:"What is corpse paint in black metal culture?",opts:["A guitar finish","Black and white theatrical face makeup","An album art style","A recording technique"],correct:1,exp:"Corpse paint is the black and white theatrical makeup worn by black metal musicians. Popularized by King Diamond and adopted by Norwegian black metal bands in the 1990s."},
+   es:{q:"¿Qué es el corpse paint en la cultura del black metal?",opts:["Un acabado de guitarra","Maquillaje teatral blanco y negro","Un estilo de arte en portadas","Una técnica de grabación"],correct:1,exp:"El corpse paint es el maquillaje teatral blanco y negro de los músicos de black metal. Popularizado por King Diamond y adoptado por las bandas noruegas en los años 90."}},
+  {id:"general_001",subgenre:"Metal Culture",difficulty:"easy",points:100,artist:"Various",song:"Various",
+   en:{q:"What hand gesture — index finger and pinky raised — is the universal symbol of heavy metal?",opts:["The peace sign","The devil horns","The thumbs up","The fist"],correct:1,exp:"The devil horns gesture was popularized in heavy metal by Ronnie James Dio, who said he learned it from his Italian grandmother. Now the universal symbol of metal worldwide."},
+   es:{q:"¿Qué gesto de la mano, con el índice y el meñique levantados, es el símbolo universal del heavy metal?",opts:["El signo de paz","Los cuernos del diablo","El pulgar arriba","El puño"],correct:1,exp:"El gesto de los cuernos del diablo fue popularizado por Ronnie James Dio, quien dijo que lo aprendió de su abuela italiana. Ahora es el símbolo universal del metal."}},
+  {id:"general_002",subgenre:"Metal Culture",difficulty:"medium",points:150,artist:"Various",song:"Various",
+   en:{q:"What does NWOBHM stand for in metal history?",opts:["New Wave of British Heavy Metal","Norwegian Wave of Black Heavy Metal","New World of Brutal Heavy Metal","New Wave of Black Heavy Music"],correct:0,exp:"NWOBHM stands for New Wave of British Heavy Metal — a movement from the late 1970s and early 1980s. Iron Maiden, Judas Priest, Def Leppard and Saxon were key players."},
+   es:{q:"¿Qué significa NWOBHM en la historia del metal?",opts:["New Wave of British Heavy Metal","Norwegian Wave of Black Heavy Metal","New World of Brutal Heavy Metal","New Wave of Black Heavy Music"],correct:0,exp:"NWOBHM significa New Wave of British Heavy Metal (Nueva Ola del Heavy Metal Británico), un movimiento de finales de los 70 y principios de los 80. Iron Maiden y Judas Priest fueron sus protagonistas."}}
+];
 
-/* ══ USER SESSION ══ */
-let currentUser = null;
-try {
-  const s = localStorage.getItem('br_user');
-  if (s) currentUser = JSON.parse(s);
-} catch(e) {}
+/* STATE */
+var G={questions:[],currentQ:0,trvePoints:0,correctCount:0,streak:0,bestStreak:0,answered:false,timerInterval:null,timeLeft:15,startTime:null,totalTime:0,lang:'en'};
 
-/* ══ MODAL ══ */
-function openModal(){
-  // Already logged in → go straight to game
-  if (currentUser) { startG(); return; }
+/* USER */
+var currentUser=null;
+try{var _s=localStorage.getItem('br_user');if(_s)currentUser=JSON.parse(_s);}catch(e){}
+
+/* AUTH MODALS */
+function openRegModal(){
+  if(currentUser){startG();return;}
   document.getElementById('reg-modal').classList.add('open');
 }
-function closeModal(){
-  document.getElementById('reg-modal').classList.remove('open');
+function closeRegModal(){document.getElementById('reg-modal').classList.remove('open');}
+function openLoginModal(){
+  if(currentUser){startG();return;}
+  document.getElementById('login-modal').classList.add('open');
 }
-document.addEventListener('DOMContentLoaded', function() {
-  var m = document.getElementById('reg-modal');
-  if (m) m.addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+function closeLoginModal(){document.getElementById('login-modal').classList.remove('open');}
+/* legacy alias used by nav JOIN FREE button */
+function openModal(){openRegModal();}
+function closeModal(){closeRegModal();}
+
+document.addEventListener('DOMContentLoaded',function(){
+  ['reg-modal','login-modal'].forEach(function(id){
+    var m=document.getElementById(id);
+    if(m)m.addEventListener('click',function(e){if(e.target===this)m.classList.remove('open');});
+  });
 });
 
-/* ══ AUTH — SIMPLE & CLEAN ══ */
-function socialLogin(provider) {
-  var names = {google:'Metal Fan', apple:'Iron Fan', facebook:'Heavy Fan'};
-  var user = {
-    username: names[provider] + Math.floor(Math.random()*9000+1000),
-    email: provider + '@blastriff.com',
-    trvePoints: 0,
-    joinedAt: Date.now()
-  };
-  saveUser(user);
+/* REGISTER */
+function doRegister(){
+  var uname=(document.getElementById('reg-username')||{}).value||'';
+  var email=(document.getElementById('reg-email')||{}).value||'';
+  var pass=(document.getElementById('reg-pass')||{}).value||'';
+  var err=document.getElementById('reg-error');
+  if(!email||email.indexOf('@')<0){if(err){err.textContent='Enter a valid email.';err.style.display='block';}return;}
+  if(!pass||pass.length<4){if(err){err.textContent='Password too short (min 4).';err.style.display='block';}return;}
+  var btn=document.getElementById('reg-btn');
+  if(btn){btn.textContent='ENTERING THE PIT...';btn.style.opacity='0.7';}
+  var name=(uname.trim()||email.split('@')[0]).toUpperCase().replace(/[^A-Z0-9]/g,'').substring(0,12)||'METALHEAD';
+  setTimeout(function(){saveUser({username:name,email:email,trvePoints:0,joinedAt:Date.now()});},700);
 }
 
-function emailAuth() {
-  var email = (document.getElementById('auth-email') || {}).value || '';
-  var pass  = (document.getElementById('auth-password') || {}).value || '';
-  var uname = (document.getElementById('auth-username') || {}).value || '';
-  var err   = document.getElementById('auth-error');
-
-  if (!email || email.indexOf('@') < 0) {
-    if(err){ err.textContent='Enter a valid email.'; err.style.display='block'; }
-    return;
-  }
-  if (!pass || pass.length < 4) {
-    if(err){ err.textContent='Password too short (min 4 chars).'; err.style.display='block'; }
-    return;
-  }
-
-  var btn = document.getElementById('auth-submit-btn');
-  if(btn){ btn.textContent='ENTERING THE PIT...'; btn.style.background='#555'; }
-
-  var name = (uname.trim() || email.split('@')[0]).toUpperCase();
-  var user = {
-    username: name,
-    email: email,
-    trvePoints: 0,
-    joinedAt: Date.now()
-  };
-  setTimeout(function(){ saveUser(user); }, 700);
+/* LOGIN */
+function doLogin(){
+  var email=(document.getElementById('login-email')||{}).value||'';
+  var pass=(document.getElementById('login-pass')||{}).value||'';
+  var err=document.getElementById('login-error');
+  if(!email||email.indexOf('@')<0){if(err){err.textContent='Enter a valid email.';err.style.display='block';}return;}
+  if(!pass||pass.length<4){if(err){err.textContent='Password too short.';err.style.display='block';}return;}
+  var btn=document.getElementById('login-btn');
+  if(btn){btn.textContent='ENTERING THE PIT...';btn.style.opacity='0.7';}
+  var saved=null;
+  try{saved=JSON.parse(localStorage.getItem('br_user')||'null');}catch(e){}
+  var user=saved&&saved.email===email?saved:{username:email.split('@')[0].toUpperCase().replace(/[^A-Z0-9]/g,'').substring(0,12),email:email,trvePoints:0,joinedAt:Date.now()};
+  setTimeout(function(){saveUser(user);},700);
 }
 
-function saveUser(user) {
-  currentUser = user;
-  try { localStorage.setItem('br_user', JSON.stringify(user)); } catch(e){}
-  closeModal();
-  showToast('🤘 WELCOME ' + user.username + '!');
+/* SOCIAL LOGIN */
+function socialLogin(p){
+  var n={google:'METALFAN',apple:'IRONFAN',facebook:'HEAVYFAN'};
+  saveUser({username:n[p]+(Math.floor(Math.random()*9000)+1000),email:p+'@blastriff.com',trvePoints:0,joinedAt:Date.now()});
+}
+
+/* SAVE & REDIRECT */
+function saveUser(u){
+  currentUser=u;
+  try{localStorage.setItem('br_user',JSON.stringify(u));}catch(e){}
+  closeRegModal();closeLoginModal();
+  showToast('🤘 WELCOME '+u.username+'!');
   updateUI();
-  setTimeout(function(){ startG(); }, 800);
+  setTimeout(function(){startG();},800);
 }
 
-function signOut() {
-  currentUser = null;
-  try { localStorage.removeItem('br_user'); } catch(e){}
-  var ub = document.getElementById('user-bar');
-  if (ub) ub.remove();
-  // Reset nav button
-  var btn = document.querySelector('.nav-cta');
-  if (btn) {
-    btn.textContent = 'JOIN FREE';
-    btn.style.background = 'var(--orange)';
-    btn.style.webkitTextFillColor = 'var(--black)';
-    btn.onclick = function(e){ e.preventDefault(); openModal(); };
-  }
+/* SIGN OUT */
+function signOut(){
+  currentUser=null;
+  try{localStorage.removeItem('br_user');}catch(e){}
+  var ub=document.getElementById('user-bar');if(ub)ub.remove();
+  var nb=document.querySelector('.nav-cta');
+  if(nb){nb.textContent='JOIN FREE';nb.style.background='var(--orange)';nb.style.webkitTextFillColor='var(--black)';nb.onclick=function(e){e.preventDefault();openRegModal();};}
+  /* restore register section */
+  var ac=document.getElementById('auth-cta-section');if(ac)ac.style.display='block';
+  var ls=document.getElementById('logged-in-section');if(ls)ls.style.display='none';
   showToast('👋 Signed out!');
 }
 
-/* ══ UI UPDATE AFTER LOGIN ══ */
-function updateUI() {
-  if (!currentUser) return;
-
-  // Nav button → username (tap = sign out)
-  var navBtn = document.querySelector('.nav-cta');
-  if (navBtn) {
-    navBtn.textContent = '✅ ' + currentUser.username.substring(0,10);
-    navBtn.style.background = '#00e070';
-    navBtn.style.webkitTextFillColor = '#000';
-    navBtn.onclick = function(e){ e.preventDefault(); signOut(); };
-  }
-
-  // User bar
-  var bar = document.getElementById('user-bar');
-  if (!bar) {
-    bar = document.createElement('div');
-    bar.id = 'user-bar';
-    bar.style.cssText = 'position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(0,224,112,0.12);border-bottom:1px solid rgba(0,224,112,0.3);padding:6px 16px;display:flex;align-items:center;justify-content:space-between;font-family:Bebas Neue,sans-serif;font-size:13px;letter-spacing:2px;';
-    document.body.appendChild(bar);
-  }
-  bar.innerHTML =
-    '<span style="color:#00e070;-webkit-text-fill-color:#00e070">✅ ' + currentUser.username + '</span>' +
-    '<span style="color:#FFD700;-webkit-text-fill-color:#FFD700">⚡ ' + (currentUser.trvePoints||0) + ' TP</span>' +
-    '<button onclick="startG()" style="background:var(--orange);border:none;padding:5px 14px;font-family:Bebas Neue,sans-serif;font-size:14px;letter-spacing:2px;color:#000;cursor:pointer;">▶ PLAY</button>' +
-    '<button onclick="signOut()" style="background:transparent;border:1px solid #555;padding:5px 10px;font-family:Bebas Neue,sans-serif;font-size:11px;letter-spacing:1px;color:#888;cursor:pointer;-webkit-text-fill-color:#888;">EXIT</button>';
+/* UPDATE UI */
+function updateUI(){
+  if(!currentUser)return;
+  /* nav button */
+  var nb=document.querySelector('.nav-cta');
+  if(nb){nb.textContent='✅ '+currentUser.username.substring(0,10);nb.style.background='#00e070';nb.style.webkitTextFillColor='#000';nb.onclick=function(e){e.preventDefault();signOut();};}
+  /* user bar */
+  var bar=document.getElementById('user-bar');
+  if(!bar){bar=document.createElement('div');bar.id='user-bar';
+    bar.style.cssText='position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(0,224,112,0.12);border-bottom:1px solid rgba(0,224,112,0.3);padding:7px 16px;display:flex;align-items:center;justify-content:space-between;font-family:Bebas Neue,sans-serif;font-size:13px;letter-spacing:2px;';
+    document.body.appendChild(bar);}
+  bar.innerHTML='<span style="color:#00e070;-webkit-text-fill-color:#00e070">✅ '+currentUser.username+'</span>'+
+    '<span style="color:#FFD700;-webkit-text-fill-color:#FFD700">⚡ '+(currentUser.trvePoints||0)+' TP</span>'+
+    '<button onclick="startG()" style="background:var(--orange);border:none;padding:5px 14px;font-family:Bebas Neue,sans-serif;font-size:14px;letter-spacing:2px;color:#000;cursor:pointer;">▶ PLAY</button>'+
+    '<button onclick="signOut()" style="background:transparent;border:1px solid #444;padding:5px 10px;font-family:Bebas Neue,sans-serif;font-size:11px;letter-spacing:1px;color:#888;cursor:pointer;-webkit-text-fill-color:#888;">EXIT</button>';
+  /* register section */
+  var ac=document.getElementById('auth-cta-section');if(ac)ac.style.display='none';
+  var ls=document.getElementById('logged-in-section');
+  if(ls){ls.style.display='block';
+    var wn=document.getElementById('welcome-name');if(wn){wn.textContent='WELCOME, '+currentUser.username+'!';wn.style.webkitTextFillColor='#00e070';}
+    var wp=document.getElementById('welcome-pts');if(wp)wp.textContent=(currentUser.trvePoints||0)+' TRVE POINTS';}
 }
+if(currentUser){document.addEventListener('DOMContentLoaded',updateUI);setTimeout(updateUI,300);}
 
-// Run on page load
-if (currentUser) {
-  document.addEventListener('DOMContentLoaded', updateUI);
-  setTimeout(updateUI, 300);
-}
-
-/* ══ TRANSLATIONS ══ */
-const T = {
-  en:{nav_play:"Play",nav_levels:"Levels",nav_modes:"Game Modes",nav_pass:"TRVE Pass",nav_join:"JOIN FREE",
-    hero_badge:"#1 HEAVY METAL TRIVIA GAME — WORLDWIDE",hero_tag1:"Prove you're a",
-    hero_cta1:"PLAY FREE NOW",hero_cta2:"TRVE PASS",
-    proof_text:"metalheads waiting",proof_sub:"First 1,000 get 30 days TRVE PASS free",
-    reg_eyebrow:"Join free — 10 seconds",reg_title:"CREATE YOUR",reg_sub:"Track TRVE POINTS · Challenge friends · Climb the throne",
-    reg_eyebrow2:"Join the community",reg_section_title:"YOUR",reg_section_title2:"METAL IDENTITY",reg_section_title3:"AWAITS",
-    reg_section_sub:"One account. All platforms. Sign up once and carry your TRVE POINTS everywhere.",
-    reg_google:"Continue with Google",reg_facebook:"Continue with Facebook",reg_apple:"Continue with Apple",
-    reg_rec:"RECOMMENDED",reg_or:"or use email",reg_cta:"CREATE MY METAL IDENTITY",
-    reg_terms:"By joining you agree to our Terms of Riffs. No spam. No poseurs.",
-    ph_user:"Your metalhead username",ph_email:"Email address",
-    trivia_eyebrow:"Try a question",trivia_t1:"THINK YOU KNOW",trivia_sub:"Answer correctly. Earn TRVE POINTS. Stop being a poseur.",
-    tq_genre:"Thrash Metal",tq_diff:"HEADBANGER LEVEL",
-    tq_text:"Which band released 'Master of Puppets' in 1986 — widely considered the greatest thrash metal album ever recorded?",
-    tq_a:"Slayer",tq_b:"Metallica",tq_c:"Megadeth",tq_d:"Anthrax",
-    tq_trve:"🤘 TRVE.",tq_explain:"Metallica recorded 'Master of Puppets' in Denmark in 1986. It debuted at #29 on Billboard 200 with zero radio play — pure underground word of mouth.",
-    tq_pts_label:"TRVE POINTS EARNED",music_listen:"Listen now:",play_full:"🤘 PLAY FULL GAME — 10 QUESTIONS",
-    levels_eyebrow:"The path",levels_t1:"EARN YOUR",levels_sub:"You start as a POSEUR. The only way out is knowledge.",
+/* LANG */
+var currentLang='en';
+var T={
+  en:{nav_play:"Play",nav_levels:"Levels",nav_modes:"Game Modes",nav_pass:"TRVE Pass",nav_join:"JOIN FREE",hero_badge:"#1 HEAVY METAL TRIVIA GAME",hero_tag1:"Prove you're a",hero_cta1:"PLAY FREE NOW",hero_cta2:"TRVE PASS",proof_text:"metalheads waiting",proof_sub:"First 1,000 get 30 days TRVE PASS free",
+    tq_genre:"Thrash Metal",tq_diff:"HEADBANGER LEVEL",tq_text:"Which band released 'Master of Puppets' in 1986?",tq_a:"Slayer",tq_b:"Metallica",tq_c:"Megadeth",tq_d:"Anthrax",tq_trve:"🤘 TRVE.",tq_explain:"Recorded in Denmark, 1986. Debuted #29 on Billboard 200 with zero radio play.",tq_pts_label:"TRVE POINTS EARNED",music_listen:"Listen:",
+    play_full:"🤘 PLAY FULL GAME",levels_eyebrow:"The path",levels_t1:"EARN YOUR",levels_sub:"You start as a POSEUR. The only way out is knowledge.",
     lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALHEAD",lv4:"CULT MEMBER",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
-    feat_eyebrow:"Game modes",feat_t1:"HOW YOU",feat_t2:"PROVE IT",
-    f1_title:"THE GAUNTLET",f1_desc:"Solo trivia through every metal subgenre.",
-    f2_title:"BATTLE OF THE RIFFS",f2_desc:"1v1 real-time duels. Winner steals TRVE POINTS.",
-    f3_title:"IDENTIFY THE RIFF",f3_desc:"5 seconds. One legendary riff. Name it.",
-    f4_title:"THE TRVE THRONE",f4_desc:"Weekly global rankings by subgenre.",
-    f5_title:"THE GRIMOIRE",f5_desc:"Deep metal lore unlocked with TRVE POINTS.",
-    f6_title:"TRVE WARS",f6_desc:"Monthly tournament. Top 3 win exclusive merch.",
-    pass_eyebrow:"Premium",pass_t1:"THE",pass_sub:"For those who refuse to be called a poseur. Ever.",
-    pass_badge:"TRVE KVLT PASS",pass_annual:"OR $39.99/YEAR — SAVE 33%",
-    pf1a:"Zero ads.",pf1b:"Pure metal.",pf2a:"+20% TRVE POINTS",pf2b:"every answer",
-    pf3a:"Full Grimoire",pf3b:"all lore unlocked",pf4a:"TRVE KVLT badge",pf4b:"on your profile",
-    pf5a:"TRVE WARS",pf5b:"priority access",pf6a:"Exclusive cards",pf6b:"for Stories",
-    pass_cta:"JOIN WAITLIST — 30 DAYS FREE",
-    wl_eyebrow:"Early Access",wl_t1:"STOP BEING A",wl_sub:"Join the waitlist. Be first in the pit.",
-    wl_bonus:"First 1,000 get",wl_free:"days TRVE PASS free.",wl_btn:"I'M TRVE",
-    wl_note:"No spam. No poseurs. Unsubscribe anytime.",wl_ph:"your@email.com",
-    wl_ok:"YOU'RE IN THE PIT. WE'LL HIT YOU WHEN WE LAUNCH. 🤘",
-    footer_desc:"The world's most extreme heavy metal trivia game.",
-    footer_game:"GAME",footer_lb:"Leaderboard",footer_genres:"Subgenres",
-    footer_grimoire:"The Grimoire",footer_wars:"TRVE WARS",footer_merch:"Merch",
-    footer_connect:"CONNECT",footer_built:"Built for metalheads. By metalheads. 🤘",
-    b1_title:"TRVE POINTS persist forever",b1_sub:"Never lose your rank.",
-    b2_title:"Challenge leaderboard",b2_sub:"Send challenges, steal points.",
-    b3_title:"The Grimoire unlocks",b3_sub:"Deep metal lore and band histories.",
-    b4_title:"100% free forever",b4_sub:"Core game is always free."},
-  es:{nav_play:"Jugar",nav_join:"ÚNETE GRATIS",hero_tag1:"Demuestra que eres un",
-    hero_cta1:"JUGAR GRATIS",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALERO",
-    lv4:"MIEMBRO DEL CULTO",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
-    wl_btn:"SOY TRVE",wl_ph:"tu@email.com",
-    wl_ok:"ESTÁS EN EL PIT. TE AVISAMOS CUANDO LANCEMOS. 🤘",
-    footer_built:"Hecho por metaleros. Para metaleros. 🤘"},
-  pt:{nav_play:"Jogar",nav_join:"ENTRE GRÁTIS",hero_tag1:"Prove que você é um",
-    hero_cta1:"JOGAR GRÁTIS",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALEIRO",
-    lv4:"MEMBRO DO CULTO",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
-    wl_btn:"SOU TRVE",footer_built:"Feito por metaleiros. Para metaleiros. 🤘"},
-  de:{nav_play:"Spielen",nav_join:"KOSTENLOS",hero_tag1:"Beweise, dass du ein",
-    hero_cta1:"KOSTENLOS SPIELEN",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALHEAD",
-    lv4:"KULTMITGLIED",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
-    wl_btn:"ICH BIN TRVE",footer_built:"Gemacht von Metalheads. 🤘"},
-  ja:{nav_play:"プレイ",nav_join:"無料参加",hero_tag1:"本物の",
-    hero_cta1:"無料でプレイ",lv1:"ポーザー",lv2:"ヘッドバンガー",lv3:"メタラー",
-    lv4:"カルト会員",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
-    wl_btn:"俺はTRVEだ",footer_built:"メタラーによる、メタラーのための。🤘"},
-  fi:{nav_play:"Pelaa",nav_join:"LIITY",hero_tag1:"Todista olevasi",
-    hero_cta1:"PELAA ILMAISEKSI",lv1:"POSERI",lv2:"HEADBANGER",lv3:"METALLIPÄÄ",
-    lv4:"KULTIN JÄSEN",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
-    wl_btn:"OLEN TRVE",footer_built:"Tehty metallipäille. 🤘"}
+    feat_t1:"HOW YOU",feat_t2:"PROVE IT",f1_title:"THE GAUNTLET",f1_desc:"Solo trivia through every metal subgenre.",f2_title:"BATTLE OF THE RIFFS",f2_desc:"1v1 real-time duels. Winner steals TRVE POINTS.",f3_title:"IDENTIFY THE RIFF",f3_desc:"5 seconds. One legendary riff. Name it.",f4_title:"THE TRVE THRONE",f4_desc:"Weekly global rankings. Shareable cards.",f5_title:"THE GRIMOIRE",f5_desc:"Deep metal lore unlocked with TRVE POINTS.",f6_title:"TRVE WARS",f6_desc:"Monthly tournament. Top 3 win exclusive merch.",
+    pass_t1:"THE",pass_sub:"For those who refuse to be called a poseur. Ever.",pass_badge:"TRVE KVLT PASS",pass_annual:"OR $39.99/YEAR — SAVE 33%",pf1a:"Zero ads.",pf1b:"Pure metal.",pf2a:"+20% TRVE POINTS",pf2b:"every answer",pf3a:"Full Grimoire",pf3b:"all lore unlocked",pf4a:"TRVE KVLT badge",pf4b:"on your profile",pf5a:"TRVE WARS",pf5b:"priority access",pf6a:"Exclusive cards",pf6b:"for Stories",pass_cta:"JOIN WAITLIST — 30 DAYS FREE",
+    wl_t1:"STOP BEING A",wl_sub:"Join the waitlist. Be first in the pit.",wl_bonus:"First 1,000 get",wl_free:"days TRVE PASS free.",wl_btn:"I'M TRVE",wl_ph:"your@email.com",wl_ok:"YOU'RE IN THE PIT! 🤘",footer_built:"Built for metalheads. By metalheads. 🤘",
+    b1_title:"TRVE POINTS persist forever",b1_sub:"Never lose your rank.",b2_title:"Challenge leaderboard",b2_sub:"Send challenges, steal points.",b3_title:"The Grimoire unlocks",b3_sub:"Deep metal lore and band histories.",b4_title:"100% free forever",b4_sub:"Core game is always free."},
+  es:{nav_play:"Jugar",nav_join:"ÚNETE GRATIS",hero_tag1:"Demuestra que eres un",hero_cta1:"JUGAR GRATIS",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALERO",lv4:"MIEMBRO DEL CULTO",lv5:"TRVE KVLT",lv6:"BLAST RIFF",wl_btn:"SOY TRVE",wl_ph:"tu@email.com",wl_ok:"ESTÁS EN EL PIT! 🤘",footer_built:"Hecho por metaleros. Para metaleros. 🤘"},
+  pt:{nav_play:"Jogar",nav_join:"ENTRE GRÁTIS",hero_tag1:"Prove que você é um",hero_cta1:"JOGAR GRÁTIS",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALEIRO",lv4:"MEMBRO DO CULTO",lv5:"TRVE KVLT",lv6:"BLAST RIFF",wl_btn:"SOU TRVE",footer_built:"Feito por metaleiros. 🤘"},
+  de:{nav_play:"Spielen",nav_join:"KOSTENLOS",hero_tag1:"Beweise, dass du ein",hero_cta1:"KOSTENLOS SPIELEN",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALHEAD",lv4:"KULTMITGLIED",lv5:"TRVE KVLT",lv6:"BLAST RIFF",wl_btn:"ICH BIN TRVE",footer_built:"Gemacht von Metalheads. 🤘"},
+  ja:{nav_play:"プレイ",nav_join:"無料参加",hero_tag1:"本物の",hero_cta1:"無料でプレイ",lv1:"ポーザー",lv2:"ヘッドバンガー",lv3:"メタラー",lv4:"カルト会員",lv5:"TRVE KVLT",lv6:"BLAST RIFF",wl_btn:"俺はTRVEだ",footer_built:"メタラーによる。🤘"},
+  fi:{nav_play:"Pelaa",nav_join:"LIITY",hero_tag1:"Todista olevasi",hero_cta1:"PELAA ILMAISEKSI",lv1:"POSERI",lv2:"HEADBANGER",lv3:"METALLIPÄÄ",lv4:"KULTIN JÄSEN",lv5:"TRVE KVLT",lv6:"BLAST RIFF",wl_btn:"OLEN TRVE",footer_built:"Tehty metallipäille. 🤘"}
 };
-
-var currentLang = 'en';
-function setLang(l, btn) {
-  currentLang = l;
-  G.lang = l;
-  var t = Object.assign({}, T.en, T[l] || {});
-  document.querySelectorAll('[data-i18n]').forEach(function(el) {
-    var k = el.getAttribute('data-i18n');
-    if (t[k] !== undefined) el.innerHTML = t[k];
-  });
-  document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
-    var k = el.getAttribute('data-i18n-ph');
-    if (t[k]) el.placeholder = t[k];
-  });
-  document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-  document.getElementById('html-root').lang = l;
+function setLang(l,btn){
+  currentLang=l;G.lang=l;
+  var t=Object.assign({},T.en,T[l]||{});
+  document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(t[k]!==undefined)el.innerHTML=t[k];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){var k=el.getAttribute('data-i18n-ph');if(t[k])el.placeholder=t[k];});
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  document.getElementById('html-root').lang=l;
 }
 
-/* ══ GAME ENGINE ══ */
-function startG(certId, certLevel) {
-  var pool = QUESTIONS.slice();
-  if (certId) {
-    var cert = (typeof CERTIFICATIONS !== 'undefined') ? CERTIFICATIONS.find(function(c){ return c.id === certId; }) : null;
-    if (cert) {
-      var filtered = pool.filter(function(q) {
-        return q.subgenre.toLowerCase().indexOf(cert.genre.toLowerCase().split(' ')[0]) >= 0;
-      });
-      if (filtered.length >= 5) pool = filtered;
-    }
-  }
-  var numQ = certId ? (CERT_LEVEL_QUESTIONS ? CERT_LEVEL_QUESTIONS[certLevel] || 10 : 10) : 10;
-  G.questions = pool.sort(function(){ return Math.random()-0.5; }).slice(0, numQ);
-  G.currentQ=0; G.score=0; G.trvePoints=0; G.correctCount=0;
-  G.streak=0; G.bestStreak=0; G.totalTime=0;
-
-  var gm = document.getElementById('game-modal');
-  if (!gm) { alert('Game modal not found!'); return; }
+/* GAME */
+function startG(){
+  var pool=QUESTIONS.slice().sort(function(){return Math.random()-0.5;}).slice(0,10);
+  G.questions=pool;G.currentQ=0;G.trvePoints=0;G.correctCount=0;G.streak=0;G.bestStreak=0;G.totalTime=0;
+  var gm=document.getElementById('game-modal');
+  if(!gm){showToast('Error: game modal missing');return;}
   gm.classList.add('open');
-  var gqv = document.getElementById('gqv');
-  var grv = document.getElementById('grv');
-  if (gqv) gqv.style.display = 'block';
-  if (grv) grv.classList.remove('show');
-  document.body.style.overflow = 'hidden';
-
-  var logo = document.querySelector('.gh-logo');
-  if (logo) logo.textContent = certId ? cert.icon + ' ' + cert.name.toUpperCase() : 'BLAST⚡RIFF';
+  var gqv=document.getElementById('gqv'),grv=document.getElementById('grv');
+  if(gqv)gqv.style.display='block';
+  if(grv)grv.classList.remove('show');
+  document.body.style.overflow='hidden';
   renderQ();
 }
-
-function closeG() {
-  var gm = document.getElementById('game-modal');
-  if (gm) gm.classList.remove('open');
-  document.body.style.overflow = '';
-  clearInterval(G.timerInterval);
+function closeG(){
+  var gm=document.getElementById('game-modal');if(gm)gm.classList.remove('open');
+  document.body.style.overflow='';clearInterval(G.timerInterval);
 }
-
-function restartG() {
-  var grv = document.getElementById('grv');
-  var gqv = document.getElementById('gqv');
-  if (grv) grv.classList.remove('show');
-  if (gqv) gqv.style.display = 'block';
-  G.questions = QUESTIONS.slice().sort(function(){ return Math.random()-0.5; }).slice(0,10);
-  G.currentQ=0; G.score=0; G.trvePoints=0; G.correctCount=0;
-  G.streak=0; G.bestStreak=0; G.totalTime=0;
+function restartG(){
+  var grv=document.getElementById('grv'),gqv=document.getElementById('gqv');
+  if(grv)grv.classList.remove('show');if(gqv)gqv.style.display='block';
+  G.questions=QUESTIONS.slice().sort(function(){return Math.random()-0.5;}).slice(0,10);
+  G.currentQ=0;G.trvePoints=0;G.correctCount=0;G.streak=0;G.bestStreak=0;G.totalTime=0;
   renderQ();
 }
-
-function renderQ() {
-  var q = G.questions[G.currentQ];
-  var lang = (G.lang === 'es') ? 'es' : 'en';
-  var qd = q[lang] || q.en;
-  G.answered = false; G.timeLeft = 15; G.startTime = Date.now();
-
-  document.getElementById('gh-qnum').textContent = G.currentQ + 1;
-  document.getElementById('gh-score').textContent = G.trvePoints;
-  document.getElementById('gpf').style.width = ((G.currentQ / G.questions.length) * 100 + 10) + '%';
-  document.getElementById('g-genre').textContent = '🎸 ' + q.subgenre;
-  document.getElementById('g-diff').textContent = q.difficulty === 'easy' ? '⭐ EASY' : q.difficulty === 'medium' ? '⭐⭐ MEDIUM' : '⭐⭐⭐ HARD';
-  document.getElementById('g-text').textContent = qd.q;
-  document.getElementById('g-exp').className = 'q-explain';
-  document.getElementById('g-exp').innerHTML = '';
-  document.getElementById('g-pts').className = 'q-pts-earned';
-  document.getElementById('g-music').className = 'q-music-links';
-  document.getElementById('g-nw').className = 'next-btn-wrap';
-  document.getElementById('g-tn').textContent = 15;
-  document.getElementById('g-tn').style.color = 'var(--white)';
-  document.getElementById('g-tc').style.stroke = 'var(--orange)';
-
-  // Options
-  var grid = document.getElementById('g-opts');
-  grid.innerHTML = '';
-  var letters = ['A','B','C','D'];
-  qd.opts.forEach(function(opt, i) {
-    var btn = document.createElement('button');
-    btn.className = 'q-opt';
-    btn.innerHTML = '<span class="q-opt-letter">' + letters[i] + '</span><span>' + opt + '</span>';
-    btn.onclick = function() { selectAns(i, btn, qd, q); };
+function renderQ(){
+  var q=G.questions[G.currentQ];
+  var lang=G.lang==='es'?'es':'en';
+  var qd=q[lang]||q.en;
+  G.answered=false;G.timeLeft=15;G.startTime=Date.now();
+  document.getElementById('gh-qnum').textContent=G.currentQ+1;
+  document.getElementById('gh-score').textContent=G.trvePoints;
+  document.getElementById('gpf').style.width=((G.currentQ/G.questions.length)*100+10)+'%';
+  document.getElementById('g-genre').textContent='🎸 '+q.subgenre;
+  document.getElementById('g-diff').textContent=q.difficulty==='easy'?'⭐ EASY':q.difficulty==='medium'?'⭐⭐ MEDIUM':'⭐⭐⭐ HARD';
+  document.getElementById('g-text').textContent=qd.q;
+  document.getElementById('g-exp').className='q-explain';document.getElementById('g-exp').innerHTML='';
+  document.getElementById('g-pts').className='q-pts-earned';
+  document.getElementById('g-music').className='q-music-links';
+  document.getElementById('g-nw').className='next-btn-wrap';
+  document.getElementById('g-tn').textContent=15;document.getElementById('g-tn').style.color='var(--white)';
+  document.getElementById('g-tc').style.stroke='var(--orange)';
+  var grid=document.getElementById('g-opts');grid.innerHTML='';
+  var letters=['A','B','C','D'];
+  qd.opts.forEach(function(opt,i){
+    var btn=document.createElement('button');btn.className='q-opt';
+    btn.innerHTML='<span class="q-opt-letter">'+letters[i]+'</span><span>'+opt+'</span>';
+    btn.onclick=function(){selectAns(i,btn,qd,q);};
     grid.appendChild(btn);
   });
-
-  // Music links
-  var search = encodeURIComponent((q.artist || '') + ' ' + (q.song || ''));
-  document.getElementById('g-yt').href = 'https://www.youtube.com/results?search_query=' + search;
-  document.getElementById('g-am').href = 'https://music.apple.com/search?term=' + search;
-  document.getElementById('g-sp').href = 'https://open.spotify.com/search/' + search;
-
-  // Next button text
-  document.getElementById('g-nb').textContent = G.currentQ < G.questions.length - 1 ? 'NEXT QUESTION →' : 'SEE RESULTS →';
-
-  // Timer
-  clearInterval(G.timerInterval);
-  updateTimer(15, 15);
-  G.timerInterval = setInterval(function() {
-    G.timeLeft--;
-    updateTimer(G.timeLeft, 15);
-    document.getElementById('g-tn').textContent = G.timeLeft;
-    if (G.timeLeft <= 5) {
-      document.getElementById('g-tc').style.stroke = '#ff3300';
-      document.getElementById('g-tn').style.color = '#ff3300';
-    }
-    if (G.timeLeft <= 0) { clearInterval(G.timerInterval); timeOut(qd); }
-  }, 1000);
-
-  var gm = document.getElementById('game-modal');
-  if (gm) gm.scrollTo(0, 0);
+  var s=encodeURIComponent((q.artist||'')+' '+(q.song||''));
+  document.getElementById('g-yt').href='https://www.youtube.com/results?search_query='+s;
+  document.getElementById('g-am').href='https://music.apple.com/search?term='+s;
+  document.getElementById('g-sp').href='https://open.spotify.com/search/'+s;
+  document.getElementById('g-nb').textContent=G.currentQ<G.questions.length-1?'NEXT QUESTION →':'SEE RESULTS →';
+  clearInterval(G.timerInterval);updateTimer(15,15);
+  G.timerInterval=setInterval(function(){
+    G.timeLeft--;updateTimer(G.timeLeft,15);
+    document.getElementById('g-tn').textContent=G.timeLeft;
+    if(G.timeLeft<=5){document.getElementById('g-tc').style.stroke='#ff3300';document.getElementById('g-tn').style.color='#ff3300';}
+    if(G.timeLeft<=0){clearInterval(G.timerInterval);timeOut(qd);}
+  },1000);
+  var gm=document.getElementById('game-modal');if(gm)gm.scrollTo(0,0);
 }
-
-function updateTimer(cur, max) {
-  var c = Math.PI * 2 * 21;
-  var offset = c - (cur / max) * c;
-  var tc = document.getElementById('g-tc');
-  if (tc) { tc.style.strokeDasharray = c; tc.style.strokeDashoffset = offset; }
+function updateTimer(cur,max){
+  var c=Math.PI*2*21,offset=c-(cur/max)*c;
+  var tc=document.getElementById('g-tc');if(tc){tc.style.strokeDasharray=c;tc.style.strokeDashoffset=offset;}
 }
-
-function timeOut(qd) {
-  G.answered = true; G.streak = 0;
-  document.querySelectorAll('.q-opt').forEach(function(o){ o.style.pointerEvents='none'; });
+function timeOut(qd){
+  G.answered=true;G.streak=0;
+  document.querySelectorAll('.q-opt').forEach(function(o){o.style.pointerEvents='none';});
   document.querySelectorAll('.q-opt')[qd.correct].classList.add('correct');
-  document.getElementById('g-exp').innerHTML = '⏱️ TIME UP. ' + qd.exp;
-  document.getElementById('g-exp').className = 'q-explain show';
-  document.getElementById('g-music').className = 'q-music-links show';
-  document.getElementById('g-nw').className = 'next-btn-wrap show';
-  G.totalTime += 15;
+  document.getElementById('g-exp').innerHTML='⏱️ TIME UP. '+qd.exp;
+  document.getElementById('g-exp').className='q-explain show';
+  document.getElementById('g-music').className='q-music-links show';
+  document.getElementById('g-nw').className='next-btn-wrap show';
+  G.totalTime+=15;
 }
-
-function selectAns(index, btn, qd, q) {
-  if (G.answered) return;
-  G.answered = true;
-  clearInterval(G.timerInterval);
-  var elapsed = (Date.now() - G.startTime) / 1000;
-  G.totalTime += elapsed;
-  document.querySelectorAll('.q-opt').forEach(function(o){ o.style.pointerEvents='none'; });
-
-  if (index === qd.correct) {
-    btn.classList.add('correct');
-    G.correctCount++; G.streak++;
-    if (G.streak > G.bestStreak) G.bestStreak = G.streak;
-    var earned = q.points + Math.floor(G.timeLeft * 6) + (G.streak > 1 ? (G.streak-1)*25 : 0);
-    G.trvePoints += earned;
-    document.getElementById('g-pv').textContent = '+' + earned;
-    document.getElementById('g-pts').className = 'q-pts-earned show';
-    document.getElementById('gh-score').textContent = G.trvePoints;
-    showToast('+' + earned + ' TRVE POINTS!');
-    document.getElementById('g-exp').innerHTML = '🤘 TRVE! ' + qd.exp;
-  } else {
-    btn.classList.add('wrong');
-    document.querySelectorAll('.q-opt')[qd.correct].classList.add('correct');
-    G.streak = 0;
-    document.getElementById('g-exp').innerHTML = '💀 WRONG. ' + qd.exp;
+function selectAns(idx,btn,qd,q){
+  if(G.answered)return;G.answered=true;clearInterval(G.timerInterval);
+  var elapsed=(Date.now()-G.startTime)/1000;G.totalTime+=elapsed;
+  document.querySelectorAll('.q-opt').forEach(function(o){o.style.pointerEvents='none';});
+  if(idx===qd.correct){
+    btn.classList.add('correct');G.correctCount++;G.streak++;
+    if(G.streak>G.bestStreak)G.bestStreak=G.streak;
+    var earned=q.points+Math.floor(G.timeLeft*6)+(G.streak>1?(G.streak-1)*25:0);
+    G.trvePoints+=earned;
+    document.getElementById('g-pv').textContent='+'+earned;
+    document.getElementById('g-pts').className='q-pts-earned show';
+    document.getElementById('gh-score').textContent=G.trvePoints;
+    showToast('+'+earned+' TRVE POINTS!');
+    document.getElementById('g-exp').innerHTML='🤘 TRVE! '+qd.exp;
+  }else{
+    btn.classList.add('wrong');document.querySelectorAll('.q-opt')[qd.correct].classList.add('correct');G.streak=0;
+    document.getElementById('g-exp').innerHTML='💀 WRONG. '+qd.exp;
   }
-  document.getElementById('g-exp').className = 'q-explain show';
-  document.getElementById('g-music').className = 'q-music-links show';
-  document.getElementById('g-nw').className = 'next-btn-wrap show';
+  document.getElementById('g-exp').className='q-explain show';
+  document.getElementById('g-music').className='q-music-links show';
+  document.getElementById('g-nw').className='next-btn-wrap show';
 }
-
-function nextQ() {
-  G.currentQ++;
-  if (G.currentQ >= G.questions.length) { showResults(); }
-  else { renderQ(); }
-}
-
-function showResults() {
+function nextQ(){G.currentQ++;if(G.currentQ>=G.questions.length)showResults();else renderQ();}
+function showResults(){
   clearInterval(G.timerInterval);
-  var gqv = document.getElementById('gqv');
-  var grv = document.getElementById('grv');
-  if (gqv) gqv.style.display = 'none';
-  if (grv) grv.classList.add('show');
-
-  // Save points
-  if (currentUser) {
-    currentUser.trvePoints = (currentUser.trvePoints || 0) + G.trvePoints;
-    try { localStorage.setItem('br_user', JSON.stringify(currentUser)); } catch(e){}
-    updateUI();
-  }
-
-  var pct = G.correctCount / G.questions.length;
-  var outcome = pct >= 0.8 ? 'TRVE!' : pct >= 0.5 ? 'NOT BAD' : 'POSEUR';
-  var outcomeClass = pct >= 0.8 ? 'win-text' : pct < 0.5 ? 'lose-text' : '';
-
-  document.getElementById('r-out').textContent = outcome;
-  document.getElementById('r-out').className = 'result-outcome ' + outcomeClass;
-  document.getElementById('r-sub').textContent = pct >= 0.8 ? 'You are a true metalhead. Respect. 🤘' : pct >= 0.5 ? 'Some knowledge. Keep playing.' : 'You have much to learn, poseur.';
-  document.getElementById('r-sc').textContent = G.correctCount + '/10';
-  document.getElementById('r-det').textContent = G.trvePoints + ' TRVE POINTS EARNED';
-  document.getElementById('r-cor').textContent = G.correctCount;
-  document.getElementById('r-str').textContent = G.bestStreak;
-  document.getElementById('r-tim').textContent = G.totalTime > 0 ? (G.totalTime/G.questions.length).toFixed(1) + 's' : '-';
-  document.getElementById('r-pts').textContent = '+' + G.trvePoints;
-
-  document.getElementById('r-sr').textContent = G.correctCount + '/10 — ' + outcome;
-  document.getElementById('r-sr').style.color = pct >= 0.8 ? 'var(--green)' : 'var(--orange)';
-  document.getElementById('r-sd').textContent = 'Metal Trivia · ' + G.trvePoints + ' TRVE POINTS';
-
-  var lvl = document.getElementById('r-lvl');
-  if (lvl) lvl.style.display = pct >= 0.8 ? 'block' : 'none';
-
-  var gm = document.getElementById('game-modal');
-  if (gm) gm.scrollTo(0, 0);
+  var gqv=document.getElementById('gqv'),grv=document.getElementById('grv');
+  if(gqv)gqv.style.display='none';if(grv)grv.classList.add('show');
+  if(currentUser){currentUser.trvePoints=(currentUser.trvePoints||0)+G.trvePoints;try{localStorage.setItem('br_user',JSON.stringify(currentUser));}catch(e){}updateUI();}
+  var pct=G.correctCount/G.questions.length;
+  var outcome=pct>=0.8?'TRVE!':pct>=0.5?'NOT BAD':'POSEUR';
+  var cls=pct>=0.8?'win-text':pct<0.5?'lose-text':'';
+  document.getElementById('r-out').textContent=outcome;document.getElementById('r-out').className='result-outcome '+cls;
+  document.getElementById('r-sub').textContent=pct>=0.8?'True metalhead. Respect. 🤘':pct>=0.5?'Some knowledge. Keep playing.':'You have much to learn, poseur.';
+  document.getElementById('r-sc').textContent=G.correctCount+'/10';
+  document.getElementById('r-det').textContent=G.trvePoints+' TRVE POINTS EARNED';
+  document.getElementById('r-cor').textContent=G.correctCount;
+  document.getElementById('r-str').textContent=G.bestStreak;
+  document.getElementById('r-tim').textContent=G.totalTime>0?(G.totalTime/G.questions.length).toFixed(1)+'s':'-';
+  document.getElementById('r-pts').textContent='+'+G.trvePoints;
+  document.getElementById('r-sr').textContent=G.correctCount+'/10 — '+outcome;
+  document.getElementById('r-sr').style.color=pct>=0.8?'var(--green)':'var(--orange)';
+  document.getElementById('r-sd').textContent='Metal Trivia · '+G.trvePoints+' TRVE POINTS';
+  var lvl=document.getElementById('r-lvl');if(lvl)lvl.style.display=pct>=0.8?'block':'none';
+  var gm=document.getElementById('game-modal');if(gm)gm.scrollTo(0,0);
 }
-
-function shareR(platform) {
-  var msg = 'BLAST RIFF\n' + G.correctCount + '/10 in Heavy Metal Trivia · ' + G.trvePoints + ' TRVE POINTS\nblastriff.com 🤘';
-  if (platform === 'wa') window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
-  else if (platform === 'x') window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(msg), '_blank');
-  else if (platform === 'cp') { try { navigator.clipboard.writeText('blastriff.com'); } catch(e){} showToast('🔗 LINK COPIED!'); }
+function shareR(p){
+  var msg='BLAST RIFF\n'+G.correctCount+'/10 Metal Trivia · '+G.trvePoints+' TRVE POINTS\nblastriff.com 🤘';
+  if(p==='wa')window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+  else if(p==='x')window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(msg),'_blank');
+  else if(p==='cp'){try{navigator.clipboard.writeText('blastriff.com');}catch(e){}showToast('🔗 LINK COPIED!');}
   else showToast('📸 Screenshot and share!');
 }
 
-/* ══ DEMO TRIVIA ══ */
-var demoAnswered = false;
-function demoAns(btn, correct) {
-  if (demoAnswered) return;
-  demoAnswered = true;
-  document.querySelectorAll('#demo-opts .q-opt').forEach(function(o){ o.style.pointerEvents='none'; });
-  if (correct) {
-    btn.classList.add('correct');
-    document.getElementById('demo-pts').classList.add('show');
-  } else {
-    btn.classList.add('wrong');
-    document.querySelectorAll('#demo-opts .q-opt')[1].classList.add('correct');
-  }
+/* DEMO */
+var demoAnswered=false;
+function demoAns(btn,correct){
+  if(demoAnswered)return;demoAnswered=true;
+  document.querySelectorAll('#demo-opts .q-opt').forEach(function(o){o.style.pointerEvents='none';});
+  if(correct){btn.classList.add('correct');document.getElementById('demo-pts').classList.add('show');}
+  else{btn.classList.add('wrong');document.querySelectorAll('#demo-opts .q-opt')[1].classList.add('correct');}
   document.getElementById('demo-exp').classList.add('show');
-  document.getElementById('demo-music').className = 'q-music-links show';
+  document.getElementById('demo-music').className='q-music-links show';
 }
 
-/* ══ WAITLIST ══ */
-document.addEventListener('DOMContentLoaded', function() {
-  var wlForm = document.getElementById('wl-form');
-  if (!wlForm) return;
-  wlForm.addEventListener('submit', function(e) {
+/* WAITLIST */
+document.addEventListener('DOMContentLoaded',function(){
+  var wf=document.getElementById('wl-form');
+  if(!wf)return;
+  wf.addEventListener('submit',function(e){
     e.preventDefault();
-    var email = document.getElementById('wl-email-input').value;
-    if (!email || email.indexOf('@') < 0) {
-      document.getElementById('wl-email-input').style.borderColor = '#ff4444';
-      return;
-    }
-    var btn = document.getElementById('wl-submit-btn');
-    btn.disabled = true;
-    btn.textContent = 'SENDING...';
-    fetch('https://formspree.io/f/mnjwqqnr', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({email: email, _subject: 'Blast Riff Waitlist 🤘'})
-    }).then(function(r) {
-      if (r.ok) {
-        wlForm.style.display = 'none';
-        document.getElementById('wl-success').style.display = 'block';
-        showToast('🤘 YOU ARE IN THE PIT!');
-      } else {
-        btn.disabled = false;
-        btn.textContent = "I'M TRVE";
-        document.getElementById('wl-error').style.display = 'block';
-      }
-    }).catch(function() {
-      btn.disabled = false;
-      btn.textContent = "I'M TRVE";
-    });
+    var em=document.getElementById('wl-email-input').value;
+    if(!em||em.indexOf('@')<0){document.getElementById('wl-email-input').style.borderColor='#f44';return;}
+    var btn=document.getElementById('wl-submit-btn');btn.disabled=true;btn.textContent='SENDING...';
+    fetch('https://formspree.io/f/mnjwqqnr',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email:em,_subject:'Blast Riff Waitlist 🤘'})})
+    .then(function(r){
+      if(r.ok){wf.style.display='none';document.getElementById('wl-success').style.display='block';showToast('🤘 YOU ARE IN THE PIT!');}
+      else{btn.disabled=false;btn.textContent="I'M TRVE";document.getElementById('wl-error').style.display='block';}
+    }).catch(function(){btn.disabled=false;btn.textContent="I'M TRVE";});
   });
 });
 
-/* ══ SCROLL REVEAL ══ */
-var ro = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, {threshold: 0.08});
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.reveal').forEach(function(el){ ro.observe(el); });
-});
+/* REVEAL */
+var ro=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el);});});
 
-/* ══ CURSOR GLOW ══ */
-document.addEventListener('mousemove', function(e) {
-  var cg = document.getElementById('cg');
-  if (cg) { cg.style.left = (e.clientX-175) + 'px'; cg.style.top = (e.clientY-175) + 'px'; }
-});
+/* CURSOR */
+document.addEventListener('mousemove',function(e){var cg=document.getElementById('cg');if(cg){cg.style.left=(e.clientX-175)+'px';cg.style.top=(e.clientY-175)+'px';}});
 
-/* ══ TOAST ══ */
+/* TOAST */
 var toastT;
-function showToast(msg) {
-  var t = document.getElementById('toast');
-  if (!t) return;
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastT);
-  toastT = setTimeout(function(){ t.classList.remove('show'); }, 2800);
-}
-
-/* ══ CERTIFICATION SYSTEM ══ */
-const CERTIFICATIONS = [
-  // BANDS
-  {id:'metallica',name:'Metallica',icon:'⚡',type:'band',genre:'Thrash Metal',color:'#FFD700',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'The biggest metal band in history. 4 levels of expertise.'},
-  {id:'iron_maiden',name:'Iron Maiden',icon:'🦅',type:'band',genre:'Heavy Metal',color:'#FF4500',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'The legends of NWOBHM. From Paul DiAnno to Bruce Dickinson.'},
-  {id:'black_sabbath',name:'Black Sabbath',icon:'⚫',type:'band',genre:'Heavy Metal',color:'#8B0000',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'The godfathers of heavy metal. Tony Iommi created it all.'},
-  {id:'slayer',name:'Slayer',icon:'🔪',type:'band',genre:'Thrash Metal',color:'#FF0000',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'The most extreme of the Big Four. Reign in Blood forever.'},
-  {id:'megadeth',name:'Megadeth',icon:'💀',type:'band',genre:'Thrash Metal',color:'#888',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'Dave Mustaine revenge. 38 million albums. Pure thrash fury.'},
-  {id:'tool',name:'Tool',icon:'🌀',type:'band',genre:'Progressive Metal',color:'#00e070',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'The most cerebral band in metal. Math, philosophy, and riffs.'},
-  {id:'opeth',name:'Opeth',icon:'🌿',type:'band',genre:'Progressive Metal',color:'#4CAF50',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'Swedish prog-metal masters. Mikael Akerfeldt - genius.'},
-  {id:'mayhem',name:'Mayhem',icon:'🖤',type:'band',genre:'Black Metal',color:'#555',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'The most notorious band in metal history. True Norwegian black metal.'},
-  // GENRES
-  {id:'thrash',name:'Thrash Metal',icon:'⚡',type:'genre',genre:'Thrash Metal',color:'#FF4500',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'The fastest, most aggressive mainstream metal genre. Bay Area vs Teutonic.'},
-  {id:'death',name:'Death Metal',icon:'☠️',type:'genre',genre:'Death Metal',color:'#8B0000',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'Florida gift to the world. Growls, blast beats, and darkness.'},
-  {id:'black',name:'Black Metal',icon:'🖤',type:'genre',genre:'Black Metal',color:'#333',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'Norway changed everything. Second wave, church fires, true kvlt.'},
-  {id:'doom',name:'Doom Metal',icon:'🕯️',type:'genre',genre:'Doom Metal',color:'#6B4C11',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'Slow, heavy, crushing. Black Sabbath true legacy.'},
-  {id:'blackened_crust',name:'Blackened Crust',icon:'⛧',type:'genre',genre:'Blackened Crust',color:'#444',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'Hardcore punk meets black metal. Raw, angry, underground.'},
-  {id:'power',name:'Power Metal',icon:'⚔️',type:'genre',genre:'Power Metal',color:'#4488FF',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'Dragons, keyboards, and operatic vocals. Europe made it epic.'},
-  {id:'progressive',name:'Progressive Metal',icon:'🔱',type:'genre',genre:'Progressive Metal',color:'#00BCD4',
-   levels:['Initiate','Devotee','KVLT Master','TRVE Riffmaster'],
-   desc:'Complex time signatures, concept albums, and guitar wizardry.'},
-];
-
-const CERT_LEVEL_COLORS = ['#888','#FF4500','#FFD700','#00e070'];
-const CERT_LEVEL_PRICES = ['FREE','FREE','$2.99','$9.99'];
-const CERT_LEVEL_QUESTIONS = [5, 10, 15, 20];
-
-function renderCerts(certs) {
-  const grid = document.getElementById('cert-grid');
-  if (!grid) return;
-  grid.innerHTML = certs.map(c => {
-    const userCerts = (currentUser && currentUser.certifications) || [];
-    const highestLevel = userCerts.filter(uc => uc.id === c.id).reduce((max,uc) => Math.max(max, uc.level), -1);
-    const badge = highestLevel >= 0 ? `<span style="background:${CERT_LEVEL_COLORS[highestLevel]};color:#000;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;">${c.levels[highestLevel].toUpperCase()}</span>` : '';
-    return `
-    <div onclick="openCert('${c.id}')" style="background:var(--card);border:1px solid rgba(255,69,0,0.15);padding:28px 20px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;text-align:left;" 
-      onmouseover="this.style.borderColor='rgba(255,69,0,0.4)';this.style.transform='translateY(-4px)'"
-      onmouseout="this.style.borderColor='rgba(255,69,0,0.15)';this.style.transform='translateY(0)'">
-      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${c.color};opacity:0.6;"></div>
-      <div style="font-size:36px;margin-bottom:12px;">${c.icon}</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--white);margin-bottom:4px;">${c.name}</div>
-      <div style="font-size:10px;letter-spacing:2px;color:var(--orange);text-transform:uppercase;margin-bottom:10px;">${c.type === 'band' ? '🎸 BAND' : '🎵 GENRE'} · ${c.genre}</div>
-      <div style="font-size:12px;color:var(--grey2);line-height:1.5;margin-bottom:14px;">${c.desc}</div>
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        ${badge}
-        <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--orange);">CERTIFY →</span>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function filterCerts(query) {
-  const q = (query||'').toLowerCase();
-  const filtered = q ? CERTIFICATIONS.filter(c => 
-    c.name.toLowerCase().includes(q) || 
-    c.genre.toLowerCase().includes(q) ||
-    c.type.includes(q)
-  ) : CERTIFICATIONS;
-  renderCerts(filtered);
-}
-
-function openCert(id) {
-  const cert = CERTIFICATIONS.find(c => c.id === id);
-  if (!cert) return;
-  const userCerts = (currentUser && currentUser.certifications) || [];
-  const highestLevel = userCerts.filter(uc => uc.id === id).reduce((max,uc) => Math.max(max, uc.level), -1);
-  
-  const levelsHtml = cert.levels.map((lvl, i) => {
-    const completed = i <= highestLevel;
-    const locked = i > highestLevel + 1;
-    const current = i === highestLevel + 1;
-    const color = CERT_LEVEL_COLORS[i];
-    return `
-    <div style="display:flex;align-items:center;gap:16px;padding:14px;border:1px solid ${completed ? color : current ? 'rgba(255,69,0,0.3)' : 'rgba(255,255,255,0.05)'};background:${completed ? 'rgba(0,200,100,0.06)' : current ? 'rgba(255,69,0,0.06)' : 'transparent'};margin-bottom:8px;cursor:${locked ? 'not-allowed' : 'pointer'};"
-      onclick="${locked ? '' : `startCertExam('${id}', ${i})`}">
-      <div style="width:40px;height:40px;border-radius:50%;background:${completed ? color : 'rgba(255,255,255,0.05)'};display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
-        ${completed ? '✅' : locked ? '🔒' : cert.icon}
-      </div>
-      <div style="flex:1;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:${completed ? color : current ? 'var(--white)' : 'var(--grey)'}">${lvl.toUpperCase()}</div>
-        <div style="font-size:11px;color:var(--grey2);letter-spacing:1px;">${CERT_LEVEL_QUESTIONS[i]} questions · ${CERT_LEVEL_PRICES[i]}</div>
-      </div>
-      ${current ? `<span style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--orange);">START →</span>` : ''}
-      ${completed ? `<span style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1px;color:${color};">CERTIFIED ✓</span>` : ''}
-    </div>`;
-  }).join('');
-
-  document.getElementById('cert-modal-content').innerHTML = `
-    <div style="text-align:center;margin-bottom:28px;">
-      <div style="font-size:56px;margin-bottom:12px;">${cert.icon}</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:var(--white);">${cert.name}</div>
-      <div style="font-size:10px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin:6px 0;">${cert.type === 'band' ? 'BAND CERTIFICATION' : 'GENRE CERTIFICATION'}</div>
-      <div style="font-size:13px;color:var(--grey2);line-height:1.6;">${cert.desc}</div>
-    </div>
-    <div style="margin-bottom:20px;">${levelsHtml}</div>
-    <div style="background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);padding:14px;text-align:center;">
-      <div style="font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px;">🏆 TRVE RIFFMASTER REWARD</div>
-      <div style="font-size:12px;color:var(--grey2);">Exclusive badge + downloadable certificate PDF + permanent profile display</div>
-    </div>
-  `;
-  document.getElementById('cert-modal').style.display = 'flex';
-}
-
-function closeCertModal() {
-  document.getElementById('cert-modal').style.display = 'none';
-}
-
-function startCertExam(certId, level) {
-  if (!currentUser) {
-    closeCertModal();
-    openModal();
-    showToast('🤘 Sign in first to get certified!');
-    return;
-  }
-  closeCertModal();
-  const cert = CERTIFICATIONS.find(c => c.id === certId);
-  showToast(`⚡ Starting ${cert.name} ${cert.levels[level]} exam...`);
-  // Store certification context
-  G.certMode = {certId, level, cert};
-  // Start game with cert-specific questions
-  startG(certId, level);
-}
-
-// Init certs on load
-document.addEventListener('DOMContentLoaded', () => renderCerts(CERTIFICATIONS));
-setTimeout(() => renderCerts(CERTIFICATIONS), 500);
-
-// Close cert modal on overlay click
-document.getElementById('cert-modal')?.addEventListener('click', function(e) {
-  if(e.target === this) closeCertModal();
-});
-
+function showToast(msg){var t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},2800);}
 </script>
+
+<!-- ══ GAME MODAL ══ -->
+
+<div id="game-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:6000;flex-direction:column;overflow-y:auto;">
+  <div style="padding:14px 20px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,6,0.95);border-bottom:1px solid rgba(255,69,0,0.1);position:sticky;top:0;z-index:10;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--grey2)">Q <span id="gh-qnum" style="color:var(--orange)">1</span>/10</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;color:var(--orange)">BLAST⚡RIFF</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--gold)">⚡ <span id="gh-score">0</span> TP</div>
+  </div>
+  <div style="background:rgba(255,255,255,0.06);height:4px;"><div id="gpf" style="height:100%;background:linear-gradient(90deg,var(--red),var(--orange));transition:width 0.5s;width:10%;"></div></div>
+
+  <!-- QUESTIONS VIEW -->
+
+  <div id="gqv" style="padding:24px 20px;max-width:700px;margin:0 auto;flex:1;width:100%;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+      <div id="g-genre" style="background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.25);color:var(--orange);-webkit-text-fill-color:var(--orange);font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;">🎸 Metal</div>
+      <div id="g-diff" style="font-size:10px;letter-spacing:2px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);text-transform:uppercase;">⭐ EASY</div>
+    </div>
+    <div id="g-text" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,4vw,34px);letter-spacing:1.5px;line-height:1.2;margin-bottom:24px;color:var(--white);-webkit-text-fill-color:var(--white);">Loading...</div>
+    <div style="display:flex;justify-content:center;margin-bottom:20px;">
+      <div style="width:52px;height:52px;position:relative;">
+        <svg viewBox="0 0 48 48" width="52" height="52" style="transform:rotate(-90deg)">
+          <circle fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="4" cx="24" cy="24" r="21"/>
+          <circle id="g-tc" fill="none" stroke="var(--orange)" stroke-width="4" cx="24" cy="24" r="21" style="stroke-dasharray:132;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear,stroke 0.5s;"/>
+        </svg>
+        <div id="g-tn" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--white);-webkit-text-fill-color:var(--white);">15</div>
+      </div>
+    </div>
+    <div id="g-opts" style="display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:20px;"></div>
+    <div id="g-exp" style="display:none;padding:14px 18px;background:rgba(255,69,0,0.06);border-left:3px solid var(--orange);font-size:13px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);line-height:1.7;margin-bottom:14px;"></div>
+    <div id="g-pts" style="display:none;font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:var(--gold);-webkit-text-fill-color:var(--gold);align-items:center;gap:8px;margin-bottom:12px;">💀 <span id="g-pv">+0</span> TRVE POINTS</div>
+    <div id="g-music" style="display:none;align-items:center;gap:10px;padding:12px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);font-size:11px;color:var(--grey2);flex-wrap:wrap;margin-bottom:14px;">
+      <span style="-webkit-text-fill-color:var(--grey2)">Listen:</span>
+      <a id="g-yt" href="#" target="_blank" style="background:#FF0000;color:#fff;-webkit-text-fill-color:#fff;padding:5px 12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:2px;font-weight:600;text-decoration:none;">▶ YouTube</a>
+      <a id="g-am" href="#" target="_blank" style="background:linear-gradient(135deg,#fc3c44,#ff6482);color:#fff;-webkit-text-fill-color:#fff;padding:5px 12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:2px;font-weight:600;text-decoration:none;">🍎 Apple</a>
+      <a id="g-sp" href="#" target="_blank" style="background:#1DB954;color:#000;-webkit-text-fill-color:#000;padding:5px 12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:2px;font-weight:600;text-decoration:none;">● Spotify</a>
+    </div>
+    <div id="g-nw" style="display:none;margin-top:8px;">
+      <button id="g-nb" onclick="nextQ()" style="width:100%;background:var(--orange);border:none;padding:15px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--black);-webkit-text-fill-color:var(--black);cursor:pointer;">NEXT QUESTION →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS VIEW -->
+
+  <div id="grv" style="display:none;text-align:center;padding:60px 20px;max-width:600px;margin:0 auto;width:100%;">
+    <div style="font-size:11px;letter-spacing:4px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);text-transform:uppercase;margin-bottom:12px;">YOUR RESULT</div>
+    <div id="r-out" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,12vw,100px);letter-spacing:6px;line-height:1;">—</div>
+    <div id="r-sub" style="font-size:14px;letter-spacing:2px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);margin:8px 0 24px;">—</div>
+    <div id="r-sc" style="font-family:'Bebas Neue',sans-serif;font-size:80px;color:var(--white);-webkit-text-fill-color:var(--white);line-height:1;margin:16px 0;">0/10</div>
+    <div id="r-det" style="font-size:12px;letter-spacing:3px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);text-transform:uppercase;margin-bottom:24px;">0 TRVE POINTS</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:400px;margin:0 auto 28px;">
+      <div style="background:var(--card2);padding:16px 10px;text-align:center;"><div id="r-cor" style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--white);-webkit-text-fill-color:var(--white);">0</div><div style="font-size:10px;letter-spacing:2px;color:var(--grey);-webkit-text-fill-color:var(--grey);text-transform:uppercase;">Correct</div></div>
+      <div style="background:var(--card2);padding:16px 10px;text-align:center;"><div id="r-str" style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--white);-webkit-text-fill-color:var(--white);">0</div><div style="font-size:10px;letter-spacing:2px;color:var(--grey);-webkit-text-fill-color:var(--grey);text-transform:uppercase;">Best Streak</div></div>
+      <div style="background:var(--card2);padding:16px 10px;text-align:center;"><div id="r-tim" style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--white);-webkit-text-fill-color:var(--white);">0s</div><div style="font-size:10px;letter-spacing:2px;color:var(--grey);-webkit-text-fill-color:var(--grey);text-transform:uppercase;">Avg Time</div></div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(255,69,0,0.15),rgba(139,0,0,0.1));border:1px solid rgba(255,69,0,0.25);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;max-width:480px;margin:0 auto 28px;">
+      <div><div style="font-size:11px;letter-spacing:3px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);text-transform:uppercase;margin-bottom:4px;">TRVE POINTS EARNED</div><div id="r-pts" style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--gold);-webkit-text-fill-color:var(--gold);letter-spacing:2px;">+0</div></div>
+      <div id="r-lvl" style="display:none;background:var(--orange);color:var(--black);-webkit-text-fill-color:var(--black);font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:6px 14px;">⚡ LEVEL UP!</div>
+    </div>
+    <div style="background:var(--card2);border:1px solid rgba(255,69,0,0.2);padding:20px;margin:0 auto 20px;max-width:400px;position:relative;overflow:hidden;text-align:left;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--orange),var(--gold));"></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:4px;color:var(--orange);-webkit-text-fill-color:var(--orange);">BLAST⚡RIFF</div>
+      <div id="r-sr" style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin:6px 0;color:var(--orange);-webkit-text-fill-color:var(--orange);">—</div>
+      <div id="r-sd" style="font-size:11px;letter-spacing:2px;color:var(--grey2);-webkit-text-fill-color:var(--grey2);text-transform:uppercase;">Metal Trivia</div>
+      <div style="font-size:12px;color:var(--orange);-webkit-text-fill-color:var(--orange);margin-top:6px;">blastriff.com 🤘</div>
+    </div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:var(--white);-webkit-text-fill-color:var(--white);margin-bottom:12px;text-align:center;">SHARE YOUR RESULT</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:400px;margin:0 auto 24px;">
+      <button onclick="shareR('wa')" style="padding:12px;background:#25D366;border:none;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:1px;font-weight:600;color:#000;-webkit-text-fill-color:#000;cursor:pointer;">💬 WhatsApp</button>
+      <button onclick="shareR('ig')" style="padding:12px;background:linear-gradient(135deg,#833AB4,#E1306C);border:none;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:1px;font-weight:600;color:#fff;-webkit-text-fill-color:#fff;cursor:pointer;">📸 Instagram</button>
+      <button onclick="shareR('x')" style="padding:12px;background:#000;border:1px solid #333;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:1px;font-weight:600;color:#fff;-webkit-text-fill-color:#fff;cursor:pointer;">𝕏 Twitter/X</button>
+      <button onclick="shareR('cp')" style="padding:12px;background:var(--card2);border:1px solid rgba(255,69,0,0.3);font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:1px;font-weight:600;color:var(--orange);-webkit-text-fill-color:var(--orange);cursor:pointer;">🔗 Copy Link</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;max-width:400px;margin:0 auto;">
+      <button onclick="restartG()" style="width:100%;background:var(--orange);border:none;padding:15px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--black);-webkit-text-fill-color:var(--black);cursor:pointer;">🔄 PLAY AGAIN</button>
+      <button onclick="closeG()" style="width:100%;background:transparent;border:1px solid rgba(255,69,0,0.35);padding:14px;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:3px;color:var(--white);-webkit-text-fill-color:var(--white);cursor:pointer;">🏠 BACK TO HOME</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
