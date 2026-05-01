@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en" id="html-root">
 <head>
 <meta charset="UTF-8">
@@ -25,142 +26,142 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
-  background:var(--black);
-  color:var(--white);
-  font-family:'Oswald',sans-serif;
-  overflow-x:hidden;
-  cursor:crosshair;
+background:var(–black);
+color:var(–white);
+font-family:‘Oswald’,sans-serif;
+overflow-x:hidden;
+cursor:crosshair;
 }
 
 /* GRAIN */
 body::before{
-  content:'';position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.045'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:9000;mix-blend-mode:overlay;
+content:’’;position:fixed;inset:0;
+background-image:url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 512 512’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘g’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.75’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23g)’ opacity=‘0.045’/%3E%3C/svg%3E”);
+pointer-events:none;z-index:9000;mix-blend-mode:overlay;
 }
 
 /* ══ MODAL OVERLAY ══ */
 .modal-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,0.88);
-  z-index:5000;align-items:center;justify-content:center;
-  backdrop-filter:blur(4px);
+display:none;position:fixed;inset:0;
+background:rgba(0,0,0,0.88);
+z-index:5000;align-items:center;justify-content:center;
+backdrop-filter:blur(4px);
 }
 .modal-overlay.open{display:flex;}
 .modal-box{
-  background:var(--card);
-  border:1px solid rgba(255,69,0,0.25);
-  max-width:420px;width:90%;
-  padding:40px 32px;position:relative;
-  animation:modal-in 0.35s cubic-bezier(0.16,1,0.3,1);
+background:var(–card);
+border:1px solid rgba(255,69,0,0.25);
+max-width:420px;width:90%;
+padding:40px 32px;position:relative;
+animation:modal-in 0.35s cubic-bezier(0.16,1,0.3,1);
 }
 @keyframes modal-in{from{transform:translateY(30px) scale(0.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
 .modal-box::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--orange),var(--gold),transparent);
+content:’’;position:absolute;top:0;left:0;right:0;height:2px;
+background:linear-gradient(90deg,transparent,var(–orange),var(–gold),transparent);
 }
 .modal-close{
-  position:absolute;top:14px;right:14px;
-  background:none;border:none;color:var(--grey2);
-  font-size:22px;cursor:pointer;transition:color 0.2s;line-height:1;
-  font-family:'Oswald',sans-serif;
+position:absolute;top:14px;right:14px;
+background:none;border:none;color:var(–grey2);
+font-size:22px;cursor:pointer;transition:color 0.2s;line-height:1;
+font-family:‘Oswald’,sans-serif;
 }
-.modal-close:hover{color:var(--orange);}
+.modal-close:hover{color:var(–orange);}
 
 /* ══ LANG BAR ══ */
 .lang-bar{
-  position:fixed;top:0;width:100%;z-index:200;
-  background:rgba(6,6,6,0.97);
-  border-bottom:1px solid rgba(255,69,0,0.1);
-  padding:5px 32px;
-  display:flex;justify-content:flex-end;align-items:center;gap:4px;
+position:fixed;top:0;width:100%;z-index:200;
+background:rgba(6,6,6,0.97);
+border-bottom:1px solid rgba(255,69,0,0.1);
+padding:5px 32px;
+display:flex;justify-content:flex-end;align-items:center;gap:4px;
 }
 .lang-btn{
-  background:transparent;border:1px solid rgba(255,69,0,0.15);
-  color:var(--grey2);font-family:'Oswald',sans-serif;
-  font-size:10px;letter-spacing:2px;padding:3px 10px;
-  cursor:pointer;transition:all 0.2s;text-transform:uppercase;
+background:transparent;border:1px solid rgba(255,69,0,0.15);
+color:var(–grey2);font-family:‘Oswald’,sans-serif;
+font-size:10px;letter-spacing:2px;padding:3px 10px;
+cursor:pointer;transition:all 0.2s;text-transform:uppercase;
 }
-.lang-btn.active,.lang-btn:hover{background:var(--orange);border-color:var(--orange);color:var(--black);}
+.lang-btn.active,.lang-btn:hover{background:var(–orange);border-color:var(–orange);color:var(–black);}
 
 /* ══ NAV ══ */
 nav{
-  position:fixed;top:30px;width:100%;z-index:100;
-  padding:14px 40px;
-  display:flex;justify-content:space-between;align-items:center;
-  background:linear-gradient(180deg,rgba(6,6,6,0.97) 60%,transparent);
+position:fixed;top:30px;width:100%;z-index:100;
+padding:14px 40px;
+display:flex;justify-content:space-between;align-items:center;
+background:linear-gradient(180deg,rgba(6,6,6,0.97) 60%,transparent);
 }
 .nav-logo{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:24px;letter-spacing:5px;
-  display:flex;align-items:center;gap:2px;
+font-family:‘Bebas Neue’,sans-serif;
+font-size:24px;letter-spacing:5px;
+display:flex;align-items:center;gap:2px;
 }
-.nav-logo .nl-blast{color:var(--orange);}
-.nav-logo .nl-bolt{color:var(--gold);font-size:18px;}
-.nav-logo .nl-riff{color:var(--white);}
+.nav-logo .nl-blast{color:var(–orange);}
+.nav-logo .nl-bolt{color:var(–gold);font-size:18px;}
+.nav-logo .nl-riff{color:var(–white);}
 
 .nav-links{display:flex;gap:28px;list-style:none;}
 .nav-links a{
-  color:var(--grey2);text-decoration:none;
-  font-size:11px;font-weight:600;
-  letter-spacing:3px;text-transform:uppercase;
-  transition:color 0.2s;
+color:var(–grey2);text-decoration:none;
+font-size:11px;font-weight:600;
+letter-spacing:3px;text-transform:uppercase;
+transition:color 0.2s;
 }
-.nav-links a:hover{color:var(--orange);}
+.nav-links a:hover{color:var(–orange);}
 .nav-cta{
-  background:var(--orange)!important;
-  color:var(--black)!important;
-  padding:7px 20px!important;font-weight:700!important;
-  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+background:var(–orange)!important;
+color:var(–black)!important;
+padding:7px 20px!important;font-weight:700!important;
+clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
 }
-.nav-cta:hover{background:var(--gold)!important;}
+.nav-cta:hover{background:var(–gold)!important;}
 
 /* ══ BUTTONS ══ */
 .btn{
-  font-family:'Bebas Neue',sans-serif;letter-spacing:3px;
-  cursor:pointer;transition:all 0.2s;border:none;
-  display:inline-flex;align-items:center;gap:8px;
-  text-decoration:none;justify-content:center;
+font-family:‘Bebas Neue’,sans-serif;letter-spacing:3px;
+cursor:pointer;transition:all 0.2s;border:none;
+display:inline-flex;align-items:center;gap:8px;
+text-decoration:none;justify-content:center;
 }
 .btn-primary{
-  background:var(--orange);color:var(--black);
-  padding:15px 40px;font-size:20px;
-  clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
-  position:relative;overflow:hidden;
+background:var(–orange);color:var(–black);
+padding:15px 40px;font-size:20px;
+clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+position:relative;overflow:hidden;
 }
 .btn-primary::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
-  transform:translateX(-100%);transition:transform 0.5s;
+content:’’;position:absolute;inset:0;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
+transform:translateX(-100%);transition:transform 0.5s;
 }
 .btn-primary:hover::after{transform:translateX(100%);}
-.btn-primary:hover{background:var(--gold);transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,69,0,0.3);}
+.btn-primary:hover{background:var(–gold);transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,69,0,0.3);}
 .btn-ghost{
-  background:transparent;color:var(--white);
-  border:1px solid rgba(255,69,0,0.35);
-  padding:14px 36px;font-size:19px;
-  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+background:transparent;color:var(–white);
+border:1px solid rgba(255,69,0,0.35);
+padding:14px 36px;font-size:19px;
+clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
 }
-.btn-ghost:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-2px);}
+.btn-ghost:hover{border-color:var(–orange);color:var(–orange);transform:translateY(-2px);}
 .btn-full{width:100%;display:flex;}
 
 /* ══ SHARED ══ */
 .section-eyebrow{
-  font-size:10px;letter-spacing:5px;color:var(--orange);
-  text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:14px;
+font-size:10px;letter-spacing:5px;color:var(–orange);
+text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:14px;
 }
 .section-eyebrow::before,.section-eyebrow::after{
-  content:'';flex:0 0 24px;height:1px;background:var(--orange);opacity:0.5;
+content:’’;flex:0 0 24px;height:1px;background:var(–orange);opacity:0.5;
 }
 .section-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(36px,6.5vw,76px);
-  letter-spacing:4px;line-height:0.95;margin-bottom:14px;
+font-family:‘Bebas Neue’,sans-serif;
+font-size:clamp(36px,6.5vw,76px);
+letter-spacing:4px;line-height:0.95;margin-bottom:14px;
 }
-.section-sub{color:var(--grey2);font-size:14px;font-weight:300;letter-spacing:0.5px;line-height:1.8;margin-bottom:52px;}
-.hl{color:var(--orange);}
-.hlg{color:var(--gold);}
-.hlv{color:var(--green);}
+.section-sub{color:var(–grey2);font-size:14px;font-weight:300;letter-spacing:0.5px;line-height:1.8;margin-bottom:52px;}
+.hl{color:var(–orange);}
+.hlg{color:var(–gold);}
+.hlv{color:var(–green);}
 
 /* Reveal animation */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
@@ -172,354 +173,354 @@ nav{
 
 /* ══ HERO ══ */
 .hero{
-  min-height:100vh;
-  display:grid;grid-template-columns:1fr 1fr;
-  align-items:center;gap:0;
-  position:relative;overflow:hidden;
-  padding:140px 0 80px;
+min-height:100vh;
+display:grid;grid-template-columns:1fr 1fr;
+align-items:center;gap:0;
+position:relative;overflow:hidden;
+padding:140px 0 80px;
 }
 
 /* diagonal split */
 .hero::after{
-  content:'';position:absolute;
-  top:0;right:0;width:52%;height:100%;
-  background:linear-gradient(135deg,rgba(122,0,0,0.07) 0%,rgba(255,69,0,0.04) 100%);
-  clip-path:polygon(8% 0%,100% 0%,100% 100%,0% 100%);
-  pointer-events:none;
+content:’’;position:absolute;
+top:0;right:0;width:52%;height:100%;
+background:linear-gradient(135deg,rgba(122,0,0,0.07) 0%,rgba(255,69,0,0.04) 100%);
+clip-path:polygon(8% 0%,100% 0%,100% 100%,0% 100%);
+pointer-events:none;
 }
 
 .hero-left{
-  padding:0 60px 0 80px;
-  position:relative;z-index:2;
+padding:0 60px 0 80px;
+position:relative;z-index:2;
 }
 
 .hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.25);
-  padding:6px 16px;margin-bottom:28px;
-  font-size:10px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;
-  animation:badge-in 0.8s cubic-bezier(0.16,1,0.3,1) forwards;opacity:0;
+display:inline-flex;align-items:center;gap:8px;
+background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.25);
+padding:6px 16px;margin-bottom:28px;
+font-size:10px;letter-spacing:4px;color:var(–orange);text-transform:uppercase;
+animation:badge-in 0.8s cubic-bezier(0.16,1,0.3,1) forwards;opacity:0;
 }
 @keyframes badge-in{to{opacity:1;}}
 
 .hero-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(64px,8vw,120px);
-  line-height:0.88;letter-spacing:6px;
-  margin-bottom:20px;
-  animation:title-in 0.9s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;
-  opacity:0;transform:translateX(-30px);
+font-family:‘Bebas Neue’,sans-serif;
+font-size:clamp(64px,8vw,120px);
+line-height:0.88;letter-spacing:6px;
+margin-bottom:20px;
+animation:title-in 0.9s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;
+opacity:0;transform:translateX(-30px);
 }
 @keyframes title-in{to{opacity:1;transform:translateX(0);}}
 
 .hero-title .ht-blast{
-  display:block;color:var(--orange);
-  text-shadow:4px 4px 0 var(--red),0 0 60px rgba(255,69,0,0.2);
+display:block;color:var(–orange);
+text-shadow:4px 4px 0 var(–red),0 0 60px rgba(255,69,0,0.2);
 }
 .hero-title .ht-bolt{
-  display:inline;color:var(--gold);font-size:0.75em;
-  vertical-align:middle;
-  filter:drop-shadow(0 0 10px rgba(255,215,0,0.4));
+display:inline;color:var(–gold);font-size:0.75em;
+vertical-align:middle;
+filter:drop-shadow(0 0 10px rgba(255,215,0,0.4));
 }
 .hero-title .ht-riff{
-  display:block;color:var(--white);
-  text-shadow:4px 4px 0 rgba(0,0,0,0.4);
+display:block;color:var(–white);
+text-shadow:4px 4px 0 rgba(0,0,0,0.4);
 }
 
 .hero-tagline{
-  font-family:'Special Elite',cursive;
-  font-size:clamp(13px,1.6vw,18px);
-  letter-spacing:5px;text-transform:uppercase;
-  color:var(--grey2);margin-bottom:36px;line-height:1.6;
-  animation:title-in 0.9s 0.2s cubic-bezier(0.16,1,0.3,1) forwards;
-  opacity:0;transform:translateX(-20px);
+font-family:‘Special Elite’,cursive;
+font-size:clamp(13px,1.6vw,18px);
+letter-spacing:5px;text-transform:uppercase;
+color:var(–grey2);margin-bottom:36px;line-height:1.6;
+animation:title-in 0.9s 0.2s cubic-bezier(0.16,1,0.3,1) forwards;
+opacity:0;transform:translateX(-20px);
 }
 
 .hero-ctas{
-  display:flex;gap:14px;flex-wrap:wrap;
-  animation:title-in 0.9s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
-  opacity:0;transform:translateX(-20px);
+display:flex;gap:14px;flex-wrap:wrap;
+animation:title-in 0.9s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+opacity:0;transform:translateX(-20px);
 }
 
 .hero-social-proof{
-  margin-top:32px;
-  display:flex;align-items:center;gap:16px;
-  animation:title-in 0.9s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
-  opacity:0;
+margin-top:32px;
+display:flex;align-items:center;gap:16px;
+animation:title-in 0.9s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+opacity:0;
 }
 .avatar-stack{display:flex;}
 .avatar-stack span{
-  width:32px;height:32px;border-radius:50%;
-  background:linear-gradient(135deg,var(--red),var(--orange));
-  border:2px solid var(--black);margin-left:-8px;
-  display:flex;align-items:center;justify-content:center;font-size:12px;
+width:32px;height:32px;border-radius:50%;
+background:linear-gradient(135deg,var(–red),var(–orange));
+border:2px solid var(–black);margin-left:-8px;
+display:flex;align-items:center;justify-content:center;font-size:12px;
 }
 .avatar-stack span:first-child{margin-left:0;}
-.proof-text{font-size:12px;color:var(--grey2);letter-spacing:1px;line-height:1.4;}
-.proof-text strong{color:var(--white);}
+.proof-text{font-size:12px;color:var(–grey2);letter-spacing:1px;line-height:1.4;}
+.proof-text strong{color:var(–white);}
 
 /* HERO RIGHT — mock phone */
 .hero-right{
-  position:relative;z-index:2;
-  display:flex;align-items:center;justify-content:center;
-  padding:0 60px 0 20px;
-  animation:phone-in 1s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
-  opacity:0;transform:translateY(20px);
+position:relative;z-index:2;
+display:flex;align-items:center;justify-content:center;
+padding:0 60px 0 20px;
+animation:phone-in 1s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+opacity:0;transform:translateY(20px);
 }
 @keyframes phone-in{to{opacity:1;transform:translateY(0);}}
 
 .phone-frame{
-  width:280px;
-  background:var(--card);
-  border:1px solid rgba(255,69,0,0.2);
-  border-radius:32px;
-  overflow:hidden;
-  box-shadow:
-    0 0 0 1px rgba(255,69,0,0.08),
-    0 40px 80px rgba(0,0,0,0.8),
-    0 0 60px rgba(255,69,0,0.08),
-    inset 0 0 0 1px rgba(255,255,255,0.03);
-  position:relative;
+width:280px;
+background:var(–card);
+border:1px solid rgba(255,69,0,0.2);
+border-radius:32px;
+overflow:hidden;
+box-shadow:
+0 0 0 1px rgba(255,69,0,0.08),
+0 40px 80px rgba(0,0,0,0.8),
+0 0 60px rgba(255,69,0,0.08),
+inset 0 0 0 1px rgba(255,255,255,0.03);
+position:relative;
 }
 .phone-frame::before{
-  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:80px;height:22px;background:var(--black);border-radius:0 0 14px 14px;z-index:10;
+content:’’;position:absolute;top:0;left:50%;transform:translateX(-50%);
+width:80px;height:22px;background:var(–black);border-radius:0 0 14px 14px;z-index:10;
 }
-.phone-screen{padding:28px 20px 24px;background:var(--black);}
+.phone-screen{padding:28px 20px 24px;background:var(–black);}
 
 /* Question card inside phone */
 .pq-genre{
-  font-size:9px;letter-spacing:3px;color:var(--orange);
-  text-transform:uppercase;margin-bottom:12px;
-  display:flex;align-items:center;gap:6px;
+font-size:9px;letter-spacing:3px;color:var(–orange);
+text-transform:uppercase;margin-bottom:12px;
+display:flex;align-items:center;gap:6px;
 }
 .pq-text{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:18px;letter-spacing:1px;line-height:1.2;
-  margin-bottom:20px;color:var(--white);
+font-family:‘Bebas Neue’,sans-serif;
+font-size:18px;letter-spacing:1px;line-height:1.2;
+margin-bottom:20px;color:var(–white);
 }
 .pq-opts{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
 .pq-opt{
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.07);
-  padding:9px 12px;font-size:12px;letter-spacing:0.5px;
-  display:flex;align-items:center;gap:8px;color:var(--white);
-  border-radius:2px;transition:all 0.3s;
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.07);
+padding:9px 12px;font-size:12px;letter-spacing:0.5px;
+display:flex;align-items:center;gap:8px;color:var(–white);
+border-radius:2px;transition:all 0.3s;
 }
 .pq-opt.active-opt{
-  background:rgba(255,69,0,0.12);
-  border-color:var(--orange);color:var(--orange);
+background:rgba(255,69,0,0.12);
+border-color:var(–orange);color:var(–orange);
 }
 .pq-opt.correct-opt{
-  background:rgba(0,224,112,0.1);
-  border-color:var(--green);color:var(--green);
+background:rgba(0,224,112,0.1);
+border-color:var(–green);color:var(–green);
 }
 .pq-letter{
-  width:20px;height:20px;flex-shrink:0;
-  background:rgba(255,69,0,0.1);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--orange);
-  border-radius:2px;
+width:20px;height:20px;flex-shrink:0;
+background:rgba(255,69,0,0.1);
+display:flex;align-items:center;justify-content:center;
+font-family:‘Bebas Neue’,sans-serif;font-size:12px;color:var(–orange);
+border-radius:2px;
 }
-.pq-opt.correct-opt .pq-letter{background:rgba(0,224,112,0.15);color:var(--green);}
+.pq-opt.correct-opt .pq-letter{background:rgba(0,224,112,0.15);color:var(–green);}
 
 .pq-pts{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:18px;letter-spacing:2px;color:var(--gold);
-  text-align:center;padding:10px 0;
-  border-top:1px solid rgba(255,69,0,0.1);
-  animation:pts-flash 2s ease-in-out infinite;
+font-family:‘Bebas Neue’,sans-serif;
+font-size:18px;letter-spacing:2px;color:var(–gold);
+text-align:center;padding:10px 0;
+border-top:1px solid rgba(255,69,0,0.1);
+animation:pts-flash 2s ease-in-out infinite;
 }
 @keyframes pts-flash{0%,100%{opacity:1}50%{opacity:0.6}}
 
 .phone-bottom-bar{
-  padding:12px 20px;
-  background:var(--card);
-  display:flex;justify-content:space-between;align-items:center;
-  border-top:1px solid rgba(255,69,0,0.08);
+padding:12px 20px;
+background:var(–card);
+display:flex;justify-content:space-between;align-items:center;
+border-top:1px solid rgba(255,69,0,0.08);
 }
 .pbb-item{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  font-size:9px;letter-spacing:2px;color:var(--grey);text-transform:uppercase;
+display:flex;flex-direction:column;align-items:center;gap:3px;
+font-size:9px;letter-spacing:2px;color:var(–grey);text-transform:uppercase;
 }
-.pbb-item.active-tab{color:var(--orange);}
+.pbb-item.active-tab{color:var(–orange);}
 
 /* EMBERS */
 .embers{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
 .ember{
-  position:absolute;border-radius:50%;background:var(--orange);opacity:0;
-  animation:ember-up linear infinite;
+position:absolute;border-radius:50%;background:var(–orange);opacity:0;
+animation:ember-up linear infinite;
 }
 @keyframes ember-up{
-  0%{transform:translateY(100vh) scale(1);opacity:0.7;}
-  100%{transform:translateY(-5vh) scale(0.1);opacity:0;}
+0%{transform:translateY(100vh) scale(1);opacity:0.7;}
+100%{transform:translateY(-5vh) scale(0.1);opacity:0;}
 }
 .e1{left:5%;width:2px;height:2px;animation-duration:5s;animation-delay:0s;}
 .e2{left:18%;width:3px;height:3px;animation-duration:7s;animation-delay:1.5s;background:#ff6600;}
 .e3{left:35%;width:2px;height:2px;animation-duration:4.5s;animation-delay:3s;}
-.e4{left:52%;width:3px;height:3px;animation-duration:8s;animation-delay:0.7s;background:var(--gold);}
+.e4{left:52%;width:3px;height:3px;animation-duration:8s;animation-delay:0.7s;background:var(–gold);}
 .e5{left:70%;width:2px;height:2px;animation-duration:6s;animation-delay:2.2s;}
 .e6{left:85%;width:3px;height:3px;animation-duration:5.5s;animation-delay:4s;background:#ff3300;}
 .e7{left:92%;width:2px;height:2px;animation-duration:7s;animation-delay:1s;}
 
 /* ══ REGISTER SECTION ══ */
 .register-section{
-  padding:100px 40px;
-  background:var(--deep);
-  border-top:1px solid rgba(255,69,0,0.08);
-  border-bottom:1px solid rgba(255,69,0,0.08);
+padding:100px 40px;
+background:var(–deep);
+border-top:1px solid rgba(255,69,0,0.08);
+border-bottom:1px solid rgba(255,69,0,0.08);
 }
 .register-inner{
-  max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+max-width:1100px;margin:0 auto;
+display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
 }
 .reg-left{}
 .reg-right{}
 
 .social-btn{
-  width:100%;padding:14px 20px;
-  display:flex;align-items:center;gap:14px;
-  background:var(--card2);border:1px solid rgba(255,255,255,0.07);
-  color:var(--white);font-family:'Oswald',sans-serif;
-  font-size:14px;letter-spacing:1.5px;font-weight:500;
-  cursor:pointer;transition:all 0.2s;
-  position:relative;overflow:hidden;margin-bottom:10px;
+width:100%;padding:14px 20px;
+display:flex;align-items:center;gap:14px;
+background:var(–card2);border:1px solid rgba(255,255,255,0.07);
+color:var(–white);font-family:‘Oswald’,sans-serif;
+font-size:14px;letter-spacing:1.5px;font-weight:500;
+cursor:pointer;transition:all 0.2s;
+position:relative;overflow:hidden;margin-bottom:10px;
 }
 .social-btn::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,rgba(255,69,0,0.06),transparent);
-  transform:translateX(-100%);transition:transform 0.4s;
+content:’’;position:absolute;inset:0;
+background:linear-gradient(90deg,rgba(255,69,0,0.06),transparent);
+transform:translateX(-100%);transition:transform 0.4s;
 }
 .social-btn:hover::after{transform:translateX(0);}
 .social-btn:hover{border-color:rgba(255,69,0,0.35);transform:translateX(4px);}
 .sb-icon{width:22px;height:22px;flex-shrink:0;}
 .sb-badge{
-  margin-left:auto;font-size:9px;letter-spacing:2px;
-  background:rgba(255,69,0,0.15);border:1px solid rgba(255,69,0,0.25);
-  color:var(--orange);padding:2px 8px;
+margin-left:auto;font-size:9px;letter-spacing:2px;
+background:rgba(255,69,0,0.15);border:1px solid rgba(255,69,0,0.25);
+color:var(–orange);padding:2px 8px;
 }
 .sb-google {border-left:3px solid #4285F4;}
 .sb-facebook{border-left:3px solid #1877F2;}
 .sb-apple  {border-left:3px solid #e8e8e8;}
-.sb-email  {border-left:3px solid var(--orange);}
+.sb-email  {border-left:3px solid var(–orange);}
 
 .or-line{
-  display:flex;align-items:center;gap:12px;
-  color:var(--grey);font-size:10px;letter-spacing:3px;margin:14px 0;text-transform:uppercase;
+display:flex;align-items:center;gap:12px;
+color:var(–grey);font-size:10px;letter-spacing:3px;margin:14px 0;text-transform:uppercase;
 }
-.or-line::before,.or-line::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.06);}
+.or-line::before,.or-line::after{content:’’;flex:1;height:1px;background:rgba(255,255,255,0.06);}
 
 .input-f{
-  width:100%;background:var(--card2);
-  border:1px solid rgba(255,69,0,0.18);
-  padding:13px 18px;font-family:'Oswald',sans-serif;
-  font-size:14px;color:var(--white);outline:none;letter-spacing:1px;
-  transition:border-color 0.2s;margin-bottom:10px;display:block;
+width:100%;background:var(–card2);
+border:1px solid rgba(255,69,0,0.18);
+padding:13px 18px;font-family:‘Oswald’,sans-serif;
+font-size:14px;color:var(–white);outline:none;letter-spacing:1px;
+transition:border-color 0.2s;margin-bottom:10px;display:block;
 }
-.input-f:focus{border-color:var(--orange);}
-.input-f::placeholder{color:var(--grey);}
+.input-f:focus{border-color:var(–orange);}
+.input-f::placeholder{color:var(–grey);}
 
 /* BENEFITS LIST */
 .benefits-list{list-style:none;margin-top:28px;}
 .benefits-list li{
-  display:flex;align-items:flex-start;gap:14px;
-  padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.04);
-  font-size:14px;color:var(--grey2);letter-spacing:0.5px;line-height:1.5;
+display:flex;align-items:flex-start;gap:14px;
+padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.04);
+font-size:14px;color:var(–grey2);letter-spacing:0.5px;line-height:1.5;
 }
 .benefits-list li:last-child{border-bottom:none;}
 .bl-icon{
-  width:36px;height:36px;flex-shrink:0;
-  background:rgba(255,69,0,0.08);border:1px solid rgba(255,69,0,0.2);
-  display:flex;align-items:center;justify-content:center;
+width:36px;height:36px;flex-shrink:0;
+background:rgba(255,69,0,0.08);border:1px solid rgba(255,69,0,0.2);
+display:flex;align-items:center;justify-content:center;
 }
-.benefits-list strong{color:var(--white);}
+.benefits-list strong{color:var(–white);}
 
 /* ══ TRIVIA DEMO ══ */
 .trivia-section{
-  padding:100px 40px;max-width:900px;margin:0 auto;text-align:center;
+padding:100px 40px;max-width:900px;margin:0 auto;text-align:center;
 }
 .trivia-card{
-  background:var(--card);border:1px solid var(--border);
-  padding:48px 44px;position:relative;
-  clip-path:polygon(18px 0%,100% 0%,calc(100% - 18px) 100%,0% 100%);
-  text-align:left;
+background:var(–card);border:1px solid var(–border);
+padding:48px 44px;position:relative;
+clip-path:polygon(18px 0%,100% 0%,calc(100% - 18px) 100%,0% 100%);
+text-align:left;
 }
 .trivia-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--orange),var(--gold),transparent);
+content:’’;position:absolute;top:0;left:0;right:0;height:2px;
+background:linear-gradient(90deg,transparent,var(–orange),var(–gold),transparent);
 }
 .tq-meta{
-  display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap;
+display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap;
 }
 .tq-genre{
-  background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.25);
-  color:var(--orange);font-size:10px;letter-spacing:3px;
-  text-transform:uppercase;padding:5px 14px;
-  display:flex;align-items:center;gap:6px;
+background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.25);
+color:var(–orange);font-size:10px;letter-spacing:3px;
+text-transform:uppercase;padding:5px 14px;
+display:flex;align-items:center;gap:6px;
 }
 .tq-diff{
-  font-size:10px;letter-spacing:2px;color:var(--grey2);text-transform:uppercase;
+font-size:10px;letter-spacing:2px;color:var(–grey2);text-transform:uppercase;
 }
 .tq-text{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(22px,3.5vw,38px);
-  letter-spacing:1.5px;line-height:1.15;margin-bottom:30px;
+font-family:‘Bebas Neue’,sans-serif;
+font-size:clamp(22px,3.5vw,38px);
+letter-spacing:1.5px;line-height:1.15;margin-bottom:30px;
 }
 .tq-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
 .tq-opt{
-  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);
-  padding:14px 18px;cursor:pointer;
-  font-family:'Oswald',sans-serif;font-size:14px;font-weight:400;
-  color:var(--white);letter-spacing:0.5px;transition:all 0.18s;
-  display:flex;align-items:center;gap:12px;text-align:left;
-  position:relative;overflow:hidden;
+background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);
+padding:14px 18px;cursor:pointer;
+font-family:‘Oswald’,sans-serif;font-size:14px;font-weight:400;
+color:var(–white);letter-spacing:0.5px;transition:all 0.18s;
+display:flex;align-items:center;gap:12px;text-align:left;
+position:relative;overflow:hidden;
 }
 .tq-opt::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,rgba(255,69,0,0.07),transparent);
-  transform:translateX(-100%);transition:transform 0.3s;
+content:’’;position:absolute;inset:0;
+background:linear-gradient(90deg,rgba(255,69,0,0.07),transparent);
+transform:translateX(-100%);transition:transform 0.3s;
 }
 .tq-opt:hover::after{transform:translateX(0);}
-.tq-opt:hover{border-color:var(--orange);transform:translateX(4px);}
-.tq-opt.correct{background:rgba(0,224,112,0.08);border-color:var(--green);color:var(--green);}
-.tq-opt.wrong{background:rgba(200,0,0,0.08);border-color:var(--red);color:#ff5555;}
+.tq-opt:hover{border-color:var(–orange);transform:translateX(4px);}
+.tq-opt.correct{background:rgba(0,224,112,0.08);border-color:var(–green);color:var(–green);}
+.tq-opt.wrong{background:rgba(200,0,0,0.08);border-color:var(–red);color:#ff5555;}
 .tq-opt-letter{
-  width:28px;height:28px;flex-shrink:0;
-  background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.25);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--orange);
+width:28px;height:28px;flex-shrink:0;
+background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.25);
+display:flex;align-items:center;justify-content:center;
+font-family:‘Bebas Neue’,sans-serif;font-size:15px;color:var(–orange);
 }
-.tq-opt.correct .tq-opt-letter{background:rgba(0,224,112,0.12);border-color:var(--green);color:var(--green);}
-.tq-opt.wrong .tq-opt-letter{background:rgba(200,0,0,0.12);border-color:var(--red);color:#ff5555;}
+.tq-opt.correct .tq-opt-letter{background:rgba(0,224,112,0.12);border-color:var(–green);color:var(–green);}
+.tq-opt.wrong .tq-opt-letter{background:rgba(200,0,0,0.12);border-color:var(–red);color:#ff5555;}
 .tq-explain{
-  display:none;padding:14px 18px;
-  background:rgba(255,69,0,0.06);border-left:3px solid var(--orange);
-  font-size:13px;color:var(--grey2);line-height:1.7;margin-bottom:16px;
+display:none;padding:14px 18px;
+background:rgba(255,69,0,0.06);border-left:3px solid var(–orange);
+font-size:13px;color:var(–grey2);line-height:1.7;margin-bottom:16px;
 }
 .tq-explain.show{display:block;animation:fade-up 0.3s ease;}
 @keyframes fade-up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.tq-explain strong{color:var(--white);}
+.tq-explain strong{color:var(–white);}
 .tq-pts{
-  display:none;font-family:'Bebas Neue',sans-serif;
-  font-size:26px;letter-spacing:2px;color:var(--gold);
-  align-items:center;gap:8px;
+display:none;font-family:‘Bebas Neue’,sans-serif;
+font-size:26px;letter-spacing:2px;color:var(–gold);
+align-items:center;gap:8px;
 }
 .tq-pts.show{display:flex;animation:pts-pop 0.5s cubic-bezier(0.16,1,0.3,1);}
 @keyframes pts-pop{from{transform:scale(0.4);opacity:0}to{transform:scale(1);opacity:1}}
 
 /* MUSIC LINKS */
 .music-links{
-  display:flex;align-items:center;gap:10px;
-  padding:12px 14px;
-  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);
-  font-size:11px;color:var(--grey2);letter-spacing:1px;flex-wrap:wrap;
+display:flex;align-items:center;gap:10px;
+padding:12px 14px;
+background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);
+font-size:11px;color:var(–grey2);letter-spacing:1px;flex-wrap:wrap;
 }
 .music-links span{flex-shrink:0;}
 .music-link-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:5px 12px;font-size:10px;letter-spacing:2px;
-  font-family:'Oswald',sans-serif;font-weight:600;
-  cursor:pointer;border:none;transition:all 0.2s;text-decoration:none;
+display:inline-flex;align-items:center;gap:5px;
+padding:5px 12px;font-size:10px;letter-spacing:2px;
+font-family:‘Oswald’,sans-serif;font-weight:600;
+cursor:pointer;border:none;transition:all 0.2s;text-decoration:none;
 }
 .ml-yt {background:#FF0000;color:#fff;}
 .ml-am {background:linear-gradient(135deg,#fc3c44,#ff6482);color:#fff;}
@@ -528,237 +529,239 @@ nav{
 
 /* ══ LEVELS ══ */
 .levels-section{
-  padding:100px 40px;
-  background:var(--deep);
-  border-top:1px solid rgba(255,69,0,0.07);
-  border-bottom:1px solid rgba(255,69,0,0.07);
+padding:100px 40px;
+background:var(–deep);
+border-top:1px solid rgba(255,69,0,0.07);
+border-bottom:1px solid rgba(255,69,0,0.07);
 }
 .levels-inner{max-width:1100px;margin:0 auto;text-align:center;}
 .levels-grid{
-  display:grid;grid-template-columns:repeat(6,1fr);
-  gap:2px;margin-top:52px;
+display:grid;grid-template-columns:repeat(6,1fr);
+gap:2px;margin-top:52px;
 }
 .level-card{
-  background:var(--card);padding:36px 12px;
-  position:relative;transition:all 0.3s;
-  border-top:3px solid transparent;cursor:default;
-  display:flex;flex-direction:column;align-items:center;gap:12px;
+background:var(–card);padding:36px 12px;
+position:relative;transition:all 0.3s;
+border-top:3px solid transparent;cursor:default;
+display:flex;flex-direction:column;align-items:center;gap:12px;
 }
-.level-card:hover{background:rgba(255,69,0,0.05);border-top-color:var(--orange);transform:translateY(-6px);}
+.level-card:hover{background:rgba(255,69,0,0.05);border-top-color:var(–orange);transform:translateY(-6px);}
 .lv-icon{width:48px;height:48px;}
-.lv-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;}
-.lv-pts{font-size:10px;letter-spacing:2px;color:var(--orange);text-transform:uppercase;}
-.lv-1 .lv-icon path{stroke:var(--grey)!important;}
-.lv-1 .lv-name{color:var(--grey);}
-.lv-6 .lv-name{color:var(--gold);text-shadow:0 0 14px rgba(255,215,0,0.4);}
+.lv-name{font-family:‘Bebas Neue’,sans-serif;font-size:17px;letter-spacing:2px;}
+.lv-pts{font-size:10px;letter-spacing:2px;color:var(–orange);text-transform:uppercase;}
+.lv-1 .lv-icon path{stroke:var(–grey)!important;}
+.lv-1 .lv-name{color:var(–grey);}
+.lv-6 .lv-name{color:var(–gold);text-shadow:0 0 14px rgba(255,215,0,0.4);}
 
 /* ══ FEATURES ══ */
 .features-section{padding:100px 40px;max-width:1100px;margin:0 auto;}
 .features-header{text-align:center;margin-bottom:0;}
 .features-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:2px;margin-top:52px;
+display:grid;grid-template-columns:repeat(3,1fr);
+gap:2px;margin-top:52px;
 }
 .feature-card{
-  background:var(--card);padding:40px 28px;
-  position:relative;overflow:hidden;transition:all 0.3s;
+background:var(–card);padding:40px 28px;
+position:relative;overflow:hidden;transition:all 0.3s;
 }
 .feature-card::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--orange),transparent);
-  transform:scaleX(0);transition:transform 0.35s;
+content:’’;position:absolute;bottom:0;left:0;right:0;height:2px;
+background:linear-gradient(90deg,transparent,var(–orange),transparent);
+transform:scaleX(0);transition:transform 0.35s;
 }
 .feature-card:hover::after{transform:scaleX(1);}
 .feature-card:hover{background:rgba(255,69,0,0.04);}
 .fc-icon{width:44px;height:44px;margin-bottom:18px;}
-.fc-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--orange);margin-bottom:10px;}
-.fc-desc{color:var(--grey2);font-size:13px;font-weight:300;line-height:1.75;letter-spacing:0.3px;}
+.fc-title{font-family:‘Bebas Neue’,sans-serif;font-size:24px;letter-spacing:3px;color:var(–orange);margin-bottom:10px;}
+.fc-desc{color:var(–grey2);font-size:13px;font-weight:300;line-height:1.75;letter-spacing:0.3px;}
 
 /* ══ GENRES TICKER ══ */
 .genres-section{
-  padding:60px 0;background:var(--deep);
-  border-top:1px solid rgba(255,69,0,0.07);
-  border-bottom:1px solid rgba(255,69,0,0.07);
-  overflow:hidden;position:relative;
+padding:60px 0;background:var(–deep);
+border-top:1px solid rgba(255,69,0,0.07);
+border-bottom:1px solid rgba(255,69,0,0.07);
+overflow:hidden;position:relative;
 }
 .genres-section::before,.genres-section::after{
-  content:'';position:absolute;top:0;bottom:0;width:160px;z-index:2;pointer-events:none;
+content:’’;position:absolute;top:0;bottom:0;width:160px;z-index:2;pointer-events:none;
 }
-.genres-section::before{left:0;background:linear-gradient(90deg,var(--deep),transparent);}
-.genres-section::after{right:0;background:linear-gradient(-90deg,var(--deep),transparent);}
+.genres-section::before{left:0;background:linear-gradient(90deg,var(–deep),transparent);}
+.genres-section::after{right:0;background:linear-gradient(-90deg,var(–deep),transparent);}
 .ticker{display:flex;gap:12px;width:max-content;animation:ticker 28s linear infinite;}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .genre-chip{
-  background:transparent;border:1px solid rgba(255,69,0,0.18);
-  padding:8px 20px;font-size:10px;letter-spacing:3px;
-  text-transform:uppercase;color:var(--grey2);white-space:nowrap;
-  display:flex;align-items:center;gap:7px;transition:all 0.2s;
-  clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+background:transparent;border:1px solid rgba(255,69,0,0.18);
+padding:8px 20px;font-size:10px;letter-spacing:3px;
+text-transform:uppercase;color:var(–grey2);white-space:nowrap;
+display:flex;align-items:center;gap:7px;transition:all 0.2s;
+clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
 }
-.genre-chip:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,69,0,0.06);}
+.genre-chip:hover{border-color:var(–orange);color:var(–orange);background:rgba(255,69,0,0.06);}
 .genre-chip svg{width:12px;height:12px;flex-shrink:0;}
 
 /* ══ TRVE PASS ══ */
 .pass-section{padding:100px 40px;max-width:820px;margin:0 auto;text-align:center;}
 .pass-card{
-  background:linear-gradient(145deg,#140800,#0a0500);
-  border:1px solid rgba(255,69,0,0.25);
-  padding:56px 48px;position:relative;overflow:hidden;
+background:linear-gradient(145deg,#140800,#0a0500);
+border:1px solid rgba(255,69,0,0.25);
+padding:56px 48px;position:relative;overflow:hidden;
 }
 .pass-card::before{
-  content:'';position:absolute;top:-30%;left:-20%;
-  width:160%;height:160%;
-  background:radial-gradient(ellipse at 40% 40%,rgba(255,69,0,0.06) 0%,transparent 60%);
-  pointer-events:none;
+content:’’;position:absolute;top:-30%;left:-20%;
+width:160%;height:160%;
+background:radial-gradient(ellipse at 40% 40%,rgba(255,69,0,0.06) 0%,transparent 60%);
+pointer-events:none;
 }
 .pass-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:linear-gradient(135deg,var(--orange),var(--red));
-  color:var(--white);font-family:'Bebas Neue',sans-serif;
-  font-size:12px;letter-spacing:4px;padding:7px 24px;margin-bottom:24px;
-  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+display:inline-flex;align-items:center;gap:8px;
+background:linear-gradient(135deg,var(–orange),var(–red));
+color:var(–white);font-family:‘Bebas Neue’,sans-serif;
+font-size:12px;letter-spacing:4px;padding:7px 24px;margin-bottom:24px;
+clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
 }
 .pass-price{
-  font-family:'Bebas Neue',sans-serif;font-size:96px;
-  color:var(--white);line-height:1;margin:14px 0;
+font-family:‘Bebas Neue’,sans-serif;font-size:96px;
+color:var(–white);line-height:1;margin:14px 0;
 }
-.pass-price sup{font-size:40px;color:var(--orange);vertical-align:top;margin-top:20px;display:inline-block;}
-.pass-price sub{font-size:24px;color:var(--grey2);}
-.pass-period{font-size:11px;letter-spacing:3px;color:var(--grey2);text-transform:uppercase;margin-bottom:4px;}
+.pass-price sup{font-size:40px;color:var(–orange);vertical-align:top;margin-top:20px;display:inline-block;}
+.pass-price sub{font-size:24px;color:var(–grey2);}
+.pass-period{font-size:11px;letter-spacing:3px;color:var(–grey2);text-transform:uppercase;margin-bottom:4px;}
 .pass-annual{
-  display:inline-block;
-  background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);
-  color:var(--gold);font-size:11px;letter-spacing:2px;
-  padding:4px 14px;margin-bottom:28px;text-transform:uppercase;
+display:inline-block;
+background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);
+color:var(–gold);font-size:11px;letter-spacing:2px;
+padding:4px 14px;margin-bottom:28px;text-transform:uppercase;
 }
 .pass-features-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:0;text-align:left;margin:28px 0;
+display:grid;grid-template-columns:1fr 1fr;
+gap:0;text-align:left;margin:28px 0;
 }
 .pf-item{
-  padding:14px 12px;border-bottom:1px solid rgba(255,255,255,0.04);
-  display:flex;align-items:flex-start;gap:12px;
-  font-size:13px;color:var(--grey2);letter-spacing:0.3px;line-height:1.4;
+padding:14px 12px;border-bottom:1px solid rgba(255,255,255,0.04);
+display:flex;align-items:flex-start;gap:12px;
+font-size:13px;color:var(–grey2);letter-spacing:0.3px;line-height:1.4;
 }
 .pf-item:nth-child(odd){border-right:1px solid rgba(255,255,255,0.04);}
 .pf-icon{width:20px;height:20px;flex-shrink:0;margin-top:2px;}
-.pf-item strong{color:var(--white);}
+.pf-item strong{color:var(–white);}
 
 /* ══ WAITLIST ══ */
 .waitlist-section{
-  padding:120px 40px;text-align:center;
-  position:relative;overflow:hidden;
+padding:120px 40px;text-align:center;
+position:relative;overflow:hidden;
 }
 .waitlist-section::before{
-  content:'';position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  width:700px;height:700px;
-  background:radial-gradient(ellipse,rgba(122,0,0,0.1) 0%,transparent 70%);
-  pointer-events:none;
+content:’’;position:absolute;top:50%;left:50%;
+transform:translate(-50%,-50%);
+width:700px;height:700px;
+background:radial-gradient(ellipse,rgba(122,0,0,0.1) 0%,transparent 70%);
+pointer-events:none;
 }
 .waitlist-inner{max-width:560px;margin:0 auto;position:relative;}
 .wl-form{
-  display:flex;margin-top:36px;
-  max-width:480px;margin-left:auto;margin-right:auto;
+display:flex;margin-top:36px;
+max-width:480px;margin-left:auto;margin-right:auto;
 }
 .wl-input{
-  flex:1;background:var(--card);
-  border:1px solid rgba(255,69,0,0.25);border-right:none;
-  padding:15px 20px;font-family:'Oswald',sans-serif;
-  font-size:14px;color:var(--white);outline:none;letter-spacing:1px;
+flex:1;background:var(–card);
+border:1px solid rgba(255,69,0,0.25);border-right:none;
+padding:15px 20px;font-family:‘Oswald’,sans-serif;
+font-size:14px;color:var(–white);outline:none;letter-spacing:1px;
 }
-.wl-input:focus{border-color:var(--orange);}
-.wl-input::placeholder{color:var(--grey);}
+.wl-input:focus{border-color:var(–orange);}
+.wl-input::placeholder{color:var(–grey);}
 .wl-btn{
-  background:var(--orange);border:none;padding:15px 28px;
-  font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;
-  color:var(--black);cursor:pointer;transition:background 0.2s;white-space:nowrap;
+background:var(–orange);border:none;padding:15px 28px;
+font-family:‘Bebas Neue’,sans-serif;font-size:17px;letter-spacing:2px;
+color:var(–black);cursor:pointer;transition:background 0.2s;white-space:nowrap;
 }
-.wl-btn:hover{background:var(--gold);}
-.wl-note{margin-top:12px;font-size:10px;letter-spacing:2px;color:var(--grey);text-transform:uppercase;}
+.wl-btn:hover{background:var(–gold);}
+.wl-note{margin-top:12px;font-size:10px;letter-spacing:2px;color:var(–grey);text-transform:uppercase;}
 .wl-success{
-  display:none;margin-top:24px;padding:18px 24px;
-  background:rgba(255,69,0,0.08);border:1px solid rgba(255,69,0,0.25);
-  font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--orange);
+display:none;margin-top:24px;padding:18px 24px;
+background:rgba(255,69,0,0.08);border:1px solid rgba(255,69,0,0.25);
+font-family:‘Bebas Neue’,sans-serif;font-size:20px;letter-spacing:2px;color:var(–orange);
 }
 
 /* ══ FOOTER ══ */
 footer{
-  padding:64px 60px 36px;
-  border-top:1px solid rgba(255,69,0,0.09);
-  background:var(--deep);
+padding:64px 60px 36px;
+border-top:1px solid rgba(255,69,0,0.09);
+background:var(–deep);
 }
 .footer-top{
-  max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px;
+max-width:1100px;margin:0 auto;
+display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px;
 }
 .footer-brand .fb-logo{
-  font-family:'Bebas Neue',sans-serif;font-size:32px;
-  letter-spacing:6px;margin-bottom:12px;display:block;
+font-family:‘Bebas Neue’,sans-serif;font-size:32px;
+letter-spacing:6px;margin-bottom:12px;display:block;
 }
-.footer-brand .fb-logo .fbl-blast{color:var(--orange);}
-.footer-brand .fb-logo .fbl-bolt{color:var(--gold);}
-.footer-brand p{font-size:12px;letter-spacing:1px;color:var(--grey2);line-height:1.7;max-width:260px;}
+.footer-brand .fb-logo .fbl-blast{color:var(–orange);}
+.footer-brand .fb-logo .fbl-bolt{color:var(–gold);}
+.footer-brand p{font-size:12px;letter-spacing:1px;color:var(–grey2);line-height:1.7;max-width:260px;}
 
 .footer-col h4{
-  font-family:'Bebas Neue',sans-serif;letter-spacing:3px;
-  font-size:15px;color:var(--white);margin-bottom:16px;
+font-family:‘Bebas Neue’,sans-serif;letter-spacing:3px;
+font-size:15px;color:var(–white);margin-bottom:16px;
 }
 .footer-col ul{list-style:none;}
 .footer-col li{margin-bottom:10px;}
 .footer-col a{
-  color:var(--grey2);text-decoration:none;
-  font-size:12px;letter-spacing:1px;transition:color 0.2s;
-  display:flex;align-items:center;gap:7px;
+color:var(–grey2);text-decoration:none;
+font-size:12px;letter-spacing:1px;transition:color 0.2s;
+display:flex;align-items:center;gap:7px;
 }
-.footer-col a:hover{color:var(--orange);}
+.footer-col a:hover{color:var(–orange);}
 .footer-col a svg{width:12px;height:12px;opacity:0.5;}
 
 .footer-bottom{
-  max-width:1100px;margin:0 auto;padding-top:24px;
-  border-top:1px solid rgba(255,255,255,0.04);
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+max-width:1100px;margin:0 auto;padding-top:24px;
+border-top:1px solid rgba(255,255,255,0.04);
+display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
 }
-.footer-bottom p{font-size:10px;color:var(--grey);letter-spacing:2px;text-transform:uppercase;}
+.footer-bottom p{font-size:10px;color:var(–grey);letter-spacing:2px;text-transform:uppercase;}
 
 /* ══ CURSOR GLOW ══ */
 #cg{
-  position:fixed;width:350px;height:350px;
-  background:radial-gradient(circle,rgba(255,69,0,0.03) 0%,transparent 70%);
-  pointer-events:none;z-index:9001;border-radius:50%;
-  transition:left 0.06s,top 0.06s;will-change:left,top;
+position:fixed;width:350px;height:350px;
+background:radial-gradient(circle,rgba(255,69,0,0.03) 0%,transparent 70%);
+pointer-events:none;z-index:9001;border-radius:50%;
+transition:left 0.06s,top 0.06s;will-change:left,top;
 }
 
 /* ══ RESPONSIVE ══ */
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr;padding:140px 0 60px;}
-  .hero-left{padding:0 24px;}
-  .hero-right{display:none;}
-  .hero::after{display:none;}
-  .register-inner{grid-template-columns:1fr;}
-  .levels-grid{grid-template-columns:repeat(3,1fr);}
-  .features-grid{grid-template-columns:1fr 1fr;}
-  .pass-features-grid{grid-template-columns:1fr;}
-  .footer-top{grid-template-columns:1fr 1fr;gap:32px;}
-  nav{padding:10px 20px;}
-  .nav-links{display:none;}
-  .tq-opts{grid-template-columns:1fr;}
-  .lang-bar{padding:5px 16px;flex-wrap:wrap;justify-content:center;}
+.hero{grid-template-columns:1fr;padding:140px 0 60px;}
+.hero-left{padding:0 24px;}
+.hero-right{display:none;}
+.hero::after{display:none;}
+.register-inner{grid-template-columns:1fr;}
+.levels-grid{grid-template-columns:repeat(3,1fr);}
+.features-grid{grid-template-columns:1fr 1fr;}
+.pass-features-grid{grid-template-columns:1fr;}
+.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+nav{padding:10px 20px;}
+.nav-links{display:none;}
+.tq-opts{grid-template-columns:1fr;}
+.lang-bar{padding:5px 16px;flex-wrap:wrap;justify-content:center;}
 }
 @media(max-width:600px){
-  .hero-left{text-align:center;}
-  .hero-ctas{justify-content:center;}
-  .hero-social-proof{justify-content:center;}
-  .features-grid{grid-template-columns:1fr;}
-  .footer-top{grid-template-columns:1fr;}
+.hero-left{text-align:center;}
+.hero-ctas{justify-content:center;}
+.hero-social-proof{justify-content:center;}
+.features-grid{grid-template-columns:1fr;}
+.footer-top{grid-template-columns:1fr;}
 }
 </style>
+
 </head>
 <body>
 
 <div id="cg"></div>
 
 <!-- ══ REGISTER MODAL ══ -->
+
 <div class="modal-overlay" id="reg-modal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -773,37 +776,41 @@ footer{
     </div>
     <p style="font-size:12px;color:var(--grey2);letter-spacing:1px;text-align:center;margin-bottom:20px;line-height:1.5" data-i18n="reg_sub">Track TRVE POINTS · Challenge friends · Climb the throne</p>
 
-    <!-- SOCIAL BTNS -->
-    <button class="social-btn sb-google" onclick="doRegister('Google')">
-      <svg class="sb-icon" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-      <span data-i18n="reg_google">Continue with Google</span>
-      <span class="sb-badge" data-i18n="reg_rec">RECOMMENDED</span>
-    </button>
-    <button class="social-btn sb-facebook" onclick="doRegister('Facebook')">
-      <svg class="sb-icon" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
-      <span data-i18n="reg_facebook">Continue with Facebook</span>
-    </button>
-    <button class="social-btn sb-apple" onclick="doRegister('Apple')">
-      <svg class="sb-icon" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="#f5f5f5"/></svg>
-      <span data-i18n="reg_apple">Continue with Apple</span>
-    </button>
-    <div class="or-line" data-i18n="reg_or">or use email</div>
-    <input type="text"     class="input-f" id="m-user"  data-i18n-ph="ph_user"  placeholder="Your metalhead username" />
-    <input type="email"    class="input-f" id="m-email" data-i18n-ph="ph_email" placeholder="Email address" />
-    <input type="password" class="input-f" id="m-pass"  data-i18n-ph="ph_pass"  placeholder="Password" />
-    <button class="btn btn-primary btn-full" style="margin-top:6px" onclick="doRegister('Email')">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3m0 0a5 5 0 1 0-7-7 5 5 0 0 0 7 7z"/></svg>
-      <span data-i18n="reg_cta">CREATE MY METAL IDENTITY</span>
-    </button>
-    <p style="font-size:10px;color:var(--grey);letter-spacing:1px;text-align:center;margin-top:14px;line-height:1.5">
-      <span data-i18n="reg_terms">By joining you agree to our</span>
-      <a href="#" style="color:var(--orange);text-decoration:none" data-i18n="reg_terms_link">Terms of Riffs</a>.
-      <span data-i18n="reg_no_spam">No spam. No poseurs.</span>
-    </p>
+```
+<!-- SOCIAL BTNS -->
+<button class="social-btn sb-google" onclick="doRegister('Google')">
+  <svg class="sb-icon" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+  <span data-i18n="reg_google">Continue with Google</span>
+  <span class="sb-badge" data-i18n="reg_rec">RECOMMENDED</span>
+</button>
+<button class="social-btn sb-facebook" onclick="doRegister('Facebook')">
+  <svg class="sb-icon" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
+  <span data-i18n="reg_facebook">Continue with Facebook</span>
+</button>
+<button class="social-btn sb-apple" onclick="doRegister('Apple')">
+  <svg class="sb-icon" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="#f5f5f5"/></svg>
+  <span data-i18n="reg_apple">Continue with Apple</span>
+</button>
+<div class="or-line" data-i18n="reg_or">or use email</div>
+<input type="text"     class="input-f" id="m-user"  data-i18n-ph="ph_user"  placeholder="Your metalhead username" />
+<input type="email"    class="input-f" id="m-email" data-i18n-ph="ph_email" placeholder="Email address" />
+<input type="password" class="input-f" id="m-pass"  data-i18n-ph="ph_pass"  placeholder="Password" />
+<button class="btn btn-primary btn-full" style="margin-top:6px" onclick="doRegister('Email')">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3m0 0a5 5 0 1 0-7-7 5 5 0 0 0 7 7z"/></svg>
+  <span data-i18n="reg_cta">CREATE MY METAL IDENTITY</span>
+</button>
+<p style="font-size:10px;color:var(--grey);letter-spacing:1px;text-align:center;margin-top:14px;line-height:1.5">
+  <span data-i18n="reg_terms">By joining you agree to our</span>
+  <a href="#" style="color:var(--orange);text-decoration:none" data-i18n="reg_terms_link">Terms of Riffs</a>.
+  <span data-i18n="reg_no_spam">No spam. No poseurs.</span>
+</p>
+```
+
   </div>
 </div>
 
 <!-- ══ LANG BAR ══ -->
+
 <div class="lang-bar">
   <button class="lang-btn active" onclick="setLang('en',this)">🇺🇸 EN</button>
   <button class="lang-btn" onclick="setLang('es',this)">🇪🇸 ES</button>
@@ -814,6 +821,7 @@ footer{
 </div>
 
 <!-- ══ NAV ══ -->
+
 <nav>
   <div class="nav-logo">
     <span class="nl-blast">BLAST</span>
@@ -830,6 +838,7 @@ footer{
 </nav>
 
 <!-- ══ HERO ══ -->
+
 <section class="hero">
   <div class="embers">
     <div class="ember e1"></div><div class="ember e2"></div><div class="ember e3"></div>
@@ -843,39 +852,43 @@ footer{
       <span data-i18n="hero_badge">#1 HEAVY METAL TRIVIA GAME — WORLDWIDE</span>
     </div>
 
-    <h1 class="hero-title">
-      <span class="ht-blast">BLAST</span>
-      <span class="ht-bolt">⚡</span>
-      <span class="ht-riff">RIFF</span>
-    </h1>
+```
+<h1 class="hero-title">
+  <span class="ht-blast">BLAST</span>
+  <span class="ht-bolt">⚡</span>
+  <span class="ht-riff">RIFF</span>
+</h1>
 
-    <p class="hero-tagline">
-      <span data-i18n="hero_tag1">Prove you're a</span> <span class="hl">Trve Metalhead</span>
-    </p>
+<p class="hero-tagline">
+  <span data-i18n="hero_tag1">Prove you're a</span> <span class="hl">Trve Metalhead</span>
+</p>
 
-    <div class="hero-ctas">
-      <button class="btn btn-primary" onclick="openModal()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>
-        <span data-i18n="hero_cta1">PLAY FREE NOW</span>
-      </button>
-      <a href="#pass" class="btn btn-ghost">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span data-i18n="hero_cta2">TRVE PASS</span>
-      </a>
-    </div>
+<div class="hero-ctas">
+  <button class="btn btn-primary" onclick="openModal()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>
+    <span data-i18n="hero_cta1">PLAY FREE NOW</span>
+  </button>
+  <a href="#pass" class="btn btn-ghost">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <span data-i18n="hero_cta2">TRVE PASS</span>
+  </a>
+</div>
 
-    <div class="hero-social-proof">
-      <div class="avatar-stack">
-        <span>🤘</span><span>☠️</span><span>🎸</span><span>⚡</span>
-      </div>
-      <div class="proof-text">
-        <strong>4,847</strong> <span data-i18n="proof_text">metalheads waiting</span><br>
-        <span data-i18n="proof_sub">First 1,000 get 30 days TRVE PASS free</span>
-      </div>
-    </div>
+<div class="hero-social-proof">
+  <div class="avatar-stack">
+    <span>🤘</span><span>☠️</span><span>🎸</span><span>⚡</span>
+  </div>
+  <div class="proof-text">
+    <strong>4,847</strong> <span data-i18n="proof_text">metalheads waiting</span><br>
+    <span data-i18n="proof_sub">First 1,000 get 30 days TRVE PASS free</span>
+  </div>
+</div>
+```
+
   </div>
 
   <!-- PHONE MOCKUP -->
+
   <div class="hero-right">
     <div class="phone-frame">
       <div class="phone-screen">
@@ -926,6 +939,7 @@ footer{
 </section>
 
 <!-- ══ REGISTER ══ -->
+
 <section class="register-section" id="register">
   <div class="register-inner">
     <div class="reg-left reveal">
@@ -981,6 +995,7 @@ footer{
 </section>
 
 <!-- ══ TRIVIA DEMO ══ -->
+
 <section class="trivia-section" id="play">
   <div class="section-eyebrow" style="justify-content:center" data-i18n="trivia_eyebrow">Try a question</div>
   <h2 class="section-title"><span data-i18n="trivia_t1">THINK YOU KNOW</span> <span class="hl">METAL?</span></h2>
@@ -1013,108 +1028,116 @@ footer{
       +150 <span data-i18n="tq_pts_label">TRVE POINTS EARNED</span>
     </div>
 
-    <!-- MUSIC LINKS (shown after answering) -->
-    <div class="music-links" id="demo-music" style="display:none;margin-top:16px;animation:fade-up 0.4s ease">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--grey2)" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-      <span data-i18n="music_listen">Listen now:</span>
-      <a class="music-link-btn ml-yt" href="https://www.youtube.com/results?search_query=Metallica+Master+of+Puppets" target="_blank">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.55 3.5 12 3.5 12 3.5s-7.55 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.83.55 9.38.55 9.38.55s7.55 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
-        YouTube
-      </a>
-      <a class="music-link-btn ml-am" href="https://music.apple.com/search?term=Metallica+Master+of+Puppets" target="_blank">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-1.38 2.83z"/></svg>
-        Apple Music
-      </a>
-      <a class="music-link-btn ml-sp" href="https://open.spotify.com/search/Metallica%20Master%20of%20Puppets" target="_blank">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="black"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-        Spotify
-      </a>
-    </div>
+```
+<!-- MUSIC LINKS (shown after answering) -->
+<div class="music-links" id="demo-music" style="display:none;margin-top:16px;animation:fade-up 0.4s ease">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--grey2)" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+  <span data-i18n="music_listen">Listen now:</span>
+  <a class="music-link-btn ml-yt" href="https://www.youtube.com/results?search_query=Metallica+Master+of+Puppets" target="_blank">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.55 3.5 12 3.5 12 3.5s-7.55 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.83.55 9.38.55 9.38.55s7.55 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+    YouTube
+  </a>
+  <a class="music-link-btn ml-am" href="https://music.apple.com/search?term=Metallica+Master+of+Puppets" target="_blank">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-1.38 2.83z"/></svg>
+    Apple Music
+  </a>
+  <a class="music-link-btn ml-sp" href="https://open.spotify.com/search/Metallica%20Master%20of%20Puppets" target="_blank">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="black"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+    Spotify
+  </a>
+</div>
+```
+
   </div>
 </section>
 
 <!-- ══ LEVELS ══ -->
+
 <section class="levels-section" id="levels">
   <div class="levels-inner">
     <div class="section-eyebrow" style="justify-content:center" data-i18n="levels_eyebrow">The path</div>
     <h2 class="section-title"><span data-i18n="levels_t1">EARN YOUR</span> <span class="hl">TRVE POINTS</span></h2>
     <p class="section-sub" data-i18n="levels_sub">You start as a POSEUR. The only way out is knowledge.</p>
 
-    <div class="levels-grid">
-      <!-- Level 1: Poseur -->
-      <div class="level-card lv-1 reveal">
-        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
-          <circle cx="24" cy="20" r="10" stroke="#555" stroke-width="2"/>
-          <path d="M8 42c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#555" stroke-width="2"/>
-          <path d="M18 18c0 0 2-4 6-4s6 4 6 4" stroke="#555" stroke-width="1.5"/>
-          <path d="M20 22 c1 1 3 1 4 0" stroke="#555" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        <div class="lv-name" data-i18n="lv1">POSEUR</div>
-        <div class="lv-pts">0 TP</div>
-      </div>
-      <!-- Level 2: Headbanger -->
-      <div class="level-card reveal reveal-d1">
-        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
-          <path d="M12 36 C12 26 20 18 24 14 C28 18 36 26 36 36" stroke="var(--orange)" stroke-width="2"/>
-          <path d="M8 42 L12 36 L36 36 L40 42" stroke="var(--orange)" stroke-width="2"/>
-          <path d="M16 14 L8 6" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"/>
-          <path d="M32 14 L40 6" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="24" cy="10" r="3" fill="var(--orange)" opacity="0.6"/>
-        </svg>
-        <div class="lv-name" data-i18n="lv2">HEADBANGER</div>
-        <div class="lv-pts">500 TP</div>
-      </div>
-      <!-- Level 3: Metalhead -->
-      <div class="level-card reveal reveal-d2">
-        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
-          <circle cx="24" cy="22" r="12" stroke="var(--white)" stroke-width="2"/>
-          <circle cx="20" cy="19" r="2" fill="var(--white)"/>
-          <circle cx="28" cy="19" r="2" fill="var(--white)"/>
-          <path d="M18 27 Q24 31 30 27" stroke="var(--white)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <path d="M12 10 L8 4 M36 10 L40 4" stroke="var(--orange)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M8 18 L4 16 M40 18 L44 16" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        <div class="lv-name" data-i18n="lv3">METALHEAD</div>
-        <div class="lv-pts">2,000 TP</div>
-      </div>
-      <!-- Level 4: Cult Member -->
-      <div class="level-card reveal reveal-d3">
-        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
-          <polygon points="24,4 28,16 40,16 31,24 34,36 24,29 14,36 17,24 8,16 20,16" stroke="var(--orange)" stroke-width="2" fill="rgba(255,69,0,0.1)"/>
-          <circle cx="24" cy="20" r="4" fill="var(--orange)" opacity="0.7"/>
-        </svg>
-        <div class="lv-name" data-i18n="lv4">CULT MEMBER</div>
-        <div class="lv-pts">8,000 TP</div>
-      </div>
-      <!-- Level 5: TRVE KVLT -->
-      <div class="level-card reveal reveal-d4">
-        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
-          <circle cx="24" cy="24" r="18" stroke="var(--red)" stroke-width="1.5" opacity="0.5"/>
-          <line x1="24" y1="6" x2="24" y2="42" stroke="var(--red)" stroke-width="1.5"/>
-          <line x1="24" y1="6" x2="36" y2="32" stroke="var(--red)" stroke-width="1.5"/>
-          <line x1="24" y1="6" x2="12" y2="32" stroke="var(--red)" stroke-width="1.5"/>
-          <line x1="36" y1="32" x2="12" y2="32" stroke="var(--red)" stroke-width="1.5"/>
-          <line x1="12" y1="20" x2="36" y2="20" stroke="var(--red)" stroke-width="1.5"/>
-          <circle cx="24" cy="24" r="3" fill="var(--red)"/>
-        </svg>
-        <div class="lv-name" data-i18n="lv5">TRVE KVLT</div>
-        <div class="lv-pts">25,000 TP</div>
-      </div>
-      <!-- Level 6: Blast Riff -->
-      <div class="level-card lv-6 reveal reveal-d4">
-        <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
-          <path d="M24 4 L28 18 L42 14 L32 24 L42 34 L28 30 L24 44 L20 30 L6 34 L16 24 L6 14 L20 18 Z" stroke="var(--gold)" stroke-width="1.5" fill="rgba(255,215,0,0.08)"/>
-          <circle cx="24" cy="24" r="6" fill="var(--gold)" opacity="0.9"/>
-          <circle cx="24" cy="24" r="3" fill="var(--black)"/>
-        </svg>
-        <div class="lv-name" data-i18n="lv6">BLAST RIFF</div>
-        <div class="lv-pts">100,000 TP</div>
-      </div>
-    </div>
+```
+<div class="levels-grid">
+  <!-- Level 1: Poseur -->
+  <div class="level-card lv-1 reveal">
+    <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="20" r="10" stroke="#555" stroke-width="2"/>
+      <path d="M8 42c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#555" stroke-width="2"/>
+      <path d="M18 18c0 0 2-4 6-4s6 4 6 4" stroke="#555" stroke-width="1.5"/>
+      <path d="M20 22 c1 1 3 1 4 0" stroke="#555" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="lv-name" data-i18n="lv1">POSEUR</div>
+    <div class="lv-pts">0 TP</div>
+  </div>
+  <!-- Level 2: Headbanger -->
+  <div class="level-card reveal reveal-d1">
+    <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+      <path d="M12 36 C12 26 20 18 24 14 C28 18 36 26 36 36" stroke="var(--orange)" stroke-width="2"/>
+      <path d="M8 42 L12 36 L36 36 L40 42" stroke="var(--orange)" stroke-width="2"/>
+      <path d="M16 14 L8 6" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M32 14 L40 6" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="24" cy="10" r="3" fill="var(--orange)" opacity="0.6"/>
+    </svg>
+    <div class="lv-name" data-i18n="lv2">HEADBANGER</div>
+    <div class="lv-pts">500 TP</div>
+  </div>
+  <!-- Level 3: Metalhead -->
+  <div class="level-card reveal reveal-d2">
+    <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="22" r="12" stroke="var(--white)" stroke-width="2"/>
+      <circle cx="20" cy="19" r="2" fill="var(--white)"/>
+      <circle cx="28" cy="19" r="2" fill="var(--white)"/>
+      <path d="M18 27 Q24 31 30 27" stroke="var(--white)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M12 10 L8 4 M36 10 L40 4" stroke="var(--orange)" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M8 18 L4 16 M40 18 L44 16" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="lv-name" data-i18n="lv3">METALHEAD</div>
+    <div class="lv-pts">2,000 TP</div>
+  </div>
+  <!-- Level 4: Cult Member -->
+  <div class="level-card reveal reveal-d3">
+    <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+      <polygon points="24,4 28,16 40,16 31,24 34,36 24,29 14,36 17,24 8,16 20,16" stroke="var(--orange)" stroke-width="2" fill="rgba(255,69,0,0.1)"/>
+      <circle cx="24" cy="20" r="4" fill="var(--orange)" opacity="0.7"/>
+    </svg>
+    <div class="lv-name" data-i18n="lv4">CULT MEMBER</div>
+    <div class="lv-pts">8,000 TP</div>
+  </div>
+  <!-- Level 5: TRVE KVLT -->
+  <div class="level-card reveal reveal-d4">
+    <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="24" r="18" stroke="var(--red)" stroke-width="1.5" opacity="0.5"/>
+      <line x1="24" y1="6" x2="24" y2="42" stroke="var(--red)" stroke-width="1.5"/>
+      <line x1="24" y1="6" x2="36" y2="32" stroke="var(--red)" stroke-width="1.5"/>
+      <line x1="24" y1="6" x2="12" y2="32" stroke="var(--red)" stroke-width="1.5"/>
+      <line x1="36" y1="32" x2="12" y2="32" stroke="var(--red)" stroke-width="1.5"/>
+      <line x1="12" y1="20" x2="36" y2="20" stroke="var(--red)" stroke-width="1.5"/>
+      <circle cx="24" cy="24" r="3" fill="var(--red)"/>
+    </svg>
+    <div class="lv-name" data-i18n="lv5">TRVE KVLT</div>
+    <div class="lv-pts">25,000 TP</div>
+  </div>
+  <!-- Level 6: Blast Riff -->
+  <div class="level-card lv-6 reveal reveal-d4">
+    <svg class="lv-icon" viewBox="0 0 48 48" fill="none">
+      <path d="M24 4 L28 18 L42 14 L32 24 L42 34 L28 30 L24 44 L20 30 L6 34 L16 24 L6 14 L20 18 Z" stroke="var(--gold)" stroke-width="1.5" fill="rgba(255,215,0,0.08)"/>
+      <circle cx="24" cy="24" r="6" fill="var(--gold)" opacity="0.9"/>
+      <circle cx="24" cy="24" r="3" fill="var(--black)"/>
+    </svg>
+    <div class="lv-name" data-i18n="lv6">BLAST RIFF</div>
+    <div class="lv-pts">100,000 TP</div>
+  </div>
+</div>
+```
+
   </div>
 </section>
 
 <!-- ══ FEATURES ══ -->
+
 <section class="features-section" id="features">
   <div class="features-header">
     <div class="section-eyebrow" style="justify-content:center" data-i18n="feat_eyebrow">Game modes</div>
@@ -1185,6 +1208,7 @@ footer{
 </section>
 
 <!-- ══ GENRES TICKER ══ -->
+
 <div class="genres-section">
   <div class="ticker" id="ticker">
     <div class="genre-chip"><svg viewBox="0 0 12 12" fill="var(--orange)"><polygon points="6,1 7.5,4.5 11,5 8.5,7.5 9.2,11 6,9.3 2.8,11 3.5,7.5 1,5 4.5,4.5"/></svg>THRASH METAL</div>
@@ -1226,6 +1250,7 @@ footer{
 </div>
 
 <!-- ══ TRVE PASS ══ -->
+
 <section class="pass-section" id="pass">
   <div class="section-eyebrow" style="justify-content:center" data-i18n="pass_eyebrow">Premium</div>
   <h2 class="section-title"><span data-i18n="pass_t1">THE</span> <span class="hl">TRVE PASS</span></h2>
@@ -1240,41 +1265,45 @@ footer{
     <div class="pass-period" data-i18n="pass_period">PER MONTH · CANCEL ANYTIME</div>
     <div class="pass-annual" data-i18n="pass_annual">OR $39.99/YEAR — SAVE 33%</div>
 
-    <div class="pass-features-grid">
-      <div class="pf-item">
-        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="var(--orange)" stroke-width="1.5"/><path d="M7 10l2 2 4-4" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <span><strong data-i18n="pf1a">Zero ads.</strong> <span data-i18n="pf1b">Pure metal.</span></span>
-      </div>
-      <div class="pf-item">
-        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><polygon points="10,2 12.4,7.5 18.5,8.1 14,12.2 15.5,18.2 10,15 4.5,18.2 6,12.2 1.5,8.1 7.6,7.5" stroke="var(--gold)" stroke-width="1.5" fill="rgba(255,215,0,0.1)"/></svg>
-        <span><strong data-i18n="pf2a">+20% TRVE POINTS</strong> <span data-i18n="pf2b">every answer</span></span>
-      </div>
-      <div class="pf-item">
-        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><path d="M4 17 L4 5 L16 5 L16 17Z" stroke="var(--orange)" stroke-width="1.5"/><line x1="7" y1="9" x2="13" y2="9" stroke="var(--orange)" stroke-width="1.2" opacity="0.6"/><line x1="7" y1="12" x2="13" y2="12" stroke="var(--orange)" stroke-width="1.2" opacity="0.6"/></svg>
-        <span><strong data-i18n="pf3a">Full Grimoire</strong> <span data-i18n="pf3b">all lore unlocked</span></span>
-      </div>
-      <div class="pf-item">
-        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><path d="M10 2 L12 8 L18 8 L13.5 11.5 L15 17.5 L10 14 L5 17.5 L6.5 11.5 L2 8 L8 8Z" stroke="var(--orange)" stroke-width="1.5" fill="rgba(255,69,0,0.08)"/></svg>
-        <span><strong data-i18n="pf4a">TRVE KVLT badge</strong> <span data-i18n="pf4b">on your profile</span></span>
-      </div>
-      <div class="pf-item">
-        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><path d="M10 2 L13 8 L19 9 L14.5 13.5 L15.5 19.5 L10 16.5 L4.5 19.5 L5.5 13.5 L1 9 L7 8Z" stroke="var(--orange)" stroke-width="1.2"/><circle cx="10" cy="10" r="2" fill="var(--orange)" opacity="0.7"/></svg>
-        <span><strong data-i18n="pf5a">TRVE WARS</strong> <span data-i18n="pf5b">priority access</span></span>
-      </div>
-      <div class="pf-item">
-        <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="10" rx="1" stroke="var(--orange)" stroke-width="1.5"/><path d="M8 5V4a2 2 0 0 1 4 0v1" stroke="var(--orange)" stroke-width="1.5"/><circle cx="10" cy="10" r="2" fill="var(--orange)" opacity="0.7"/></svg>
-        <span><strong data-i18n="pf6a">Exclusive cards</strong> <span data-i18n="pf6b">for Stories</span></span>
-      </div>
-    </div>
+```
+<div class="pass-features-grid">
+  <div class="pf-item">
+    <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="var(--orange)" stroke-width="1.5"/><path d="M7 10l2 2 4-4" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <span><strong data-i18n="pf1a">Zero ads.</strong> <span data-i18n="pf1b">Pure metal.</span></span>
+  </div>
+  <div class="pf-item">
+    <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><polygon points="10,2 12.4,7.5 18.5,8.1 14,12.2 15.5,18.2 10,15 4.5,18.2 6,12.2 1.5,8.1 7.6,7.5" stroke="var(--gold)" stroke-width="1.5" fill="rgba(255,215,0,0.1)"/></svg>
+    <span><strong data-i18n="pf2a">+20% TRVE POINTS</strong> <span data-i18n="pf2b">every answer</span></span>
+  </div>
+  <div class="pf-item">
+    <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><path d="M4 17 L4 5 L16 5 L16 17Z" stroke="var(--orange)" stroke-width="1.5"/><line x1="7" y1="9" x2="13" y2="9" stroke="var(--orange)" stroke-width="1.2" opacity="0.6"/><line x1="7" y1="12" x2="13" y2="12" stroke="var(--orange)" stroke-width="1.2" opacity="0.6"/></svg>
+    <span><strong data-i18n="pf3a">Full Grimoire</strong> <span data-i18n="pf3b">all lore unlocked</span></span>
+  </div>
+  <div class="pf-item">
+    <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><path d="M10 2 L12 8 L18 8 L13.5 11.5 L15 17.5 L10 14 L5 17.5 L6.5 11.5 L2 8 L8 8Z" stroke="var(--orange)" stroke-width="1.5" fill="rgba(255,69,0,0.08)"/></svg>
+    <span><strong data-i18n="pf4a">TRVE KVLT badge</strong> <span data-i18n="pf4b">on your profile</span></span>
+  </div>
+  <div class="pf-item">
+    <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><path d="M10 2 L13 8 L19 9 L14.5 13.5 L15.5 19.5 L10 16.5 L4.5 19.5 L5.5 13.5 L1 9 L7 8Z" stroke="var(--orange)" stroke-width="1.2"/><circle cx="10" cy="10" r="2" fill="var(--orange)" opacity="0.7"/></svg>
+    <span><strong data-i18n="pf5a">TRVE WARS</strong> <span data-i18n="pf5b">priority access</span></span>
+  </div>
+  <div class="pf-item">
+    <svg class="pf-icon" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="10" rx="1" stroke="var(--orange)" stroke-width="1.5"/><path d="M8 5V4a2 2 0 0 1 4 0v1" stroke="var(--orange)" stroke-width="1.5"/><circle cx="10" cy="10" r="2" fill="var(--orange)" opacity="0.7"/></svg>
+    <span><strong data-i18n="pf6a">Exclusive cards</strong> <span data-i18n="pf6b">for Stories</span></span>
+  </div>
+</div>
 
-    <button class="btn btn-primary btn-full" style="margin-top:8px;font-size:20px" onclick="openModal()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <span data-i18n="pass_cta">JOIN WAITLIST — 30 DAYS FREE</span>
-    </button>
+<button class="btn btn-primary btn-full" style="margin-top:8px;font-size:20px" onclick="openModal()">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+  <span data-i18n="pass_cta">JOIN WAITLIST — 30 DAYS FREE</span>
+</button>
+```
+
   </div>
 </section>
 
 <!-- ══ WAITLIST ══ -->
+
 <section class="waitlist-section" id="waitlist">
   <div class="waitlist-inner reveal">
     <div class="section-eyebrow" style="justify-content:center" data-i18n="wl_eyebrow">Early Access</div>
@@ -1298,6 +1327,7 @@ footer{
 </section>
 
 <!-- ══ FOOTER ══ -->
+
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
@@ -1522,9 +1552,25 @@ function demoAnswer(btn,correct){
 function joinWL(){
   const e=document.getElementById('wl-email');
   if(!e.value||!e.value.includes('@')){e.style.borderColor='#ff4444';return;}
-  document.querySelector('.wl-form').style.display='none';
-  document.getElementById('wl-success').style.display='block';
-  showToast('🤘 '+(T[lang]?.wl_ok||"YOU'RE IN THE PIT!"));
+  const btn=document.querySelector('.wl-btn');
+  btn.disabled=true;btn.textContent='SENDING...';
+  fetch('https://formspree.io/f/mnjwqqnr',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({email:e.value,_subject:'New Blast Riff Waitlist 🤘',source:'blastriff.com',lang:lang})
+  }).then(r=>{
+    if(r.ok){
+      document.querySelector('.wl-form').style.display='none';
+      document.getElementById('wl-success').style.display='block';
+      showToast('🤘 '+(T[lang]?.wl_ok||"YOU'RE IN THE PIT!"));
+    } else {
+      btn.disabled=false;btn.innerHTML='<span data-i18n="wl_btn">I\'M TRVE</span>';
+      alert('Something went wrong. Try again.');
+    }
+  }).catch(()=>{
+    btn.disabled=false;btn.innerHTML='<span data-i18n="wl_btn">I\'M TRVE</span>';
+    alert('Connection error. Try again.');
+  });
 }
 
 /* ══ SCROLL REVEAL ══ */
@@ -1562,5 +1608,6 @@ function showToast(msg){
   toastT=setTimeout(()=>t.style.opacity='0',2800);
 }
 </script>
+
 </body>
 </html>
