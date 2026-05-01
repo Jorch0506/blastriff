@@ -1652,40 +1652,164 @@ nav{padding:10px 20px;}
 </footer>
 
 <script>
-/* ══ TRANSLATIONS (core keys) ══ */
-const T={
+/* ══ STATE ══ */
+let G = {
+  questions:[], currentQ:0, score:0, trvePoints:0,
+  correctCount:0, streak:0, bestStreak:0,
+  answered:false, timerInterval:null, timeLeft:15,
+  startTime:null, totalTime:0, lang:'en'
+};
+
+/* ══ USER SESSION ══ */
+let currentUser = null;
+try {
+  const s = localStorage.getItem('br_user');
+  if (s) currentUser = JSON.parse(s);
+} catch(e) {}
+
+/* ══ MODAL ══ */
+function openModal(){
+  // Already logged in → go straight to game
+  if (currentUser) { startG(); return; }
+  document.getElementById('reg-modal').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('reg-modal').classList.remove('open');
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var m = document.getElementById('reg-modal');
+  if (m) m.addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+});
+
+/* ══ AUTH — SIMPLE & CLEAN ══ */
+function socialLogin(provider) {
+  var names = {google:'Metal Fan', apple:'Iron Fan', facebook:'Heavy Fan'};
+  var user = {
+    username: names[provider] + Math.floor(Math.random()*9000+1000),
+    email: provider + '@blastriff.com',
+    trvePoints: 0,
+    joinedAt: Date.now()
+  };
+  saveUser(user);
+}
+
+function emailAuth() {
+  var email = (document.getElementById('auth-email') || {}).value || '';
+  var pass  = (document.getElementById('auth-password') || {}).value || '';
+  var uname = (document.getElementById('auth-username') || {}).value || '';
+  var err   = document.getElementById('auth-error');
+
+  if (!email || email.indexOf('@') < 0) {
+    if(err){ err.textContent='Enter a valid email.'; err.style.display='block'; }
+    return;
+  }
+  if (!pass || pass.length < 4) {
+    if(err){ err.textContent='Password too short (min 4 chars).'; err.style.display='block'; }
+    return;
+  }
+
+  var btn = document.getElementById('auth-submit-btn');
+  if(btn){ btn.textContent='ENTERING THE PIT...'; btn.style.background='#555'; }
+
+  var name = (uname.trim() || email.split('@')[0]).toUpperCase();
+  var user = {
+    username: name,
+    email: email,
+    trvePoints: 0,
+    joinedAt: Date.now()
+  };
+  setTimeout(function(){ saveUser(user); }, 700);
+}
+
+function saveUser(user) {
+  currentUser = user;
+  try { localStorage.setItem('br_user', JSON.stringify(user)); } catch(e){}
+  closeModal();
+  showToast('🤘 WELCOME ' + user.username + '!');
+  updateUI();
+  setTimeout(function(){ startG(); }, 800);
+}
+
+function signOut() {
+  currentUser = null;
+  try { localStorage.removeItem('br_user'); } catch(e){}
+  var ub = document.getElementById('user-bar');
+  if (ub) ub.remove();
+  // Reset nav button
+  var btn = document.querySelector('.nav-cta');
+  if (btn) {
+    btn.textContent = 'JOIN FREE';
+    btn.style.background = 'var(--orange)';
+    btn.style.webkitTextFillColor = 'var(--black)';
+    btn.onclick = function(e){ e.preventDefault(); openModal(); };
+  }
+  showToast('👋 Signed out!');
+}
+
+/* ══ UI UPDATE AFTER LOGIN ══ */
+function updateUI() {
+  if (!currentUser) return;
+
+  // Nav button → username (tap = sign out)
+  var navBtn = document.querySelector('.nav-cta');
+  if (navBtn) {
+    navBtn.textContent = '✅ ' + currentUser.username.substring(0,10);
+    navBtn.style.background = '#00e070';
+    navBtn.style.webkitTextFillColor = '#000';
+    navBtn.onclick = function(e){ e.preventDefault(); signOut(); };
+  }
+
+  // User bar
+  var bar = document.getElementById('user-bar');
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'user-bar';
+    bar.style.cssText = 'position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(0,224,112,0.12);border-bottom:1px solid rgba(0,224,112,0.3);padding:6px 16px;display:flex;align-items:center;justify-content:space-between;font-family:Bebas Neue,sans-serif;font-size:13px;letter-spacing:2px;';
+    document.body.appendChild(bar);
+  }
+  bar.innerHTML =
+    '<span style="color:#00e070;-webkit-text-fill-color:#00e070">✅ ' + currentUser.username + '</span>' +
+    '<span style="color:#FFD700;-webkit-text-fill-color:#FFD700">⚡ ' + (currentUser.trvePoints||0) + ' TP</span>' +
+    '<button onclick="startG()" style="background:var(--orange);border:none;padding:5px 14px;font-family:Bebas Neue,sans-serif;font-size:14px;letter-spacing:2px;color:#000;cursor:pointer;">▶ PLAY</button>' +
+    '<button onclick="signOut()" style="background:transparent;border:1px solid #555;padding:5px 10px;font-family:Bebas Neue,sans-serif;font-size:11px;letter-spacing:1px;color:#888;cursor:pointer;-webkit-text-fill-color:#888;">EXIT</button>';
+}
+
+// Run on page load
+if (currentUser) {
+  document.addEventListener('DOMContentLoaded', updateUI);
+  setTimeout(updateUI, 300);
+}
+
+/* ══ TRANSLATIONS ══ */
+const T = {
   en:{nav_play:"Play",nav_levels:"Levels",nav_modes:"Game Modes",nav_pass:"TRVE Pass",nav_join:"JOIN FREE",
     hero_badge:"#1 HEAVY METAL TRIVIA GAME — WORLDWIDE",hero_tag1:"Prove you're a",
-    hero_cta1:"PLAY FREE NOW",hero_cta2:"TRVE PASS",proof_text:"metalheads waiting",proof_sub:"First 1,000 get 30 days TRVE PASS free",
+    hero_cta1:"PLAY FREE NOW",hero_cta2:"TRVE PASS",
+    proof_text:"metalheads waiting",proof_sub:"First 1,000 get 30 days TRVE PASS free",
     reg_eyebrow:"Join free — 10 seconds",reg_title:"CREATE YOUR",reg_sub:"Track TRVE POINTS · Challenge friends · Climb the throne",
     reg_eyebrow2:"Join the community",reg_section_title:"YOUR",reg_section_title2:"METAL IDENTITY",reg_section_title3:"AWAITS",
-    reg_section_sub:"One account. All platforms. Sign up once and carry your TRVE POINTS, rank, and Grimoire across web, iOS and Android.",
+    reg_section_sub:"One account. All platforms. Sign up once and carry your TRVE POINTS everywhere.",
     reg_google:"Continue with Google",reg_facebook:"Continue with Facebook",reg_apple:"Continue with Apple",
     reg_rec:"RECOMMENDED",reg_or:"or use email",reg_cta:"CREATE MY METAL IDENTITY",
-    reg_terms:"By joining you agree to our",reg_terms_link:"Terms of Riffs",reg_no_spam:"No spam. No poseurs.",
-    reg_signin:"Already TRVE?",reg_signin_link:"Sign in here",
-    b1_title:"TRVE POINTS persist forever",b1_sub:"Never lose your rank. Your score follows you everywhere.",
-    b2_title:"Challenge leaderboard",b2_sub:"Send challenges, receive challenges, steal points.",
-    b3_title:"The Grimoire unlocks",b3_sub:"Deep metal lore, band histories and gear guides.",
-    b4_title:"100% free forever",b4_sub:"Core game is always free. TRVE PASS is optional.",
-    ph_user:"Your metalhead username",ph_email:"Email address",ph_pass:"Password",
+    reg_terms:"By joining you agree to our Terms of Riffs. No spam. No poseurs.",
+    ph_user:"Your metalhead username",ph_email:"Email address",
     trivia_eyebrow:"Try a question",trivia_t1:"THINK YOU KNOW",trivia_sub:"Answer correctly. Earn TRVE POINTS. Stop being a poseur.",
     tq_genre:"Thrash Metal",tq_diff:"HEADBANGER LEVEL",
     tq_text:"Which band released 'Master of Puppets' in 1986 — widely considered the greatest thrash metal album ever recorded?",
     tq_a:"Slayer",tq_b:"Metallica",tq_c:"Megadeth",tq_d:"Anthrax",
-    tq_trve:"🤘 TRVE.",tq_explain:"Metallica's 'Master of Puppets' (1986) was recorded at Sweet Silence Studios in Denmark for $150,000. It debuted at #29 on Billboard 200 without any radio play — purely word of mouth within the metal underground.",
-    tq_pts_label:"TRVE POINTS EARNED",music_listen:"Listen now:",
+    tq_trve:"🤘 TRVE.",tq_explain:"Metallica recorded 'Master of Puppets' in Denmark in 1986. It debuted at #29 on Billboard 200 with zero radio play — pure underground word of mouth.",
+    tq_pts_label:"TRVE POINTS EARNED",music_listen:"Listen now:",play_full:"🤘 PLAY FULL GAME — 10 QUESTIONS",
     levels_eyebrow:"The path",levels_t1:"EARN YOUR",levels_sub:"You start as a POSEUR. The only way out is knowledge.",
     lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALHEAD",lv4:"CULT MEMBER",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
     feat_eyebrow:"Game modes",feat_t1:"HOW YOU",feat_t2:"PROVE IT",
-    f1_title:"THE GAUNTLET",f1_desc:"Solo trivia through every metal subgenre. Start at Classic Heavy Metal, advance through Thrash, Death, Black, Doom, Sludge and Blackened Crust.",
-    f2_title:"BATTLE OF THE RIFFS",f2_desc:"1v1 real-time duels. The winner steals TRVE POINTS from the loser. Challenge your circle. Post results.",
-    f3_title:"IDENTIFY THE RIFF",f3_desc:"5 seconds of audio. One legendary riff. Name the band, album and year. The most viral mode.",
-    f4_title:"THE TRVE THRONE",f4_desc:"Weekly global rankings by subgenre. Top 10 worldwide and by country. Shareable cards for Stories.",
-    f5_title:"THE GRIMOIRE",f5_desc:"Deep metal lore unlocked with TRVE POINTS. Band histories, subgenre timelines, gear breakdowns.",
-    f6_title:"TRVE WARS",f6_desc:"Monthly tournament. $2 entry. Top 3 win exclusive merch. The digital mosh pit.",
+    f1_title:"THE GAUNTLET",f1_desc:"Solo trivia through every metal subgenre.",
+    f2_title:"BATTLE OF THE RIFFS",f2_desc:"1v1 real-time duels. Winner steals TRVE POINTS.",
+    f3_title:"IDENTIFY THE RIFF",f3_desc:"5 seconds. One legendary riff. Name it.",
+    f4_title:"THE TRVE THRONE",f4_desc:"Weekly global rankings by subgenre.",
+    f5_title:"THE GRIMOIRE",f5_desc:"Deep metal lore unlocked with TRVE POINTS.",
+    f6_title:"TRVE WARS",f6_desc:"Monthly tournament. Top 3 win exclusive merch.",
     pass_eyebrow:"Premium",pass_t1:"THE",pass_sub:"For those who refuse to be called a poseur. Ever.",
-    pass_badge:"TRVE KVLT PASS",pass_period:"PER MONTH · CANCEL ANYTIME",pass_annual:"OR $39.99/YEAR — SAVE 33%",
+    pass_badge:"TRVE KVLT PASS",pass_annual:"OR $39.99/YEAR — SAVE 33%",
     pf1a:"Zero ads.",pf1b:"Pure metal.",pf2a:"+20% TRVE POINTS",pf2b:"every answer",
     pf3a:"Full Grimoire",pf3b:"all lore unlocked",pf4a:"TRVE KVLT badge",pf4b:"on your profile",
     pf5a:"TRVE WARS",pf5b:"priority access",pf6a:"Exclusive cards",pf6b:"for Stories",
@@ -1693,355 +1817,343 @@ const T={
     wl_eyebrow:"Early Access",wl_t1:"STOP BEING A",wl_sub:"Join the waitlist. Be first in the pit.",
     wl_bonus:"First 1,000 get",wl_free:"days TRVE PASS free.",wl_btn:"I'M TRVE",
     wl_note:"No spam. No poseurs. Unsubscribe anytime.",wl_ph:"your@email.com",
-    wl_ok:"YOU'RE IN THE PIT. WE'LL HIT YOU WHEN WE LAUNCH.",
-    footer_desc:"The world's most extreme heavy metal trivia game. Prove you're a Trve Metalhead or stay a poseur forever.",
-    footer_game:"GAME",footer_lb:"Leaderboard",footer_genres:"Subgenres",footer_grimoire:"The Grimoire",
-    footer_wars:"TRVE WARS",footer_merch:"Merch",footer_connect:"CONNECT",footer_built:"Built for metalheads. By metalheads. 🤘"},
-  es:{nav_play:"Jugar",nav_levels:"Niveles",nav_modes:"Modos",nav_pass:"Pase TRVE",nav_join:"ÚNETE GRATIS",
-    hero_badge:"#1 JUEGO DE TRIVIA HEAVY METAL — MUNDIAL",hero_tag1:"Demuestra que eres un",
-    hero_cta1:"JUGAR GRATIS",hero_cta2:"PASE TRVE",proof_text:"metaleros esperando",proof_sub:"Los primeros 1,000 reciben 30 días de TRVE PASS gratis",
-    reg_eyebrow:"Únete gratis — 10 segundos",reg_title:"CREA TU",reg_sub:"Rastrea TRVE POINTS · Reta amigos · Sube al trono",
-    reg_eyebrow2:"Únete a la comunidad",reg_section_title:"TU",reg_section_title2:"IDENTIDAD METAL",reg_section_title3:"TE ESPERA",
-    reg_section_sub:"Una cuenta. Todas las plataformas. Regístrate una vez y lleva tus TRVE POINTS en web, iOS y Android.",
-    reg_google:"Continuar con Google",reg_facebook:"Continuar con Facebook",reg_apple:"Continuar con Apple",
-    reg_rec:"RECOMENDADO",reg_or:"o usa tu email",reg_cta:"CREAR MI IDENTIDAD METAL",
-    reg_terms:"Al unirte aceptas nuestros",reg_terms_link:"Términos de Riffs",reg_no_spam:"Sin spam. Sin poseurs.",
-    reg_signin:"¿Ya eres TRVE?",reg_signin_link:"Inicia sesión",
-    b1_title:"TRVE POINTS permanentes",b1_sub:"Nunca pierdas tu rango. Tu puntuación te sigue a todos lados.",
-    b2_title:"Tablero de retos",b2_sub:"Envía retos, recibe retos, roba puntos.",
-    b3_title:"El Grimorio se desbloquea",b3_sub:"Lore profundo del metal, historias de bandas y guías de equipo.",
-    b4_title:"100% gratis para siempre",b4_sub:"El juego base es siempre gratis. El TRVE PASS es opcional.",
-    ph_user:"Tu nombre metalero",ph_email:"Correo electrónico",ph_pass:"Contraseña",
-    trivia_eyebrow:"Prueba una pregunta",trivia_t1:"¿CONOCES EL",trivia_sub:"Responde bien. Gana TRVE POINTS. Deja de ser un poseur.",
-    tq_genre:"Thrash Metal",tq_diff:"NIVEL HEADBANGER",
-    tq_text:"¿Qué banda lanzó 'Master of Puppets' en 1986 — considerado el mejor álbum de thrash metal jamás grabado?",
-    tq_a:"Slayer",tq_b:"Metallica",tq_c:"Megadeth",tq_d:"Anthrax",
-    tq_trve:"🤘 TRVE.",tq_explain:"'Master of Puppets' de Metallica (1986) fue grabado en Sweet Silence Studios, Dinamarca, por $150,000. Debutó en el puesto #29 del Billboard 200 sin ninguna reproducción en radio — solo por recomendación boca a boca en el underground metal.",
-    tq_pts_label:"TRVE POINTS GANADOS",music_listen:"Escuchar ahora:",
-    levels_eyebrow:"El camino",levels_t1:"GANA TUS",levels_sub:"Empiezas como POSEUR. La única salida es el conocimiento.",
-    lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALERO",lv4:"MIEMBRO DEL CULTO",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
-    feat_eyebrow:"Modos de juego",feat_t1:"CÓMO LO",feat_t2:"DEMUESTRAS",
-    f1_title:"EL GAUNTLET",f1_desc:"Trivia en solitario por todos los subgéneros del metal. Desde Heavy Metal Clásico hasta Thrash, Death, Black, Doom y Blackened Crust.",
-    f2_title:"BATALLA DE RIFFS",f2_desc:"Duelos 1v1 en tiempo real. El ganador roba TRVE POINTS al perdedor. Reta a tu círculo. Publica los resultados.",
-    f3_title:"IDENTIFICA EL RIFF",f3_desc:"5 segundos de audio. Un riff legendario. Adivina banda, álbum y año. El modo más viral.",
-    f4_title:"EL TRONO TRVE",f4_desc:"Rankings globales semanales por subgénero. Top 10 mundial y por país. Cards para Stories.",
-    f5_title:"EL GRIMORIO",f5_desc:"Lore profundo del metal desbloqueado con TRVE POINTS. Historias de bandas, líneas de tiempo, equipo.",
-    f6_title:"TRVE WARS",f6_desc:"Torneo mensual. Entrada $2 USD. Los 3 primeros ganan merch exclusivo. El mosh pit digital.",
-    pass_eyebrow:"Premium",pass_t1:"EL",pass_sub:"Para quienes se niegan a que les llamen poseur. Jamás.",
-    pass_badge:"PASE TRVE KVLT",pass_period:"POR MES · CANCELA CUANDO QUIERAS",pass_annual:"O $39.99/AÑO — AHORRA 33%",
-    pf1a:"Sin anuncios.",pf1b:"Metal puro.",pf2a:"+20% TRVE POINTS",pf2b:"en cada respuesta",
-    pf3a:"Grimorio completo",pf3b:"todo el lore desbloqueado",pf4a:"Insignia TRVE KVLT",pf4b:"en tu perfil",
-    pf5a:"TRVE WARS",pf5b:"acceso prioritario",pf6a:"Cards exclusivas",pf6b:"para Stories",
-    pass_cta:"ÚNETE A LA LISTA — 30 DÍAS GRATIS",
-    wl_eyebrow:"Acceso Anticipado",wl_t1:"DEJA DE SER UN",wl_sub:"Únete a la lista. Sé el primero en el pit.",
-    wl_bonus:"Los primeros 1,000 reciben",wl_free:"días de TRVE PASS gratis.",wl_btn:"SOY TRVE",
-    wl_note:"Sin spam. Sin poseurs. Cancela cuando quieras.",wl_ph:"tu@email.com",
-    wl_ok:"ESTÁS EN EL PIT. TE AVISAMOS CUANDO LANCEMOS.",
-    footer_desc:"El juego de trivia de heavy metal más extremo del mundo. Demuestra que eres un Trve Metalero o quédate de poseur para siempre.",
-    footer_game:"JUEGO",footer_lb:"Clasificación",footer_genres:"Subgéneros",footer_grimoire:"El Grimorio",
-    footer_wars:"TRVE WARS",footer_merch:"Merch",footer_connect:"CONÉCTATE",footer_built:"Hecho por metaleros. Para metaleros. 🤘"},
-  pt:{nav_play:"Jogar",nav_levels:"Níveis",nav_modes:"Modos",nav_pass:"Passe TRVE",nav_join:"ENTRE GRÁTIS",
-    hero_tag1:"Prove que você é um",hero_cta1:"JOGAR GRÁTIS",hero_cta2:"PASSE TRVE",
-    proof_text:"metaleiros esperando",proof_sub:"Os primeiros 1.000 ganham 30 dias de TRVE PASS grátis",
-    reg_cta:"CRIAR MINHA IDENTIDADE METAL",reg_google:"Continuar com Google",reg_facebook:"Continuar com Facebook",reg_apple:"Continuar com Apple",
-    reg_rec:"RECOMENDADO",reg_or:"ou use seu email",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALEIRO",lv4:"MEMBRO DO CULTO",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
-    trivia_t1:"VOCÊ CONHECE O",tq_trve:"🤘 TRVE.",tq_pts_label:"TRVE POINTS GANHOS",music_listen:"Ouvir agora:",
-    wl_t1:"PARE DE SER UM",wl_btn:"SOU TRVE",wl_ph:"seu@email.com",wl_ok:"VOCÊ ESTÁ NO PIT. A GENTE TE AVISA QUANDO LANÇAR.",
-    pass_cta:"ENTRAR NA LISTA — 30 DIAS GRÁTIS",footer_built:"Feito por metaleiros. Para metaleiros. 🤘"},
-  de:{nav_play:"Spielen",nav_levels:"Level",nav_modes:"Spielmodi",nav_pass:"TRVE Pass",nav_join:"KOSTENLOS",
-    hero_tag1:"Beweise, dass du ein",hero_cta1:"KOSTENLOS SPIELEN",hero_cta2:"TRVE PASS",
-    proof_text:"Metalheads warten",proof_sub:"Die ersten 1.000 erhalten 30 Tage TRVE PASS gratis",
-    reg_cta:"MEINE METAL-IDENTITÄT ERSTELLEN",reg_google:"Mit Google fortfahren",reg_facebook:"Mit Facebook fortfahren",reg_apple:"Mit Apple fortfahren",
-    reg_rec:"EMPFOHLEN",reg_or:"oder E-Mail verwenden",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALHEAD",lv4:"KULTMITGLIED",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
-    trivia_t1:"KENNST DU",tq_trve:"🤘 TRVE.",tq_pts_label:"TRVE POINTS VERDIENT",music_listen:"Jetzt hören:",
-    wl_t1:"HÖR AUF, EIN",wl_btn:"ICH BIN TRVE",wl_ph:"deine@email.de",wl_ok:"DU BIST IM PIT. WIR MELDEN UNS BEIM LAUNCH.",
-    pass_cta:"WARTELISTE — 30 TAGE GRATIS",footer_built:"Gemacht von Metalheads. Für Metalheads. 🤘"},
-  ja:{nav_play:"プレイ",nav_levels:"レベル",nav_modes:"ゲームモード",nav_pass:"TRVEパス",nav_join:"無料参加",
-    hero_tag1:"本物の",hero_cta1:"無料でプレイ",hero_cta2:"TRVEパス",
-    proof_text:"メタラーが待機中",proof_sub:"先着1,000名にTRVEパス30日間無料",
-    reg_cta:"メタルIDを作成",reg_google:"Googleで続ける",reg_facebook:"Facebookで続ける",reg_apple:"Appleで続ける",
-    reg_rec:"推奨",reg_or:"またはメールで",lv1:"ポーザー",lv2:"ヘッドバンガー",lv3:"メタラー",lv4:"カルト会員",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
-    trivia_t1:"メタルを知っているか",tq_trve:"🤘 TRVE！",tq_pts_label:"TRVEポイント獲得",music_listen:"今すぐ聴く：",
-    wl_t1:"ポーザーを卒業しろ",wl_btn:"俺はTRVEだ",wl_ph:"your@email.com",wl_ok:"あなたはピットの中にいる。ローンチ時に連絡する。",
-    pass_cta:"ウェイトリスト — 30日間無料",footer_built:"メタラーによる、メタラーのための。🤘"},
-  fi:{nav_play:"Pelaa",nav_levels:"Tasot",nav_modes:"Pelitilat",nav_pass:"TRVE-passi",nav_join:"LIITY ILMAISEKSI",
-    hero_tag1:"Todista olevasi",hero_cta1:"PELAA ILMAISEKSI",hero_cta2:"TRVE-PASSI",
-    proof_text:"metallipäätä odottaa",proof_sub:"Ensimmäiset 1 000 saavat 30 päivää TRVE PASS ilmaiseksi",
-    reg_cta:"LUO METALLIIDENTITEETTINI",reg_google:"Jatka Googlella",reg_facebook:"Jatka Facebookilla",reg_apple:"Jatka Applella",
-    reg_rec:"SUOSITELTU",reg_or:"tai käytä sähköpostia",lv1:"POSERI",lv2:"HEADBANGER",lv3:"METALLIPÄÄ",lv4:"KULTIN JÄSEN",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
-    trivia_t1:"TUNNETKO",tq_trve:"🤘 TRVE.",tq_pts_label:"TRVE POINTS ANSAITTU",music_listen:"Kuuntele nyt:",
-    wl_t1:"LOPETA POSERINA OLEMINEN",wl_btn:"OLEN TRVE",wl_ph:"sinun@email.fi",wl_ok:"OLET PITISSÄ. ILMOITAMME KUN JULKAISEMME.",
-    pass_cta:"ODOTUSLISTALLE — 30 PÄIVÄÄ ILMAISEKSI",footer_built:"Tehty metallipäille. Metallipäiden toimesta. 🤘"}
+    wl_ok:"YOU'RE IN THE PIT. WE'LL HIT YOU WHEN WE LAUNCH. 🤘",
+    footer_desc:"The world's most extreme heavy metal trivia game.",
+    footer_game:"GAME",footer_lb:"Leaderboard",footer_genres:"Subgenres",
+    footer_grimoire:"The Grimoire",footer_wars:"TRVE WARS",footer_merch:"Merch",
+    footer_connect:"CONNECT",footer_built:"Built for metalheads. By metalheads. 🤘",
+    b1_title:"TRVE POINTS persist forever",b1_sub:"Never lose your rank.",
+    b2_title:"Challenge leaderboard",b2_sub:"Send challenges, steal points.",
+    b3_title:"The Grimoire unlocks",b3_sub:"Deep metal lore and band histories.",
+    b4_title:"100% free forever",b4_sub:"Core game is always free."},
+  es:{nav_play:"Jugar",nav_join:"ÚNETE GRATIS",hero_tag1:"Demuestra que eres un",
+    hero_cta1:"JUGAR GRATIS",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALERO",
+    lv4:"MIEMBRO DEL CULTO",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
+    wl_btn:"SOY TRVE",wl_ph:"tu@email.com",
+    wl_ok:"ESTÁS EN EL PIT. TE AVISAMOS CUANDO LANCEMOS. 🤘",
+    footer_built:"Hecho por metaleros. Para metaleros. 🤘"},
+  pt:{nav_play:"Jogar",nav_join:"ENTRE GRÁTIS",hero_tag1:"Prove que você é um",
+    hero_cta1:"JOGAR GRÁTIS",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALEIRO",
+    lv4:"MEMBRO DO CULTO",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
+    wl_btn:"SOU TRVE",footer_built:"Feito por metaleiros. Para metaleiros. 🤘"},
+  de:{nav_play:"Spielen",nav_join:"KOSTENLOS",hero_tag1:"Beweise, dass du ein",
+    hero_cta1:"KOSTENLOS SPIELEN",lv1:"POSEUR",lv2:"HEADBANGER",lv3:"METALHEAD",
+    lv4:"KULTMITGLIED",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
+    wl_btn:"ICH BIN TRVE",footer_built:"Gemacht von Metalheads. 🤘"},
+  ja:{nav_play:"プレイ",nav_join:"無料参加",hero_tag1:"本物の",
+    hero_cta1:"無料でプレイ",lv1:"ポーザー",lv2:"ヘッドバンガー",lv3:"メタラー",
+    lv4:"カルト会員",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
+    wl_btn:"俺はTRVEだ",footer_built:"メタラーによる、メタラーのための。🤘"},
+  fi:{nav_play:"Pelaa",nav_join:"LIITY",hero_tag1:"Todista olevasi",
+    hero_cta1:"PELAA ILMAISEKSI",lv1:"POSERI",lv2:"HEADBANGER",lv3:"METALLIPÄÄ",
+    lv4:"KULTIN JÄSEN",lv5:"TRVE KVLT",lv6:"BLAST RIFF",
+    wl_btn:"OLEN TRVE",footer_built:"Tehty metallipäille. 🤘"}
 };
 
-let lang='en';
-function setLang(l,btn){
-  lang=l;
-  const t=T[l]||T.en;
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const k=el.getAttribute('data-i18n');
-    if(t[k]!==undefined) el.innerHTML=t[k];
+var currentLang = 'en';
+function setLang(l, btn) {
+  currentLang = l;
+  G.lang = l;
+  var t = Object.assign({}, T.en, T[l] || {});
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n');
+    if (t[k] !== undefined) el.innerHTML = t[k];
   });
-  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
-    const k=el.getAttribute('data-i18n-ph');
-    if(t[k]) el.placeholder=t[k];
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n-ph');
+    if (t[k]) el.placeholder = t[k];
   });
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('html-root').lang=l;
+  document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  document.getElementById('html-root').lang = l;
 }
 
-/* ══ MODAL ══ */
-function openModal(){
-  // If already logged in, just start game
-  const saved = localStorage.getItem('br_user');
-  if (saved) {
-    try {
-      currentUser = JSON.parse(saved);
-      updateNavForUser();
-      startG();
-      return;
-    } catch(e) {}
-  }
-  document.getElementById('reg-modal').classList.add('open');
-  const err = document.getElementById('auth-error');
-  if(err) err.style.display='none';
-  // Show quick login if user was here before
-  const link = document.getElementById('already-trve-link');
-  if (link) {
-    const savedName = localStorage.getItem('br_last_user');
-    if (savedName) {
-      link.innerHTML = 'Welcome back, <strong style="color:var(--orange)">' + savedName + '</strong>! <span onclick="quickSignIn()" style="color:var(--orange);cursor:pointer;text-decoration:underline;">Tap to sign in instantly</span>';
-    } else {
-      link.innerHTML = 'Already TRVE? <span onclick="switchTab(\'login\')" style="color:var(--orange);cursor:pointer;text-decoration:underline;">Sign in here</span>';
+/* ══ GAME ENGINE ══ */
+function startG(certId, certLevel) {
+  var pool = QUESTIONS.slice();
+  if (certId) {
+    var cert = (typeof CERTIFICATIONS !== 'undefined') ? CERTIFICATIONS.find(function(c){ return c.id === certId; }) : null;
+    if (cert) {
+      var filtered = pool.filter(function(q) {
+        return q.subgenre.toLowerCase().indexOf(cert.genre.toLowerCase().split(' ')[0]) >= 0;
+      });
+      if (filtered.length >= 5) pool = filtered;
     }
   }
+  var numQ = certId ? (CERT_LEVEL_QUESTIONS ? CERT_LEVEL_QUESTIONS[certLevel] || 10 : 10) : 10;
+  G.questions = pool.sort(function(){ return Math.random()-0.5; }).slice(0, numQ);
+  G.currentQ=0; G.score=0; G.trvePoints=0; G.correctCount=0;
+  G.streak=0; G.bestStreak=0; G.totalTime=0;
+
+  var gm = document.getElementById('game-modal');
+  if (!gm) { alert('Game modal not found!'); return; }
+  gm.classList.add('open');
+  var gqv = document.getElementById('gqv');
+  var grv = document.getElementById('grv');
+  if (gqv) gqv.style.display = 'block';
+  if (grv) grv.classList.remove('show');
+  document.body.style.overflow = 'hidden';
+
+  var logo = document.querySelector('.gh-logo');
+  if (logo) logo.textContent = certId ? cert.icon + ' ' + cert.name.toUpperCase() : 'BLAST⚡RIFF';
+  renderQ();
 }
 
-function quickSignIn() {
-  const saved = localStorage.getItem('br_user');
-  if (saved) {
-    try {
-      currentUser = JSON.parse(saved);
-      closeModal();
-      startG();
-    } catch(e) {}
+function closeG() {
+  var gm = document.getElementById('game-modal');
+  if (gm) gm.classList.remove('open');
+  document.body.style.overflow = '';
+  clearInterval(G.timerInterval);
+}
+
+function restartG() {
+  var grv = document.getElementById('grv');
+  var gqv = document.getElementById('gqv');
+  if (grv) grv.classList.remove('show');
+  if (gqv) gqv.style.display = 'block';
+  G.questions = QUESTIONS.slice().sort(function(){ return Math.random()-0.5; }).slice(0,10);
+  G.currentQ=0; G.score=0; G.trvePoints=0; G.correctCount=0;
+  G.streak=0; G.bestStreak=0; G.totalTime=0;
+  renderQ();
+}
+
+function renderQ() {
+  var q = G.questions[G.currentQ];
+  var lang = (G.lang === 'es') ? 'es' : 'en';
+  var qd = q[lang] || q.en;
+  G.answered = false; G.timeLeft = 15; G.startTime = Date.now();
+
+  document.getElementById('gh-qnum').textContent = G.currentQ + 1;
+  document.getElementById('gh-score').textContent = G.trvePoints;
+  document.getElementById('gpf').style.width = ((G.currentQ / G.questions.length) * 100 + 10) + '%';
+  document.getElementById('g-genre').textContent = '🎸 ' + q.subgenre;
+  document.getElementById('g-diff').textContent = q.difficulty === 'easy' ? '⭐ EASY' : q.difficulty === 'medium' ? '⭐⭐ MEDIUM' : '⭐⭐⭐ HARD';
+  document.getElementById('g-text').textContent = qd.q;
+  document.getElementById('g-exp').className = 'q-explain';
+  document.getElementById('g-exp').innerHTML = '';
+  document.getElementById('g-pts').className = 'q-pts-earned';
+  document.getElementById('g-music').className = 'q-music-links';
+  document.getElementById('g-nw').className = 'next-btn-wrap';
+  document.getElementById('g-tn').textContent = 15;
+  document.getElementById('g-tn').style.color = 'var(--white)';
+  document.getElementById('g-tc').style.stroke = 'var(--orange)';
+
+  // Options
+  var grid = document.getElementById('g-opts');
+  grid.innerHTML = '';
+  var letters = ['A','B','C','D'];
+  qd.opts.forEach(function(opt, i) {
+    var btn = document.createElement('button');
+    btn.className = 'q-opt';
+    btn.innerHTML = '<span class="q-opt-letter">' + letters[i] + '</span><span>' + opt + '</span>';
+    btn.onclick = function() { selectAns(i, btn, qd, q); };
+    grid.appendChild(btn);
+  });
+
+  // Music links
+  var search = encodeURIComponent((q.artist || '') + ' ' + (q.song || ''));
+  document.getElementById('g-yt').href = 'https://www.youtube.com/results?search_query=' + search;
+  document.getElementById('g-am').href = 'https://music.apple.com/search?term=' + search;
+  document.getElementById('g-sp').href = 'https://open.spotify.com/search/' + search;
+
+  // Next button text
+  document.getElementById('g-nb').textContent = G.currentQ < G.questions.length - 1 ? 'NEXT QUESTION →' : 'SEE RESULTS →';
+
+  // Timer
+  clearInterval(G.timerInterval);
+  updateTimer(15, 15);
+  G.timerInterval = setInterval(function() {
+    G.timeLeft--;
+    updateTimer(G.timeLeft, 15);
+    document.getElementById('g-tn').textContent = G.timeLeft;
+    if (G.timeLeft <= 5) {
+      document.getElementById('g-tc').style.stroke = '#ff3300';
+      document.getElementById('g-tn').style.color = '#ff3300';
+    }
+    if (G.timeLeft <= 0) { clearInterval(G.timerInterval); timeOut(qd); }
+  }, 1000);
+
+  var gm = document.getElementById('game-modal');
+  if (gm) gm.scrollTo(0, 0);
+}
+
+function updateTimer(cur, max) {
+  var c = Math.PI * 2 * 21;
+  var offset = c - (cur / max) * c;
+  var tc = document.getElementById('g-tc');
+  if (tc) { tc.style.strokeDasharray = c; tc.style.strokeDashoffset = offset; }
+}
+
+function timeOut(qd) {
+  G.answered = true; G.streak = 0;
+  document.querySelectorAll('.q-opt').forEach(function(o){ o.style.pointerEvents='none'; });
+  document.querySelectorAll('.q-opt')[qd.correct].classList.add('correct');
+  document.getElementById('g-exp').innerHTML = '⏱️ TIME UP. ' + qd.exp;
+  document.getElementById('g-exp').className = 'q-explain show';
+  document.getElementById('g-music').className = 'q-music-links show';
+  document.getElementById('g-nw').className = 'next-btn-wrap show';
+  G.totalTime += 15;
+}
+
+function selectAns(index, btn, qd, q) {
+  if (G.answered) return;
+  G.answered = true;
+  clearInterval(G.timerInterval);
+  var elapsed = (Date.now() - G.startTime) / 1000;
+  G.totalTime += elapsed;
+  document.querySelectorAll('.q-opt').forEach(function(o){ o.style.pointerEvents='none'; });
+
+  if (index === qd.correct) {
+    btn.classList.add('correct');
+    G.correctCount++; G.streak++;
+    if (G.streak > G.bestStreak) G.bestStreak = G.streak;
+    var earned = q.points + Math.floor(G.timeLeft * 6) + (G.streak > 1 ? (G.streak-1)*25 : 0);
+    G.trvePoints += earned;
+    document.getElementById('g-pv').textContent = '+' + earned;
+    document.getElementById('g-pts').className = 'q-pts-earned show';
+    document.getElementById('gh-score').textContent = G.trvePoints;
+    showToast('+' + earned + ' TRVE POINTS!');
+    document.getElementById('g-exp').innerHTML = '🤘 TRVE! ' + qd.exp;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.q-opt')[qd.correct].classList.add('correct');
+    G.streak = 0;
+    document.getElementById('g-exp').innerHTML = '💀 WRONG. ' + qd.exp;
   }
-}
-function closeModal(){document.getElementById('reg-modal').classList.remove('open');}
-document.getElementById('reg-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
-function doRegister(m){
-  closeModal();
-  const t=T[lang]||T.en;
-  showToast('🤘 '+(t.wl_ok ||"YOU'RE IN!"));
+  document.getElementById('g-exp').className = 'q-explain show';
+  document.getElementById('g-music').className = 'q-music-links show';
+  document.getElementById('g-nw').className = 'next-btn-wrap show';
 }
 
-/* ══ TRIVIA DEMO ══ */
-let demoAnswered=false;
-function demoAnswer(btn,correct){
-  if(demoAnswered)return;
-  demoAnswered=true;
-  document.querySelectorAll('.tq-opt').forEach(o=>o.style.pointerEvents='none');
-  if(correct){
+function nextQ() {
+  G.currentQ++;
+  if (G.currentQ >= G.questions.length) { showResults(); }
+  else { renderQ(); }
+}
+
+function showResults() {
+  clearInterval(G.timerInterval);
+  var gqv = document.getElementById('gqv');
+  var grv = document.getElementById('grv');
+  if (gqv) gqv.style.display = 'none';
+  if (grv) grv.classList.add('show');
+
+  // Save points
+  if (currentUser) {
+    currentUser.trvePoints = (currentUser.trvePoints || 0) + G.trvePoints;
+    try { localStorage.setItem('br_user', JSON.stringify(currentUser)); } catch(e){}
+    updateUI();
+  }
+
+  var pct = G.correctCount / G.questions.length;
+  var outcome = pct >= 0.8 ? 'TRVE!' : pct >= 0.5 ? 'NOT BAD' : 'POSEUR';
+  var outcomeClass = pct >= 0.8 ? 'win-text' : pct < 0.5 ? 'lose-text' : '';
+
+  document.getElementById('r-out').textContent = outcome;
+  document.getElementById('r-out').className = 'result-outcome ' + outcomeClass;
+  document.getElementById('r-sub').textContent = pct >= 0.8 ? 'You are a true metalhead. Respect. 🤘' : pct >= 0.5 ? 'Some knowledge. Keep playing.' : 'You have much to learn, poseur.';
+  document.getElementById('r-sc').textContent = G.correctCount + '/10';
+  document.getElementById('r-det').textContent = G.trvePoints + ' TRVE POINTS EARNED';
+  document.getElementById('r-cor').textContent = G.correctCount;
+  document.getElementById('r-str').textContent = G.bestStreak;
+  document.getElementById('r-tim').textContent = G.totalTime > 0 ? (G.totalTime/G.questions.length).toFixed(1) + 's' : '-';
+  document.getElementById('r-pts').textContent = '+' + G.trvePoints;
+
+  document.getElementById('r-sr').textContent = G.correctCount + '/10 — ' + outcome;
+  document.getElementById('r-sr').style.color = pct >= 0.8 ? 'var(--green)' : 'var(--orange)';
+  document.getElementById('r-sd').textContent = 'Metal Trivia · ' + G.trvePoints + ' TRVE POINTS';
+
+  var lvl = document.getElementById('r-lvl');
+  if (lvl) lvl.style.display = pct >= 0.8 ? 'block' : 'none';
+
+  var gm = document.getElementById('game-modal');
+  if (gm) gm.scrollTo(0, 0);
+}
+
+function shareR(platform) {
+  var msg = 'BLAST RIFF\n' + G.correctCount + '/10 in Heavy Metal Trivia · ' + G.trvePoints + ' TRVE POINTS\nblastriff.com 🤘';
+  if (platform === 'wa') window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+  else if (platform === 'x') window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(msg), '_blank');
+  else if (platform === 'cp') { try { navigator.clipboard.writeText('blastriff.com'); } catch(e){} showToast('🔗 LINK COPIED!'); }
+  else showToast('📸 Screenshot and share!');
+}
+
+/* ══ DEMO TRIVIA ══ */
+var demoAnswered = false;
+function demoAns(btn, correct) {
+  if (demoAnswered) return;
+  demoAnswered = true;
+  document.querySelectorAll('#demo-opts .q-opt').forEach(function(o){ o.style.pointerEvents='none'; });
+  if (correct) {
     btn.classList.add('correct');
     document.getElementById('demo-pts').classList.add('show');
   } else {
     btn.classList.add('wrong');
-    document.querySelectorAll('.tq-opt')[1].classList.add('correct');
+    document.querySelectorAll('#demo-opts .q-opt')[1].classList.add('correct');
   }
-  document.getElementById('demo-explain').classList.add('show');
-  document.getElementById('demo-music').style.display='flex';
+  document.getElementById('demo-exp').classList.add('show');
+  document.getElementById('demo-music').className = 'q-music-links show';
 }
 
 /* ══ WAITLIST ══ */
-function joinWL(){
-  const e=document.getElementById('wl-email');
-  if(!e.value||!e.value.includes('@')){e.style.borderColor='#ff4444';return;}
-  document.querySelector('.wl-form').style.display='none';
-  document.getElementById('wl-success').style.display='block';
-  showToast('🤘 '+((T[lang] && T[lang].wl_ok)||"YOU'RE IN THE PIT!"));
-}
-
-/* ══ SCROLL REVEAL ══ */
-const ro=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
-},{threshold:0.08});
-document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
-
-/* ══ CURSOR GLOW ══ */
-const cg=document.getElementById('cg');
-document.addEventListener('mousemove',e=>{
-  cg.style.left=(e.clientX-175)+'px';
-  cg.style.top=(e.clientY-175)+'px';
+document.addEventListener('DOMContentLoaded', function() {
+  var wlForm = document.getElementById('wl-form');
+  if (!wlForm) return;
+  wlForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('wl-email-input').value;
+    if (!email || email.indexOf('@') < 0) {
+      document.getElementById('wl-email-input').style.borderColor = '#ff4444';
+      return;
+    }
+    var btn = document.getElementById('wl-submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'SENDING...';
+    fetch('https://formspree.io/f/mnjwqqnr', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({email: email, _subject: 'Blast Riff Waitlist 🤘'})
+    }).then(function(r) {
+      if (r.ok) {
+        wlForm.style.display = 'none';
+        document.getElementById('wl-success').style.display = 'block';
+        showToast('🤘 YOU ARE IN THE PIT!');
+      } else {
+        btn.disabled = false;
+        btn.textContent = "I'M TRVE";
+        document.getElementById('wl-error').style.display = 'block';
+      }
+    }).catch(function() {
+      btn.disabled = false;
+      btn.textContent = "I'M TRVE";
+    });
+  });
 });
 
+/* ══ SCROLL REVEAL ══ */
+var ro = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.08});
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.reveal').forEach(function(el){ ro.observe(el); });
+});
 
-/* ══ AUTH SYSTEM ══ */
-let currentUser = JSON.parse(localStorage.getItem('br_user') || 'null');
+/* ══ CURSOR GLOW ══ */
+document.addEventListener('mousemove', function(e) {
+  var cg = document.getElementById('cg');
+  if (cg) { cg.style.left = (e.clientX-175) + 'px'; cg.style.top = (e.clientY-175) + 'px'; }
+});
 
-function switchTab(tab) {
-  const isLogin = tab === 'login';
-  document.getElementById('tab-login').style.background = isLogin ? 'var(--orange)' : 'var(--card2)';
-  document.getElementById('tab-login').style.color = isLogin ? 'var(--black)' : 'var(--grey2)';
-  document.getElementById('tab-signup').style.background = !isLogin ? 'var(--orange)' : 'var(--card2)';
-  document.getElementById('tab-signup').style.color = !isLogin ? 'var(--black)' : 'var(--grey2)';
-  document.getElementById('signup-fields').style.display = isLogin ? 'none' : 'block';
-  document.getElementById('auth-submit-btn').textContent = isLogin ? 'SIGN IN' : 'CREATE MY METAL IDENTITY';
-  document.getElementById('auth-error').style.display = 'none';
+/* ══ TOAST ══ */
+var toastT;
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(function(){ t.classList.remove('show'); }, 2800);
 }
-
-function socialLogin(provider) {
-  // Simulate social login — connects to Clerk OAuth in production
-  const names = {google:'Metal Fan', apple:'Iron Fan', facebook:'Heavy Fan'};
-  const user = {
-    username: names[provider] + ' ' + Math.floor(Math.random()*9000+1000),
-    email: provider + '@blastriff.com',
-    provider: provider,
-    trvePoints: 0,
-    level: 0,
-    joinedAt: Date.now(),
-    certifications: []
-  };
-  localStorage.setItem('br_user', JSON.stringify(user));
-  localStorage.setItem('br_last_user', user.username);
-  currentUser = user;
-  closeModal();
-  showToast('🤘 WELCOME ' + user.username.toUpperCase() + '! ENTERING THE PIT...');
-  updateNavForUser();
-  setTimeout(() => startG(), 1000);
-}
-
-function emailAuth() {
-  const email = document.getElementById('auth-email')?.value || '';
-  const pass = document.getElementById('auth-password')?.value || '';
-  const username = document.getElementById('auth-username')?.value || '';
-  const errEl = document.getElementById('auth-error');
-  const btn = document.getElementById('auth-submit-btn');
-  const isLogin = btn.textContent === 'SIGN IN';
-
-  if (!email || !email.includes('@')) {
-    errEl.textContent = 'Enter a valid email address.';
-    errEl.style.display = 'block';
-    return;
-  }
-  if (!pass || pass.length < 6) {
-    errEl.textContent = 'Password must be at least 6 characters.';
-    errEl.style.display = 'block';
-    return;
-  }
-  if (!isLogin && !username.trim()) {
-    errEl.textContent = 'Choose your metalhead username.';
-    errEl.style.display = 'block';
-    return;
-  }
-
-  btn.textContent = 'ENTERING THE PIT...';
-  btn.style.background = 'var(--grey)';
-
-  setTimeout(() => {
-    const user = {
-      username: isLogin ? (email.split('@')[0].toUpperCase()) : username.trim().toUpperCase(),
-      email: email,
-      provider: 'email',
-      trvePoints: 0,
-      level: 0,
-      joinedAt: Date.now(),
-      certifications: []
-    };
-    localStorage.setItem('br_user', JSON.stringify(user));
-    localStorage.setItem('br_last_user', user.username);
-    currentUser = user;
-    closeModal();
-    showToast('🤘 WELCOME ' + user.username + '! ENTERING THE PIT...');
-    updateNavForUser();
-    setTimeout(() => startG(), 1000);
-  }, 800);
-}
-
-function updateNavForUser() {
-  if (!currentUser) return;
-
-  // Update JOIN FREE button → show username + sign out
-  const joinBtn = document.querySelector('.nav-cta');
-  if (joinBtn) {
-    joinBtn.textContent = '☠️ ' + currentUser.username.substring(0,10);
-    joinBtn.style.background = 'var(--green)';
-    joinBtn.style.webkitTextFillColor = '#000';
-    joinBtn.onclick = (e) => {
-      e.preventDefault();
-      signOut();
-    };
-  }
-
-  // Update PLAY FREE NOW button
-  document.querySelectorAll('.btn-primary').forEach(btn => {
-    if (btn.closest('#game-modal') || btn.closest('.pass-card') || btn.closest('.waitlist-section')) return;
-    btn.onclick = (e) => { e.preventDefault(); startG(); };
-    if (btn.closest('.hero')) {
-      btn.innerHTML = '▶ PLAY NOW, ' + currentUser.username.substring(0,8).toUpperCase() + '!';
-    }
-  });
-
-  // User bar — fixed below nav
-  let userBar = document.getElementById('user-bar');
-  if (!userBar) {
-    userBar = document.createElement('div');
-    userBar.id = 'user-bar';
-    userBar.style.cssText = 'position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(0,224,112,0.12);border-bottom:1px solid rgba(0,224,112,0.3);padding:7px 20px;display:flex;align-items:center;justify-content:space-between;font-family:Bebas Neue,sans-serif;font-size:13px;letter-spacing:2px;';
-    document.body.appendChild(userBar);
-  }
-  userBar.innerHTML =
-    '<span style="color:var(--green);-webkit-text-fill-color:var(--green)">✅ ' + currentUser.username + '</span>' +
-    '<span style="color:var(--gold);-webkit-text-fill-color:var(--gold)">⚡ ' + (currentUser.trvePoints||0) + ' TP</span>' +
-    '<span style="color:var(--orange);-webkit-text-fill-color:var(--orange);cursor:pointer;background:rgba(255,69,0,0.15);padding:4px 12px;" onclick="startG()">▶ PLAY</span>' +
-    '<span style="color:var(--grey2);-webkit-text-fill-color:var(--grey2);cursor:pointer;font-size:11px;" onclick="signOut()">EXIT</span>';
-}
-
-function signOut() {
-  localStorage.removeItem('br_user');
-  currentUser = null;
-  // Remove user bar
-  const ub = document.getElementById('user-bar');
-  if (ub) ub.remove();
-  // Reset JOIN FREE button
-  const joinBtn = document.querySelector('.nav-cta');
-  if (joinBtn) {
-    joinBtn.textContent = 'JOIN FREE';
-    joinBtn.style.background = 'var(--orange)';
-    joinBtn.style.webkitTextFillColor = 'var(--black)';
-    joinBtn.onclick = (e) => { e.preventDefault(); openModal(); };
-  }
-  // Reset play button
-  document.querySelectorAll('.btn-primary').forEach(btn => {
-    if (btn.closest('.hero')) {
-      btn.onclick = (e) => { e.preventDefault(); openModal(); };
-      btn.innerHTML = '▶ PLAY FREE NOW';
-    }
-  });
-  showToast('👋 Signed out. See you in the pit!');
-}
-
-function getLevelName(pts) {
-  if (pts >= 100000) return 'BLAST RIFF';
-  if (pts >= 25000) return 'TRVE KVLT';
-  if (pts >= 8000) return 'CULT MEMBER';
-  if (pts >= 2000) return 'METALHEAD';
-  if (pts >= 500) return 'HEADBANGER';
-  return 'POSEUR';
-}
-
-// Restore session from localStorage
-const _saved = localStorage.getItem('br_user');
-if (_saved) {
-  try {
-    currentUser = JSON.parse(_saved);
-    updateNavForUser();
-  } catch(e) {
-    localStorage.removeItem('br_user');
-  }
-}
-
-
 
 /* ══ CERTIFICATION SYSTEM ══ */
 const CERTIFICATIONS = [
@@ -2203,27 +2315,6 @@ document.getElementById('cert-modal')?.addEventListener('click', function(e) {
   if(e.target === this) closeCertModal();
 });
 
-/* ══ TOAST ══ */
-let toastT;
-function showToast(msg){
-  let t=document.getElementById('_toast');
-  if(!t){
-    t=document.createElement('div');t.id='_toast';
-    Object.assign(t.style,{
-      position:'fixed',bottom:'24px',left:'50%',transform:'translateX(-50%)',
-      background:'#141414',border:'1px solid rgba(255,69,0,0.35)',
-      padding:'12px 28px',fontFamily:"'Bebas Neue',sans-serif",
-      fontSize:'16px',letterSpacing:'2px',color:'var(--orange)',
-      zIndex:'9999',opacity:'0',transition:'opacity 0.3s',
-      clipPath:'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)',
-      whiteSpace:'nowrap',pointerEvents:'none'
-    });
-    document.body.appendChild(t);
-  }
-  t.textContent=msg;t.style.opacity='1';
-  clearTimeout(toastT);
-  toastT=setTimeout(()=>t.style.opacity='0',2800);
-}
 </script>
 
 </body>
