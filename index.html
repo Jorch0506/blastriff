@@ -1070,7 +1070,7 @@ nav{padding:10px 20px;}
     <li><a href="#levels"   data-i18n="nav_levels">Levels</a></li>
     <li><a href="#features" data-i18n="nav_modes">Game Modes</a></li>
     <li><a href="#pass"     data-i18n="nav_pass">TRVE Pass</a></li>
-    <li><a href="#" class="nav-cta" onclick="openModal()" data-i18n="nav_join">JOIN FREE</a></li>
+    <li><a href="#" class="nav-cta" onclick="currentUser ? startG() : openModal()" data-i18n="nav_join">JOIN FREE</a></li>
   </ul>
 </nav>
 
@@ -1875,9 +1875,9 @@ function socialLogin(provider) {
   sessionStorage.setItem('br_user', JSON.stringify(user));
   currentUser = user;
   closeModal();
-  showToast('🤘 WELCOME ' + user.username.toUpperCase() + '!');
+  showToast('🤘 WELCOME ' + user.username.toUpperCase() + '! ENTERING THE PIT...');
   updateNavForUser();
-  setTimeout(() => startG(), 600);
+  setTimeout(() => startG(), 1000);
 }
 
 function emailAuth() {
@@ -1920,9 +1920,9 @@ function emailAuth() {
     sessionStorage.setItem('br_user', JSON.stringify(user));
     currentUser = user;
     closeModal();
-    showToast('🤘 WELCOME ' + user.username + '!');
+    showToast('🤘 WELCOME ' + user.username + '! ENTERING THE PIT...');
     updateNavForUser();
-    setTimeout(() => startG(), 600);
+    setTimeout(() => startG(), 1000);
   }, 800);
 }
 
@@ -1930,9 +1930,40 @@ function updateNavForUser() {
   if (!currentUser) return;
   const joinBtn = document.querySelector('.nav-cta');
   if (joinBtn) {
-    joinBtn.textContent = '☠️ ' + currentUser.username.substring(0,10);
-    joinBtn.onclick = () => showToast('⚡ ' + (currentUser.trvePoints||0) + ' TRVE POINTS');
+    const name = currentUser.username.substring(0,12);
+    joinBtn.textContent = '☠️ ' + name;
+    joinBtn.style.background = 'var(--green)';
+    joinBtn.style.webkitTextFillColor = '#000';
+    joinBtn.onclick = (e) => {
+      e.preventDefault();
+      showToast('⚡ ' + (currentUser.trvePoints||0) + ' TRVE POINTS · ' + getLevelName(currentUser.trvePoints||0));
+    };
   }
+  // Show play button prominently
+  const playBtn = document.querySelector('.btn-primary');
+  if (playBtn) {
+    playBtn.textContent = '▶ PLAY NOW, ' + currentUser.username.substring(0,8).toUpperCase() + '!';
+  }
+  // Add user bar below nav
+  let userBar = document.getElementById('user-bar');
+  if (!userBar) {
+    userBar = document.createElement('div');
+    userBar.id = 'user-bar';
+    userBar.style.cssText = 'position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(0,224,112,0.1);border-bottom:1px solid rgba(0,224,112,0.3);padding:6px 20px;display:flex;align-items:center;justify-content:space-between;font-family:Bebas Neue,sans-serif;font-size:13px;letter-spacing:2px;';
+    document.body.appendChild(userBar);
+  }
+  userBar.innerHTML = '<span style="color:var(--green)">✅ ' + currentUser.username + '</span>' +
+    '<span style="color:var(--gold)">⚡ ' + (currentUser.trvePoints||0) + ' TRVE POINTS</span>' +
+    '<span style="color:var(--orange);cursor:pointer" onclick="startG()">▶ PLAY NOW</span>';
+}
+
+function getLevelName(pts) {
+  if (pts >= 100000) return 'BLAST RIFF';
+  if (pts >= 25000) return 'TRVE KVLT';
+  if (pts >= 8000) return 'CULT MEMBER';
+  if (pts >= 2000) return 'METALHEAD';
+  if (pts >= 500) return 'HEADBANGER';
+  return 'POSEUR';
 }
 
 // Restore session
