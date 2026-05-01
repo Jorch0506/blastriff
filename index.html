@@ -7,20 +7,242 @@
 <title>BLAST RIFF — Prove You're Trve</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
+/* ═══ SAFARI MOBILE CRITICAL FIXES ═══ */
+html, body {
+  background: #060606 !important;
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2;
+}
+h1, h2, h3, h4, h5, h6 {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+p, span, div, li, a {
+  -webkit-text-fill-color: inherit;
+}
+.ht-blast {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+.ht-riff {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+.hl {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+.nl-blast {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+.nl-riff {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+.section-title {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+.section-sub {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.hero-tagline {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.hero-badge {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+.btn-primary {
+  background: #FF4500 !important;
+  color: #060606 !important;
+  -webkit-text-fill-color: #060606 !important;
+}
+.btn-ghost {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+  border-color: rgba(255,69,0,0.35) !important;
+}
+.proof-text {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.proof-text strong {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+.nav-links a {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.nav-cta {
+  color: #060606 !important;
+  -webkit-text-fill-color: #060606 !important;
+}
+.section-eyebrow {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+.q-text {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+.q-opt {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+  background: rgba(255,255,255,0.04) !important;
+}
+.q-opt-letter {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+.q-genre-tag {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+.q-diff {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.lv-name {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+.lv-pts {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+.lv-1 .lv-name {
+  color: #555 !important;
+  -webkit-text-fill-color: #555 !important;
+}
+.lv-6 .lv-name {
+  color: #FFD700 !important;
+  -webkit-text-fill-color: #FFD700 !important;
+}
+.fc-title {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+.fc-desc {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.pass-price {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+.pass-price sup {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+.pass-price sub {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.pass-annual {
+  color: #FFD700 !important;
+  -webkit-text-fill-color: #FFD700 !important;
+}
+.pf-item {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.pf-item strong {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+.wl-input {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+  background: #111 !important;
+}
+.wl-btn {
+  color: #060606 !important;
+  -webkit-text-fill-color: #060606 !important;
+  background: #FF4500 !important;
+}
+.wl-note {
+  color: #555 !important;
+  -webkit-text-fill-color: #555 !important;
+}
+.genre-chip {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.footer-col a {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.footer-col h4 {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+.footer-brand p {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.benefits-list li {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.benefits-list strong {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+.social-btn {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+  background: #181818 !important;
+}
+.input-f {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+  background: #181818 !important;
+}
+.pq-text {
+  color: #EDE9E2 !important;
+  -webkit-text-fill-color: #EDE9E2 !important;
+}
+.pq-pts {
+  color: #FFD700 !important;
+  -webkit-text-fill-color: #FFD700 !important;
+}
+.gh-logo {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+.gh-score {
+  color: #FFD700 !important;
+  -webkit-text-fill-color: #FFD700 !important;
+}
+.gh-counter {
+  color: #888 !important;
+  -webkit-text-fill-color: #888 !important;
+}
+.gh-counter span {
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+}
+/* ═══ END SAFARI FIXES ═══ */
+
 :root {
-  --black:   #060606;
-  --deep:    #0c0c0c;
-  --card:    #111111;
-  --card2:   #181818;
-  --border:  rgba(255,69,0,0.14);
-  --orange:  #FF4500;
-  --orange2: #cc3700;
-  --red:     #7a0000;
-  --gold:    #FFD700;
-  --green:   #00e070;
-  --white:   #EDE9E2;
-  --grey:    #555;
-  --grey2:   #888;
+–black:   #060606;
+–deep:    #0c0c0c;
+–card:    #111111;
+–card2:   #181818;
+–border:  rgba(255,69,0,0.14);
+–orange:  #FF4500;
+–orange2: #cc3700;
+–red:     #7a0000;
+–gold:    #FFD700;
+–green:   #00e070;
+–white:   #EDE9E2;
+–grey:    #555;
+–grey2:   #888;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
