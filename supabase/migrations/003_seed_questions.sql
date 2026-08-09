@@ -84,6 +84,6 @@ values
   '[{"id":"a","text":"1998"},{"id":"b","text":"1995"},{"id":"c","text":"2001"},{"id":"d","text":"1990"}]'::jsonb,
   'a',
   'Rob Halford came out publicly in 1998, making him one of the first prominent heavy metal frontmen to do so.',
-  'expert', 'heavy metal', 'multiple_choice', array['judas priest','history'], 'en',
+  'hard', 'heavy metal', 'multiple_choice', array['judas priest','history'], 'en',
   'Judas Priest', null, null, 1998, true, false
 );

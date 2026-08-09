@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { LEVEL_THRESHOLDS, getLevelName, getNextLevelThreshold } from "@/lib/game/levels";
 import { flagEmoji, ONBOARDING_GENRES } from "@/lib/onboarding";
+import { getJoinUrl } from "@/lib/referral";
+import { InviteSection } from "@/components/profile/InviteSection";
 
 function formatDate(value: string | null): string {
   if (!value) return "—";
@@ -37,6 +39,11 @@ export default async function ProfilePage() {
     .select("rank")
     .eq("id", user.id)
     .maybeSingle();
+
+  const { count: referralCount } = await supabase
+    .from("referrals")
+    .select("id", { count: "exact", head: true })
+    .eq("referrer_id", user.id);
 
   const level = profile.level;
   const levelName = getLevelName(level);
@@ -135,6 +142,8 @@ export default async function ProfilePage() {
           </div>
         </section>
       )}
+
+      <InviteSection joinUrl={getJoinUrl(profile.username)} referralCount={referralCount ?? 0} />
 
       <section>
         <h2 className="mb-3 font-metal text-lg text-text">RECENT SESSIONS</h2>

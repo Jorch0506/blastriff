@@ -1,4 +1,4 @@
-export type QuestionDifficulty = "easy" | "medium" | "hard" | "expert";
+export type QuestionDifficulty = "easy" | "medium" | "hard";
 
 export type QuestionType = "multiple_choice" | "true_false" | "audio" | "image";
 
@@ -87,13 +87,25 @@ export type GameSession = {
   completed_at: string | null;
 };
 
+export type ChallengeQuestionSnapshot = {
+  id: string;
+  question_text: string;
+  options: QuestionOption[];
+  correct_option: string;
+  difficulty: QuestionDifficulty;
+  genre: string;
+  question_type: QuestionType;
+};
+
+export type ChallengeQuestionPublic = Omit<ChallengeQuestionSnapshot, "correct_option">;
+
 export type Challenge = {
   id: string;
   challenger_id: string;
   challenged_id: string | null;
   genre: string;
   difficulty: QuestionDifficulty;
-  questions_data: GameSessionQuestion[];
+  questions_data: ChallengeQuestionSnapshot[];
   challenger_score: number | null;
   challenger_correct: number | null;
   challenger_time_seconds: number | null;
@@ -130,6 +142,27 @@ export type Tournament = {
   status: TournamentStatus;
   starts_at: string;
   ends_at: string;
+  created_at: string;
+};
+
+export type NotificationType = "challenge_received" | "challenge_result" | "achievement_unlocked" | "level_up";
+
+export type Notification = {
+  id: string;
+  user_id: string;
+  type: NotificationType;
+  title: string;
+  body: string;
+  data: Record<string, unknown>;
+  read_at: string | null;
+  created_at: string;
+};
+
+export type Referral = {
+  id: string;
+  referrer_id: string;
+  referred_id: string;
+  reward_given: boolean;
   created_at: string;
 };
 
@@ -188,6 +221,18 @@ export type Database = {
         Row: Tournament;
         Insert: Partial<Tournament> & { name: string };
         Update: Partial<Tournament>;
+        Relationships: [];
+      };
+      notifications: {
+        Row: Notification;
+        Insert: Partial<Notification> & { user_id: string; type: NotificationType; title: string; body: string };
+        Update: Partial<Notification>;
+        Relationships: [];
+      };
+      referrals: {
+        Row: Referral;
+        Insert: Partial<Referral> & { referrer_id: string; referred_id: string };
+        Update: Partial<Referral>;
         Relationships: [];
       };
     };

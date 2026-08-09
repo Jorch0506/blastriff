@@ -7,9 +7,11 @@ import { AnimatePresence } from "framer-motion";
 import { useGameStore } from "@/stores/gameStore";
 import { ACHIEVEMENTS, type AchievementDef, type AchievementKey } from "@/lib/achievements";
 import { AchievementToast } from "@/components/game/AchievementToast";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function ResultsPage() {
   const router = useRouter();
+  const { profile } = useAuth();
   const phase = useGameStore((state) => state.phase);
   const answers = useGameStore((state) => state.answers);
   const questions = useGameStore((state) => state.questions);
@@ -70,6 +72,9 @@ export default function ResultsPage() {
             }))
           );
         }
+        if (newAchievements.some((achievement) => achievement.key === "first_game")) {
+          fetch("/api/referral/complete", { method: "POST" }).catch(() => {});
+        }
       })
       .finally(() => setIsSubmitting(false));
   }, [phase, sessionId, mode, genre, answers, startTime, completeGame]);
@@ -101,7 +106,16 @@ export default function ResultsPage() {
   }
 
   async function handleShare() {
-    const shareUrl = `${window.location.origin}/api/og/results?score=${score}&correct=${correctCount}&total=${questions.length}&genre=${encodeURIComponent(genre)}`;
+    const ogParams = new URLSearchParams({
+      score: String(score),
+      correct: String(correctCount),
+      total: String(questions.length),
+      genre,
+      username: profile?.username ?? "METALHEAD",
+      level: String(profile?.level ?? 1),
+      streakDays: String(profile?.current_streak ?? 0),
+    });
+    const shareUrl = `${window.location.origin}/api/og/results?${ogParams.toString()}`;
     if (navigator.share) {
       try {
         await navigator.share({

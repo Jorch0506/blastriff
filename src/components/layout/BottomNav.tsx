@@ -7,12 +7,16 @@ import { cn } from "@/lib/utils";
 const TABS = [
   { href: "/play", label: "Play", emoji: "⚡", comingSoon: false },
   { href: "/leaderboard", label: "Ranks", emoji: "🏆", comingSoon: false },
-  { href: "/challenges", label: "Battles", emoji: "⚔️", comingSoon: true },
+  { href: "/challenges", label: "Battles", emoji: "⚔️", comingSoon: false },
   { href: "/lore", label: "Lore", emoji: "📖", comingSoon: true },
   { href: "/profile", label: "Profile", emoji: "👤", comingSoon: false },
 ];
 
-export function BottomNav() {
+interface BottomNavProps {
+  pendingChallengeCount: number;
+}
+
+export function BottomNav({ pendingChallengeCount }: BottomNavProps) {
   const pathname = usePathname();
 
   return (
@@ -43,7 +47,14 @@ export function BottomNav() {
             )}
           >
             {isActive && <span className="absolute top-0 h-0.5 w-8 rounded-full bg-primary" />}
-            <span className="text-lg">{tab.emoji}</span>
+            <span className="relative text-lg">
+              {tab.emoji}
+              {tab.href === "/challenges" && pendingChallengeCount > 0 && (
+                <span className="absolute -right-2 -top-1 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-primary px-1 text-[9px] font-bold text-text">
+                  {pendingChallengeCount > 9 ? "9+" : pendingChallengeCount}
+                </span>
+              )}
+            </span>
             {tab.label}
           </Link>
         );

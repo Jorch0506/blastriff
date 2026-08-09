@@ -4,7 +4,9 @@ import { createClient } from "@/lib/supabase/server";
 import { calculatePoints } from "@/lib/game/scoring";
 import { getLevelFromPoints, getLevelName } from "@/lib/game/levels";
 import { calculateStreak } from "@/lib/streak";
-import { checkAchievements } from "@/lib/achievements";
+import { checkAchievements, ACHIEVEMENTS, type AchievementKey } from "@/lib/achievements";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { notifyUser } from "@/lib/notifications";
 import type { GameMode, GameSessionQuestion, QuestionDifficulty } from "@/types/database";
 
 const answerSchema = z.object({
@@ -174,6 +176,33 @@ export async function POST(request: NextRequest) {
         .eq("id", user.id);
     }
   }
+
+  const admin = createAdminClient();
+
+  if (levelUp) {
+    await notifyUser(
+      admin,
+      user.id,
+      "level_up",
+      `⬆️ You reached ${getLevelName(newLevel)}!`,
+      `Level ${newLevel} unlocked. Keep blasting.`,
+      { level: newLevel }
+    );
+  }
+
+  await Promise.all(
+    newAchievements.map((achievement) => {
+      const definition = ACHIEVEMENTS[achievement.achievement_key as AchievementKey];
+      return notifyUser(
+        admin,
+        user.id,
+        "achievement_unlocked",
+        `🏆 Achievement unlocked: ${definition.name}`,
+        definition.description,
+        { key: achievement.achievement_key, trvePointsReward: achievement.trve_points_reward }
+      );
+    })
+  );
 
   return NextResponse.json({
     sessionId: session.id,

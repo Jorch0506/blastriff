@@ -7,10 +7,11 @@ import { BottomNav } from "@/components/layout/BottomNav";
 interface AppChromeProps {
   username: string;
   trvePoints: number;
+  pendingChallengeCount: number;
   children: React.ReactNode;
 }
 
-export function AppChrome({ username, trvePoints, children }: AppChromeProps) {
+export function AppChrome({ username, trvePoints, pendingChallengeCount, children }: AppChromeProps) {
   const pathname = usePathname();
   const isOnboarding = pathname?.startsWith("/onboarding") ?? false;
 
@@ -20,9 +21,9 @@ export function AppChrome({ username, trvePoints, children }: AppChromeProps) {
 
   return (
     <>
-      <Header username={username} trvePoints={trvePoints} />
+      <Header username={username} trvePoints={trvePoints} pendingChallengeCount={pendingChallengeCount} />
       <div className="flex-1 pb-16 md:pb-0">{children}</div>
-      <BottomNav />
+      <BottomNav pendingChallengeCount={pendingChallengeCount} />
     </>
   );
 }

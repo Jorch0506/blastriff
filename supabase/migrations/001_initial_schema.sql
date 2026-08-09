@@ -33,7 +33,7 @@ create table if not exists questions (
   options jsonb not null,
   correct_option text not null,
   explanation text,
-  difficulty text not null check (difficulty in ('easy', 'medium', 'hard', 'expert')),
+  difficulty text not null check (difficulty in ('easy', 'medium', 'hard')),
   genre text not null,
   question_type text not null default 'multiple_choice'
     check (question_type in ('multiple_choice', 'true_false', 'audio', 'image')),
@@ -76,7 +76,7 @@ create table if not exists challenges (
   challenger_id uuid not null references profiles(id) on delete cascade,
   challenged_id uuid references profiles(id) on delete cascade,
   genre text not null,
-  difficulty text not null check (difficulty in ('easy', 'medium', 'hard', 'expert')),
+  difficulty text not null check (difficulty in ('easy', 'medium', 'hard')),
   questions_data jsonb not null default '[]',
   challenger_score integer,
   challenger_correct integer,

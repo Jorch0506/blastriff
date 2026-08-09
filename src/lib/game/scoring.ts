@@ -6,7 +6,6 @@ export const DIFFICULTY_WEIGHT: Record<QuestionDifficulty, number> = {
   easy: 2,
   medium: 3,
   hard: 4,
-  expert: 5,
 };
 
 export function getBasePoints(difficulty: QuestionDifficulty): number {
@@ -44,8 +43,7 @@ export function calculatePoints(params: {
 export function difficultyFromNumber(value: number): QuestionDifficulty {
   if (value <= 2) return "easy";
   if (value === 3) return "medium";
-  if (value === 4) return "hard";
-  return "expert";
+  return "hard";
 }
 
 export function numberFromDifficulty(difficulty: QuestionDifficulty): number {

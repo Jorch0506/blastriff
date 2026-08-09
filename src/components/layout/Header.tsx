@@ -4,13 +4,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { NotificationBell } from "@/components/ui/NotificationBell";
 
 interface HeaderProps {
   username: string;
   trvePoints: number;
+  pendingChallengeCount: number;
 }
 
-export function Header({ username, trvePoints }: HeaderProps) {
+export function Header({ username, trvePoints, pendingChallengeCount }: HeaderProps) {
   const router = useRouter();
   const { signOut } = useAuth();
 
@@ -33,13 +35,19 @@ export function Header({ username, trvePoints }: HeaderProps) {
         <Link href="/leaderboard" className="transition-colors hover:text-text">
           LEADERBOARD
         </Link>
-        <span className="cursor-not-allowed opacity-60" title="Coming soon">
+        <Link href="/challenges" className="relative transition-colors hover:text-text">
           CHALLENGES
-        </span>
+          {pendingChallengeCount > 0 && (
+            <span className="absolute -right-3 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-text">
+              {pendingChallengeCount > 9 ? "9+" : pendingChallengeCount}
+            </span>
+          )}
+        </Link>
       </nav>
 
       <div className="flex items-center gap-4">
         <span className="font-metal text-sm text-gold">{trvePoints.toLocaleString()} TP</span>
+        <NotificationBell />
         <Link
           href="/profile"
           className="flex h-8 w-8 items-center justify-center rounded-full bg-surface-elevated text-sm font-bold text-text transition-colors hover:ring-2 hover:ring-primary"

@@ -18,7 +18,7 @@ export type AnswerRecord = {
   correctOptionId: string;
 };
 
-export type GameMode = "gauntlet" | "daily" | "practice";
+export type GameMode = "gauntlet" | "daily" | "practice" | "challenge";
 
 export type GamePhase = "idle" | "loading" | "playing" | "feedback" | "complete";
 
