@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "PowerShell(node -v)",
+      "PowerShell(npm -v)",
+      "PowerShell(winget install --id OpenJS.NodeJS.LTS -e --accept-package-agreements --accept-source-agreements)",
+      "Bash(mkdir -p /tmp/blastriff-legacy-backup 2>/dev/null; mkdir -p \"C:/Users/Jorch/AppData/Local/Temp/claude/C--Users-Jorch-blastriff/37ac181e-ba02-4fa7-8b28-4eee1e66ef59/scratchpad/legacy-backup\" *)",
+      "Bash(mv .claude \"C:/Users/Jorch/AppData/Local/Temp/claude/C--Users-Jorch-blastriff/37ac181e-ba02-4fa7-8b28-4eee1e66ef59/scratchpad/legacy-backup/dot-claude\" *)"
+    ]
+  }
+}
