@@ -30,9 +30,9 @@ export function Header({ username, trvePoints }: HeaderProps) {
         <Link href="/play" className="transition-colors hover:text-text">
           PLAY
         </Link>
-        <span className="cursor-not-allowed opacity-60" title="Coming soon">
+        <Link href="/leaderboard" className="transition-colors hover:text-text">
           LEADERBOARD
-        </span>
+        </Link>
         <span className="cursor-not-allowed opacity-60" title="Coming soon">
           CHALLENGES
         </span>
@@ -40,9 +40,12 @@ export function Header({ username, trvePoints }: HeaderProps) {
 
       <div className="flex items-center gap-4">
         <span className="font-metal text-sm text-gold">{trvePoints.toLocaleString()} TP</span>
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-surface-elevated text-sm font-bold text-text">
+        <Link
+          href="/profile"
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-surface-elevated text-sm font-bold text-text transition-colors hover:ring-2 hover:ring-primary"
+        >
           {username.charAt(0).toUpperCase()}
-        </div>
+        </Link>
         <button
           type="button"
           onClick={handleSignOut}

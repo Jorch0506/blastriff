@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { LEVEL_THRESHOLDS, getLevelName, getNextLevelThreshold } from "@/lib/game/levels";
+import { StreakCard } from "@/components/dashboard/StreakCard";
 
 const GENRES = [
   { id: "thrash", label: "Thrash Metal", emoji: "⚡" },
@@ -65,13 +66,7 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      <section className="rounded-xl border border-border bg-surface p-5">
-        {profile.current_streak > 0 ? (
-          <p className="font-metal text-lg text-primary">🔥 {profile.current_streak} DAY STREAK</p>
-        ) : (
-          <p className="font-metal text-lg text-text-muted">Start your streak today</p>
-        )}
-      </section>
+      <StreakCard currentStreak={profile.current_streak} longestStreak={profile.longest_streak} />
 
       <section>
         <h2 className="mb-3 font-metal text-lg text-text">QUICK PLAY</h2>

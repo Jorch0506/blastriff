@@ -3,7 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { AnimatePresence } from "framer-motion";
 import { useGameStore } from "@/stores/gameStore";
+import { ACHIEVEMENTS, type AchievementDef, type AchievementKey } from "@/lib/achievements";
+import { AchievementToast } from "@/components/game/AchievementToast";
 
 export default function ResultsPage() {
   const router = useRouter();
@@ -23,6 +26,9 @@ export default function ResultsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [levelUpInfo, setLevelUpInfo] = useState<{ newLevel: number; newLevelName: string } | null>(null);
   const [displayScore, setDisplayScore] = useState(0);
+  const [unlockedAchievements, setUnlockedAchievements] = useState<(AchievementDef & { toastId: string })[]>(
+    []
+  );
 
   useEffect(() => {
     if (phase !== "complete" || questions.length === 0) {
@@ -54,6 +60,15 @@ export default function ResultsPage() {
         completeGame(data.sessionId ?? null);
         if (data.levelUp) {
           setLevelUpInfo({ newLevel: data.newLevel, newLevelName: data.newLevelName });
+        }
+        const newAchievements: { key: AchievementKey }[] = data.newAchievements ?? [];
+        if (newAchievements.length > 0) {
+          setUnlockedAchievements(
+            newAchievements.map((achievement, index) => ({
+              ...ACHIEVEMENTS[achievement.key],
+              toastId: `${achievement.key}-${index}`,
+            }))
+          );
         }
       })
       .finally(() => setIsSubmitting(false));
@@ -104,6 +119,22 @@ export default function ResultsPage() {
 
   return (
     <main className="mx-auto flex min-h-screen max-w-lg flex-col items-center gap-6 px-4 py-12 text-center">
+      <div className="fixed right-4 top-4 z-50 flex flex-col gap-3">
+        <AnimatePresence>
+          {unlockedAchievements.map((achievement) => (
+            <AchievementToast
+              key={achievement.toastId}
+              achievement={achievement}
+              onDismiss={() =>
+                setUnlockedAchievements((current) =>
+                  current.filter((entry) => entry.toastId !== achievement.toastId)
+                )
+              }
+            />
+          ))}
+        </AnimatePresence>
+      </div>
+
       <h1 className="font-metal text-3xl text-text">RESULTS</h1>
 
       <div className="font-metal text-5xl text-gold">{displayScore.toLocaleString()} TP</div>

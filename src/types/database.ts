@@ -133,6 +133,18 @@ export type Tournament = {
   created_at: string;
 };
 
+export type LeaderboardEntry = {
+  id: string;
+  username: string;
+  display_name: string | null;
+  avatar_url: string | null;
+  country_code: string | null;
+  trve_points: number;
+  level: number;
+  current_streak: number;
+  rank: number;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -179,7 +191,12 @@ export type Database = {
         Relationships: [];
       };
     };
-    Views: { [_ in never]: never };
+    Views: {
+      leaderboard_view: {
+        Row: LeaderboardEntry;
+        Relationships: [];
+      };
+    };
     Functions: { [_ in never]: never };
     Enums: { [_ in never]: never };
     CompositeTypes: { [_ in never]: never };

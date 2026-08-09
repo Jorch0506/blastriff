@@ -1,9 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { differenceInCalendarDays } from "date-fns";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { calculatePoints } from "@/lib/game/scoring";
 import { getLevelFromPoints, getLevelName } from "@/lib/game/levels";
+import { calculateStreak } from "@/lib/streak";
+import { checkAchievements } from "@/lib/achievements";
 import type { GameMode, GameSessionQuestion, QuestionDifficulty } from "@/types/database";
 
 const answerSchema = z.object({
@@ -121,21 +122,14 @@ export async function POST(request: NextRequest) {
 
   const now = new Date();
   const lastPlayed = profile.last_played_at ? new Date(profile.last_played_at) : null;
-  let newDailyStreak: number;
-  if (!lastPlayed) {
-    newDailyStreak = 1;
-  } else {
-    const diffDays = differenceInCalendarDays(now, lastPlayed);
-    if (diffDays === 0) newDailyStreak = profile.current_streak || 1;
-    else if (diffDays === 1) newDailyStreak = (profile.current_streak || 0) + 1;
-    else newDailyStreak = 1;
-  }
+  const previousDailyStreak = profile.current_streak;
+  const { newStreak: newDailyStreak } = calculateStreak(lastPlayed, profile.current_streak);
 
   const newTotalPoints = profile.trve_points + trvePointsEarned;
   const newLevel = getLevelFromPoints(newTotalPoints);
   const levelUp = newLevel > profile.level;
 
-  await supabase
+  const { data: updatedProfile } = await supabase
     .from("profiles")
     .update({
       trve_points: newTotalPoints,
@@ -146,12 +140,49 @@ export async function POST(request: NextRequest) {
       longest_streak: Math.max(profile.longest_streak, newDailyStreak),
       last_played_at: now.toISOString(),
     })
-    .eq("id", user.id);
+    .eq("id", user.id)
+    .select("*")
+    .single();
+
+  let newAchievements: Awaited<ReturnType<typeof checkAchievements>> = [];
+
+  if (updatedProfile) {
+    newAchievements = await checkAchievements(
+      supabase,
+      user.id,
+      {
+        genre,
+        correctAnswers,
+        totalQuestions: questionsData.length,
+        questionsData,
+        previousTotalCorrect: profile.total_correct,
+        previousTotalQuestionsAnswered: profile.total_questions_answered,
+        previousTrvePoints: profile.trve_points,
+        previousDailyStreak,
+      },
+      updatedProfile
+    );
+
+    const bonusPoints = newAchievements.reduce((sum, achievement) => sum + achievement.trve_points_reward, 0);
+    if (bonusPoints > 0) {
+      await supabase
+        .from("profiles")
+        .update({
+          trve_points: updatedProfile.trve_points + bonusPoints,
+          level: getLevelFromPoints(updatedProfile.trve_points + bonusPoints),
+        })
+        .eq("id", user.id);
+    }
+  }
 
   return NextResponse.json({
     sessionId: session.id,
     levelUp,
     newLevel: levelUp ? newLevel : null,
     newLevelName: levelUp ? getLevelName(newLevel) : null,
+    newAchievements: newAchievements.map((achievement) => ({
+      key: achievement.achievement_key,
+      trvePointsReward: achievement.trve_points_reward,
+    })),
   });
 }
