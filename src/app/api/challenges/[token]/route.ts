@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { toPublicQuestions } from "@/lib/challenges";
 
+export const dynamic = "force-dynamic";
+
 type ProfileSummary = {
   id: string;
   username: string;

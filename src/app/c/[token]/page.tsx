@@ -43,14 +43,16 @@ type ChallengeResponse = {
   questions?: ClientQuestion[];
 };
 
-type SubmitResult = {
-  won: boolean;
-  score: number;
-  correct: number;
-  challengerScore: number;
-  pointsWon: number;
-  newTotalPoints: number;
-};
+type SubmitResult =
+  | { role: "challenger"; score: number; correct: number; total: number }
+  | {
+      won: boolean;
+      score: number;
+      correct: number;
+      challengerScore: number;
+      pointsWon: number;
+      newTotalPoints: number;
+    };
 
 function ParticipantAvatar({ participant }: { participant: ParticipantInfo | null }) {
   return (
@@ -101,8 +103,8 @@ export default function ChallengeLandingPage({ params }: { params: { token: stri
       return;
     }
     setResult(body);
-    setStage("result");
     await fetchChallenge();
+    setStage("result");
   }
 
   if (notFound) {
@@ -132,7 +134,8 @@ export default function ChallengeLandingPage({ params }: { params: { token: stri
   }
 
   const isCompleted = challenge.status === "completed";
-  const showComparison = isCompleted || (stage === "result" && result);
+  const showComparison = isCompleted;
+  const showWaitingForOpponent = !isCompleted && stage === "result" && result !== null && "role" in result;
 
   return (
     <main className="mx-auto flex min-h-screen max-w-lg flex-col gap-6 px-4 py-10">
@@ -140,7 +143,7 @@ export default function ChallengeLandingPage({ params }: { params: { token: stri
         BLAST⚡RIFF
       </Link>
 
-      {!showComparison && (
+      {!showComparison && !showWaitingForOpponent && (
         <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-surface p-6 text-center">
           <ParticipantAvatar participant={challenge.challenger} />
           <h1 className="font-metal text-xl text-text">
@@ -160,7 +163,7 @@ export default function ChallengeLandingPage({ params }: { params: { token: stri
 
       {submitError && <p className="text-center text-sm text-error">{submitError}</p>}
 
-      {!showComparison && !viewer.isAuthenticated && (
+      {!showComparison && !showWaitingForOpponent && !viewer.isAuthenticated && (
         <button
           type="button"
           onClick={() => router.push(`/login?redirectTo=/c/${params.token}`)}
@@ -170,7 +173,7 @@ export default function ChallengeLandingPage({ params }: { params: { token: stri
         </button>
       )}
 
-      {!showComparison && viewer.isAuthenticated && viewer.canPlay && data.questions && (
+      {!showComparison && !showWaitingForOpponent && viewer.isAuthenticated && viewer.canPlay && data.questions && (
         <button
           type="button"
           onClick={() => setStage("playing")}
@@ -180,7 +183,7 @@ export default function ChallengeLandingPage({ params }: { params: { token: stri
         </button>
       )}
 
-      {!showComparison && viewer.isAuthenticated && !viewer.canPlay && (
+      {!showComparison && !showWaitingForOpponent && viewer.isAuthenticated && !viewer.canPlay && (
         <div className="rounded-xl border border-border bg-surface p-5 text-center text-sm text-text-muted">
           {challenge.status === "expired"
             ? "This challenge has expired."
@@ -190,13 +193,25 @@ export default function ChallengeLandingPage({ params }: { params: { token: stri
         </div>
       )}
 
+      {showWaitingForOpponent && result && "role" in result && (
+        <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-surface p-6 text-center">
+          <p className="font-metal text-xl text-text">YOU SCORED {result.score.toLocaleString()} TP</p>
+          <p className="text-sm text-text-muted">
+            {result.correct}/{result.total} correct
+          </p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
+            Waiting for your opponent to play their turn.
+          </p>
+        </div>
+      )}
+
       {showComparison && (
         <div className="flex flex-col gap-6 rounded-xl border border-border bg-surface p-6 text-center">
           <p className="font-metal text-2xl text-gold">
             {challenge.winnerId === null
               ? "IT'S A DRAW"
               : challenge.winnerId === challenge.challenger?.id
-                ? `${challenge.challenger?.username.toUpperCase()} WINS`
+                ? `${challenge.challenger?.username?.toUpperCase()} WINS`
                 : `${challenge.challenged?.username?.toUpperCase() ?? "CHALLENGER"} WINS`}
           </p>
 
@@ -216,7 +231,7 @@ export default function ChallengeLandingPage({ params }: { params: { token: stri
             </div>
           </div>
 
-          {result && (
+          {result && !("role" in result) && (
             <p className={result.pointsWon >= 0 ? "font-metal text-lg text-success" : "font-metal text-lg text-error"}>
               {result.pointsWon > 0 ? `+${result.pointsWon}` : result.pointsWon} TP
             </p>
