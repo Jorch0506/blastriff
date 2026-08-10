@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { AuthModal } from "@/components/auth/AuthModal";
 
 export default function LoginPage() {
@@ -26,7 +26,9 @@ export default function LoginPage() {
         )}
       </div>
 
-      <AuthModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <Suspense fallback={null}>
+        <AuthModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      </Suspense>
     </main>
   );
 }

@@ -51,14 +51,19 @@ export function useAuth() {
     };
   }, [supabase]);
 
-  const signInWithGoogle = useCallback(async () => {
-    return supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    });
-  }, [supabase]);
+  const signInWithGoogle = useCallback(
+    async (redirectTo?: string) => {
+      const callbackUrl = new URL("/auth/callback", window.location.origin);
+      if (redirectTo) callbackUrl.searchParams.set("redirectTo", redirectTo);
+      return supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: callbackUrl.toString(),
+        },
+      });
+    },
+    [supabase]
+  );
 
   const signInWithEmail = useCallback(
     async (email: string, password: string) => {
@@ -68,12 +73,14 @@ export function useAuth() {
   );
 
   const signUpWithEmail = useCallback(
-    async (email: string, password: string) => {
+    async (email: string, password: string, redirectTo?: string) => {
+      const callbackUrl = new URL("/auth/callback", window.location.origin);
+      if (redirectTo) callbackUrl.searchParams.set("redirectTo", redirectTo);
       return supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          emailRedirectTo: callbackUrl.toString(),
         },
       });
     },

@@ -1,8 +1,13 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { sanitizeRedirect } from "@/lib/utils";
 import { OnboardingFlow } from "@/components/onboarding/OnboardingFlow";
 
-export default async function OnboardingPage() {
+export default async function OnboardingPage({
+  searchParams,
+}: {
+  searchParams: { redirectTo?: string };
+}) {
   const supabase = createClient();
   const {
     data: { user },
@@ -22,5 +27,5 @@ export default async function OnboardingPage() {
     redirect("/dashboard");
   }
 
-  return <OnboardingFlow userId={user.id} />;
+  return <OnboardingFlow userId={user.id} redirectTo={sanitizeRedirect(searchParams.redirectTo, "/dashboard")} />;
 }

@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loader2, X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, sanitizeRedirect } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
+import { createClient } from "@/lib/supabase/client";
 
 type AuthTab = "signup" | "login";
 
@@ -24,6 +26,9 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose }: AuthModalProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = sanitizeRedirect(searchParams.get("redirectTo"), "/dashboard");
   const [tab, setTab] = useState<AuthTab>("signup");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOAuthLoading, setIsOAuthLoading] = useState<"google" | "apple" | null>(null);
@@ -49,9 +54,9 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
     setIsSubmitting(true);
     setFormError(null);
     try {
-      const { error } =
+      const { data, error } =
         tab === "signup"
-          ? await signUpWithEmail(values.email, values.password)
+          ? await signUpWithEmail(values.email, values.password, redirectTo)
           : await signInWithEmail(values.email, values.password);
 
       if (error) {
@@ -59,6 +64,21 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         return;
       }
       onClose();
+      if (data.session) {
+        const supabase = createClient();
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("username")
+          .eq("id", data.session.user.id)
+          .single();
+
+        const destination = profile?.username?.startsWith("metalhead_")
+          ? `/onboarding?redirectTo=${encodeURIComponent(redirectTo)}`
+          : redirectTo;
+
+        router.push(destination);
+        router.refresh();
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -67,7 +87,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   async function handleGoogleSignIn() {
     setIsOAuthLoading("google");
     setFormError(null);
-    const { error } = await signInWithGoogle();
+    const { error } = await signInWithGoogle(redirectTo);
     if (error) {
       setFormError(error.message);
       setIsOAuthLoading(null);

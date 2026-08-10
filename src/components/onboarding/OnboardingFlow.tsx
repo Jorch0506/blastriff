@@ -10,9 +10,10 @@ import { StepWelcome } from "@/components/onboarding/StepWelcome";
 
 interface OnboardingFlowProps {
   userId: string;
+  redirectTo: string;
 }
 
-export function OnboardingFlow({ userId }: OnboardingFlowProps) {
+export function OnboardingFlow({ userId, redirectTo }: OnboardingFlowProps) {
   const router = useRouter();
   const supabase = createClient();
 
@@ -101,8 +102,7 @@ export function OnboardingFlow({ userId }: OnboardingFlowProps) {
   }
 
   function handleEnter() {
-    router.push("/dashboard");
-    router.refresh();
+    router.push(redirectTo);
   }
 
   if (step === 1) {
