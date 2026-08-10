@@ -39,11 +39,19 @@ export async function POST(request: NextRequest) {
 
   const { genre, difficulty, pointsAtStake } = parsed.data;
 
+  const { data: challengerProfile } = await supabase
+    .from("profiles")
+    .select("preferred_locale")
+    .eq("id", user.id)
+    .single();
+  const preferredLocale = challengerProfile?.preferred_locale ?? "en";
+
   let query = supabase
     .from("questions")
     .select("id, question_text, options, correct_option, difficulty, genre, question_type")
     .eq("verified", true)
-    .eq("difficulty", difficulty);
+    .eq("difficulty", difficulty)
+    .eq("language", preferredLocale);
 
   if (genre !== "all") {
     query = query.eq("genre", genre);

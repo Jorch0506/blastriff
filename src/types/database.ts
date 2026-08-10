@@ -4,6 +4,12 @@ export type QuestionType = "multiple_choice" | "true_false" | "audio" | "image";
 
 export type UserRole = "user" | "moderator" | "admin";
 
+export type Locale = "en" | "es";
+
+export type FactCheckVerdict = "VERIFIED_CORRECT" | "VERIFIED_INCORRECT" | "UNCERTAIN";
+
+export type PendingQuestionStatus = "pending" | "needs_review" | "approved" | "rejected";
+
 export type GameMode = "solo" | "challenge" | "tournament" | "daily";
 
 export type ChallengeStatus = "pending" | "active" | "completed" | "expired" | "declined";
@@ -22,6 +28,7 @@ export type Profile = {
   avatar_url: string | null;
   country_code: string | null;
   preferred_genres: string[];
+  preferred_locale: Locale;
   trve_points: number;
   level: number;
   current_streak: number;
@@ -122,6 +129,34 @@ export type Challenge = {
   created_at: string;
 };
 
+export type PendingQuestion = {
+  id: string;
+  question_text: string;
+  options: QuestionOption[];
+  correct_option: string;
+  explanation: string | null;
+  difficulty: QuestionDifficulty;
+  genre: string;
+  question_type: QuestionType;
+  tags: string[];
+  language: Locale;
+  related_band: string | null;
+  related_album: string | null;
+  related_song: string | null;
+  related_year: number | null;
+  ai_generated: boolean;
+  generation_model: string;
+  generation_batch_id: string;
+  fact_check_model: string | null;
+  fact_check_verdict: FactCheckVerdict | null;
+  fact_check_notes: string | null;
+  status: PendingQuestionStatus;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  rejection_reason: string | null;
+  created_at: string;
+};
+
 export type Achievement = {
   id: string;
   user_id: string;
@@ -215,6 +250,20 @@ export type Database = {
         Row: Achievement;
         Insert: Partial<Achievement> & { user_id: string; achievement_key: string };
         Update: Partial<Achievement>;
+        Relationships: [];
+      };
+      questions_pending_review: {
+        Row: PendingQuestion;
+        Insert: Partial<PendingQuestion> & {
+          question_text: string;
+          options: QuestionOption[];
+          correct_option: string;
+          difficulty: QuestionDifficulty;
+          genre: string;
+          generation_model: string;
+          generation_batch_id: string;
+        };
+        Update: Partial<PendingQuestion>;
         Relationships: [];
       };
       tournaments: {
