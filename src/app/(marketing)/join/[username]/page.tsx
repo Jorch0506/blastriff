@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getLevelName } from "@/lib/game/levels";
 import { SetReferralCookie } from "@/components/referral/SetReferralCookie";
+import { Footer } from "@/components/layout/Footer";
 
 export default async function JoinPage({ params }: { params: { username: string } }) {
   const supabase = createClient();
@@ -22,11 +23,12 @@ export default async function JoinPage({ params }: { params: { username: string 
       : 0;
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center gap-8 bg-background px-4 py-12 text-center">
+    <div className="relative flex min-h-screen flex-col bg-background">
       <SetReferralCookie username={referrer.username} />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(204,0,0,0.15),_transparent_60%)]" />
 
-      <div className="relative z-10 flex flex-col items-center gap-6">
+      <main className="relative z-10 flex flex-1 flex-col items-center justify-center gap-8 px-4 py-12 text-center">
+        <div className="flex flex-col items-center gap-6">
         <div className="flex h-20 w-20 items-center justify-center rounded-full bg-surface-elevated text-4xl">
           {referrer.avatar_url || referrer.username.charAt(0).toUpperCase()}
         </div>
@@ -58,7 +60,10 @@ export default async function JoinPage({ params }: { params: { username: string 
         >
           JOIN THE HORDE
         </Link>
-      </div>
-    </main>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
   );
 }
