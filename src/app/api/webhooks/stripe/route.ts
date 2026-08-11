@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import type Stripe from "stripe";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs"; // necesitamos el body crudo para verificar la firma; no funciona en Edge
@@ -39,6 +39,14 @@ export async function POST(req: NextRequest) {
 
   if (!signature) {
     return NextResponse.json({ error: "Missing signature" }, { status: 400 });
+  }
+
+  let stripe: ReturnType<typeof getStripe>;
+  try {
+    stripe = getStripe();
+  } catch (err) {
+    console.error("Stripe client misconfigured", err);
+    return NextResponse.json({ error: "Stripe is not configured on this environment." }, { status: 500 });
   }
 
   let event: Stripe.Event;
@@ -104,6 +112,7 @@ async function handleCheckoutCompleted(
     return; // checkout de un producto que no es suscripción; no aplica aquí
   }
 
+  const stripe = getStripe();
   const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
   await upsertSubscription(admin, userId, subscription);
 
@@ -150,13 +159,6 @@ async function upsertSubscription(
   subscription: Stripe.Subscription
 ) {
   const item = subscription.items.data[0];
-
-  // TEMPORAL: verificar contra un checkout de prueba real que la forma de
-  // item coincide con lo asumido en esta versión de la API (2026-07-29.dahlia,
-  // posterior a la documentación pública disponible al escribir este código).
-  // Quitar este log una vez confirmado en un evento real.
-  console.log("[stripe webhook] subscription item shape:", JSON.stringify(item, null, 2));
-
   const lookupKey = item.price.lookup_key;
 
   if (!isPremiumLookupKey(lookupKey)) {

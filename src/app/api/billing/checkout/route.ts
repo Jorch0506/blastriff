@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
 
 // ENDPOINT DE PRUEBA MÍNIMO — únicamente para generar un checkout.session.completed
@@ -14,6 +14,14 @@ export async function GET(req: NextRequest) {
 
   if (!user) {
     return NextResponse.json({ error: "Unauthorized. Inicia sesión primero." }, { status: 401 });
+  }
+
+  let stripe: ReturnType<typeof getStripe>;
+  try {
+    stripe = getStripe();
+  } catch (err) {
+    console.error("Stripe client misconfigured", err);
+    return NextResponse.json({ error: "Billing is not configured on this environment." }, { status: 500 });
   }
 
   const prices = await stripe.prices.list({ lookup_keys: ["trve_pass_monthly"], active: true, limit: 1 });
