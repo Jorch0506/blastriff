@@ -40,6 +40,12 @@ export function calculatePoints(params: {
   return Math.round(base * timeBonus * streakMultiplier);
 }
 
+export const PREMIUM_POINTS_MULTIPLIER = 1.15;
+
+export function applyPremiumBonus(points: number, isPremium: boolean): number {
+  return isPremium ? Math.round(points * PREMIUM_POINTS_MULTIPLIER) : points;
+}
+
 export function difficultyFromNumber(value: number): QuestionDifficulty {
   if (value <= 2) return "easy";
   if (value === 3) return "medium";

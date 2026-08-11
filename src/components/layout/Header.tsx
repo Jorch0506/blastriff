@@ -10,9 +10,10 @@ interface HeaderProps {
   username: string;
   trvePoints: number;
   pendingChallengeCount: number;
+  isPremium: boolean;
 }
 
-export function Header({ username, trvePoints, pendingChallengeCount }: HeaderProps) {
+export function Header({ username, trvePoints, pendingChallengeCount, isPremium }: HeaderProps) {
   const router = useRouter();
   const { signOut } = useAuth();
 
@@ -46,6 +47,18 @@ export function Header({ username, trvePoints, pendingChallengeCount }: HeaderPr
       </nav>
 
       <div className="flex items-center gap-4">
+        {isPremium ? (
+          <span className="rounded-full border border-gold bg-gold/10 px-3 py-1 text-xs font-bold tracking-wide text-gold">
+            🔥 TRVE KVLT ACTIVE
+          </span>
+        ) : (
+          <a
+            href="/api/billing/checkout"
+            className="animate-pulse-gold rounded-full bg-gold px-3 py-1 text-xs font-bold tracking-wide text-background transition-colors hover:bg-gold-dim"
+          >
+            ⚡ GET TRVE PASS
+          </a>
+        )}
         <span className="font-metal text-sm text-gold">{trvePoints.toLocaleString()} TP</span>
         <NotificationBell />
         <Link

@@ -5,6 +5,7 @@ import { LEVEL_THRESHOLDS, getLevelName, getNextLevelThreshold } from "@/lib/gam
 import { flagEmoji, ONBOARDING_GENRES } from "@/lib/onboarding";
 import { getJoinUrl } from "@/lib/referral";
 import { InviteSection } from "@/components/profile/InviteSection";
+import { ThemeSelector } from "@/components/profile/ThemeSelector";
 
 function formatDate(value: string | null): string {
   if (!value) return "—";
@@ -27,12 +28,20 @@ export default async function ProfilePage() {
     redirect("/login");
   }
 
-  const { data: sessions } = await supabase
+  const FREE_HISTORY_LIMIT = 10;
+
+  let sessionsQuery = supabase
     .from("game_sessions")
     .select("id, mode, genre, score, trve_points_earned, correct_answers, total_questions, completed_at")
     .eq("user_id", user.id)
-    .order("completed_at", { ascending: false })
-    .limit(5);
+    .order("completed_at", { ascending: false });
+
+  if (!profile.is_premium) {
+    sessionsQuery = sessionsQuery.limit(FREE_HISTORY_LIMIT);
+  }
+
+  const { data: sessions } = await sessionsQuery;
+  const mayHaveMoreHistory = !profile.is_premium && (sessions?.length ?? 0) >= FREE_HISTORY_LIMIT;
 
   const { data: rankEntry } = await supabase
     .from("leaderboard_view")
@@ -70,9 +79,17 @@ export default async function ProfilePage() {
           {profile.avatar_url || profile.username.charAt(0).toUpperCase()}
         </div>
         <div>
-          <h1 className="font-metal text-2xl text-text">
-            {profile.country_code && <span className="mr-2">{flagEmoji(profile.country_code)}</span>}
+          <h1 className="flex items-center justify-center gap-2 font-metal text-2xl text-text">
+            {profile.country_code && <span>{flagEmoji(profile.country_code)}</span>}
             {profile.username}
+            {profile.is_premium && (
+              <span
+                title="TRVE KVLT"
+                className="inline-flex items-center rounded-full border border-gold px-2 py-0.5 text-[10px] font-bold text-gold"
+              >
+                🔥 TRVE KVLT
+              </span>
+            )}
           </h1>
           <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-gold">
             LEVEL {level} · {levelName}
@@ -143,6 +160,8 @@ export default async function ProfilePage() {
         </section>
       )}
 
+      <ThemeSelector currentTheme={profile.profile_theme} isPremium={profile.is_premium} />
+
       <InviteSection joinUrl={getJoinUrl(profile.username)} referralCount={referralCount ?? 0} />
 
       <section>
@@ -171,6 +190,15 @@ export default async function ProfilePage() {
           <div className="rounded-xl border border-border bg-surface p-5 text-center text-sm text-text-muted">
             No sessions yet. <Link href="/play" className="text-primary hover:underline">Play now</Link>
           </div>
+        )}
+        {mayHaveMoreHistory && (
+          <p className="mt-3 text-center text-xs text-text-muted">
+            Free members see your last {FREE_HISTORY_LIMIT} sessions.{" "}
+            <a href="/api/billing/checkout" className="text-gold hover:underline">
+              Get TRVE PASS
+            </a>{" "}
+            for full history.
+          </p>
         )}
       </section>
     </main>

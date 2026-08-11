@@ -8,10 +8,11 @@ interface AppChromeProps {
   username: string;
   trvePoints: number;
   pendingChallengeCount: number;
+  isPremium: boolean;
   children: React.ReactNode;
 }
 
-export function AppChrome({ username, trvePoints, pendingChallengeCount, children }: AppChromeProps) {
+export function AppChrome({ username, trvePoints, pendingChallengeCount, isPremium, children }: AppChromeProps) {
   const pathname = usePathname();
   const isOnboarding = pathname?.startsWith("/onboarding") ?? false;
 
@@ -21,9 +22,14 @@ export function AppChrome({ username, trvePoints, pendingChallengeCount, childre
 
   return (
     <>
-      <Header username={username} trvePoints={trvePoints} pendingChallengeCount={pendingChallengeCount} />
+      <Header
+        username={username}
+        trvePoints={trvePoints}
+        pendingChallengeCount={pendingChallengeCount}
+        isPremium={isPremium}
+      />
       <div className="flex-1 pb-16 md:pb-0">{children}</div>
-      <BottomNav pendingChallengeCount={pendingChallengeCount} />
+      <BottomNav pendingChallengeCount={pendingChallengeCount} isPremium={isPremium} />
     </>
   );
 }

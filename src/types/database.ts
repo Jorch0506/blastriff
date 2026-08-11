@@ -21,6 +21,8 @@ export type QuestionOption = {
   text: string;
 };
 
+export type ProfileTheme = "frost" | "venom" | "ash";
+
 export type Profile = {
   id: string;
   username: string;
@@ -38,7 +40,9 @@ export type Profile = {
   total_correct: number;
   is_premium: boolean;
   premium_expires_at: string | null;
+  referral_premium_expires_at: string | null;
   stripe_customer_id: string | null;
+  profile_theme: ProfileTheme | null;
   role: UserRole;
   created_at: string;
   updated_at: string;
@@ -180,7 +184,13 @@ export type Tournament = {
   created_at: string;
 };
 
-export type NotificationType = "challenge_received" | "challenge_result" | "achievement_unlocked" | "level_up";
+export type NotificationType =
+  | "challenge_received"
+  | "challenge_result"
+  | "achievement_unlocked"
+  | "level_up"
+  | "payment_failed"
+  | "premium_access_lost";
 
 export type Notification = {
   id: string;
@@ -201,6 +211,40 @@ export type Referral = {
   created_at: string;
 };
 
+export type SubscriptionLookupKey = "trve_pass_monthly" | "trve_pass_annual";
+
+export type SubscriptionStatus =
+  | "active"
+  | "trialing"
+  | "past_due"
+  | "canceled"
+  | "unpaid"
+  | "incomplete"
+  | "incomplete_expired"
+  | "paused";
+
+export type Subscription = {
+  id: string;
+  user_id: string;
+  stripe_customer_id: string;
+  stripe_subscription_id: string;
+  stripe_price_id: string;
+  lookup_key: SubscriptionLookupKey;
+  status: SubscriptionStatus;
+  current_period_end: string | null;
+  cancel_at_period_end: boolean;
+  payment_failed_at: string | null;
+  grace_period_processed_at: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type StripeEvent = {
+  id: string;
+  type: string;
+  created_at: string;
+};
+
 export type LeaderboardEntry = {
   id: string;
   username: string;
@@ -210,6 +254,7 @@ export type LeaderboardEntry = {
   trve_points: number;
   level: number;
   current_streak: number;
+  is_premium: boolean;
   rank: number;
 };
 
@@ -282,6 +327,25 @@ export type Database = {
         Row: Referral;
         Insert: Partial<Referral> & { referrer_id: string; referred_id: string };
         Update: Partial<Referral>;
+        Relationships: [];
+      };
+      subscriptions: {
+        Row: Subscription;
+        Insert: Partial<Subscription> & {
+          user_id: string;
+          stripe_customer_id: string;
+          stripe_subscription_id: string;
+          stripe_price_id: string;
+          lookup_key: SubscriptionLookupKey;
+          status: SubscriptionStatus;
+        };
+        Update: Partial<Subscription>;
+        Relationships: [];
+      };
+      stripe_events: {
+        Row: StripeEvent;
+        Insert: Partial<StripeEvent> & { id: string; type: string };
+        Update: Partial<StripeEvent>;
         Relationships: [];
       };
     };

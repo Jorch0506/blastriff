@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
-import { calculatePoints } from "@/lib/game/scoring";
+import { applyPremiumBonus, calculatePoints } from "@/lib/game/scoring";
 import { getLevelFromPoints, getLevelName } from "@/lib/game/levels";
 import { calculateStreak } from "@/lib/streak";
 import { checkAchievements, ACHIEVEMENTS, type AchievementKey } from "@/lib/achievements";
@@ -55,6 +55,18 @@ export async function POST(request: NextRequest) {
 
   const questionMap = new Map(questionRows.map((row) => [row.id, row]));
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select(
+      "trve_points, level, total_questions_answered, total_correct, current_streak, longest_streak, last_played_at, is_premium"
+    )
+    .eq("id", user.id)
+    .single();
+
+  if (!profile) {
+    return NextResponse.json({ error: "Profile not found" }, { status: 404 });
+  }
+
   let streak = 0;
   let maxStreak = 0;
   let trvePointsEarned = 0;
@@ -86,6 +98,8 @@ export async function POST(request: NextRequest) {
     });
   }
 
+  trvePointsEarned = applyPremiumBonus(trvePointsEarned, profile.is_premium);
+
   const dbMode: GameMode = mode === "gauntlet" ? "solo" : "daily";
 
   const { data: session, error: sessionError } = await supabase
@@ -108,18 +122,6 @@ export async function POST(request: NextRequest) {
 
   if (sessionError || !session) {
     return NextResponse.json({ error: "Could not save session" }, { status: 500 });
-  }
-
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select(
-      "trve_points, level, total_questions_answered, total_correct, current_streak, longest_streak, last_played_at"
-    )
-    .eq("id", user.id)
-    .single();
-
-  if (!profile) {
-    return NextResponse.json({ sessionId: session.id, levelUp: false, newLevel: null, newLevelName: null });
   }
 
   const now = new Date();
@@ -206,6 +208,8 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({
     sessionId: session.id,
+    trvePointsEarned,
+    premiumBonusApplied: profile.is_premium,
     levelUp,
     newLevel: levelUp ? newLevel : null,
     newLevelName: levelUp ? getLevelName(newLevel) : null,

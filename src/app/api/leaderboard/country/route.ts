@@ -1,7 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
-const PROFILE_COLUMNS = "id, username, display_name, avatar_url, country_code, trve_points, level, current_streak";
+const PROFILE_COLUMNS =
+  "id, username, display_name, avatar_url, country_code, trve_points, level, current_streak, is_premium";
 const RANK_POOL_SIZE = 500;
 
 export async function GET(request: NextRequest) {

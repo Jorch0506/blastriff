@@ -9,7 +9,9 @@ export async function GET(request: NextRequest) {
 
   const { data: entries, error } = await supabase
     .from("leaderboard_view")
-    .select("id, username, display_name, avatar_url, country_code, trve_points, level, current_streak, rank")
+    .select(
+      "id, username, display_name, avatar_url, country_code, trve_points, level, current_streak, is_premium, rank"
+    )
     .order("rank", { ascending: true })
     .limit(limit);
 
@@ -25,7 +27,9 @@ export async function GET(request: NextRequest) {
   if (user) {
     const { data: currentUserEntry } = await supabase
       .from("leaderboard_view")
-      .select("id, username, display_name, avatar_url, country_code, trve_points, level, current_streak, rank")
+      .select(
+      "id, username, display_name, avatar_url, country_code, trve_points, level, current_streak, is_premium, rank"
+    )
       .eq("id", user.id)
       .maybeSingle();
 

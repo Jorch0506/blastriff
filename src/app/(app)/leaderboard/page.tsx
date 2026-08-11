@@ -26,6 +26,17 @@ function AvatarBadge({ entry, size = "text-xl" }: { entry: LeaderboardEntry; siz
   );
 }
 
+function KvltBadge() {
+  return (
+    <span
+      title="TRVE KVLT"
+      className="ml-1 inline-flex items-center rounded-full border border-gold px-1.5 py-0.5 text-[9px] font-bold text-gold"
+    >
+      🔥 KVLT
+    </span>
+  );
+}
+
 function PodiumSpot({ entry, place }: { entry: LeaderboardEntry; place: 1 | 2 | 3 }) {
   const heights = { 1: "h-40", 2: "h-32", 3: "h-24" };
   const bg = {
@@ -44,7 +55,10 @@ function PodiumSpot({ entry, place }: { entry: LeaderboardEntry; place: 1 | 2 | 
     >
       {place === 1 && <span className="text-2xl">👑</span>}
       <AvatarBadge entry={entry} size="text-2xl" />
-      <p className="max-w-[90px] truncate font-metal text-sm text-text">{entry.username}</p>
+      <p className="flex max-w-[90px] items-center truncate font-metal text-sm text-text">
+        {entry.username}
+        {entry.is_premium && <KvltBadge />}
+      </p>
       <p className="text-xs text-gold">{entry.trve_points.toLocaleString()} TP</p>
       <div className={`flex w-full items-end justify-center rounded-t-lg border ${heights[place]} ${bg[place]}`}>
         <span className="mb-2 font-metal text-2xl text-text">{place}</span>
@@ -102,9 +116,10 @@ function LeaderboardList({
               <span className="w-8 shrink-0 text-center font-metal text-sm text-text-muted">{entry.rank}</span>
               <AvatarBadge entry={entry} />
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-semibold text-text">
+                <p className="flex items-center truncate text-sm font-semibold text-text">
                   {entry.country_code && <span className="mr-1">{flagEmoji(entry.country_code)}</span>}
                   {entry.username}
+                  {entry.is_premium && <KvltBadge />}
                 </p>
                 <p className="text-xs text-text-muted">
                   LEVEL {entry.level} · {getLevelName(entry.level)}

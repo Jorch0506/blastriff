@@ -163,6 +163,7 @@ export function AdminQuestionsPanel() {
   const [data, setData] = useState<QuestionsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [approvingGroup, setApprovingGroup] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     const response = await fetch("/api/admin/questions");
@@ -207,6 +208,31 @@ export function AdminQuestionsPanel() {
         body: JSON.stringify(fields),
       });
       await load();
+    },
+    [load]
+  );
+
+  const approveGroup = useCallback(
+    async (group: PendingGroup) => {
+      const verifiedCount = group.questions.filter((question) => question.fact_check_verdict === "VERIFIED_CORRECT").length;
+      if (verifiedCount === 0) return;
+      const confirmed = window.confirm(
+        `¿Aprobar las ${verifiedCount} preguntas de ${group.genre} / ${group.difficulty} / ${group.language}?`
+      );
+      if (!confirmed) return;
+
+      const key = `${group.genre}-${group.difficulty}-${group.language}`;
+      setApprovingGroup(key);
+      try {
+        await fetch("/api/admin/questions/approve-group", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ genre: group.genre, difficulty: group.difficulty, language: group.language }),
+        });
+        await load();
+      } finally {
+        setApprovingGroup(null);
+      }
     },
     [load]
   );
@@ -261,16 +287,32 @@ export function AdminQuestionsPanel() {
         </div>
       )}
 
-      {data.pendingGroups.map((group) => (
-        <div key={`${group.genre}-${group.difficulty}-${group.language}`} className="flex flex-col gap-3">
-          <h3 className="font-metal text-sm text-text">
-            {group.genre.toUpperCase()} · {group.difficulty.toUpperCase()} · {group.language.toUpperCase()} ({group.questions.length})
-          </h3>
-          {group.questions.map((question) => (
-            <PendingCard key={question.id} question={question} onApprove={approve} onReject={reject} onSave={save} />
-          ))}
-        </div>
-      ))}
+      {data.pendingGroups.map((group) => {
+        const key = `${group.genre}-${group.difficulty}-${group.language}`;
+        const verifiedCount = group.questions.filter((question) => question.fact_check_verdict === "VERIFIED_CORRECT").length;
+        return (
+          <div key={key} className="flex flex-col gap-3">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="font-metal text-sm text-text">
+                {group.genre.toUpperCase()} · {group.difficulty.toUpperCase()} · {group.language.toUpperCase()} ({group.questions.length})
+              </h3>
+              {verifiedCount > 0 && (
+                <button
+                  type="button"
+                  disabled={approvingGroup === key}
+                  onClick={() => approveGroup(group)}
+                  className="shrink-0 rounded-lg bg-success px-3 py-1.5 text-xs font-semibold text-background disabled:opacity-50"
+                >
+                  {approvingGroup === key ? "Approving…" : `Approve all in this group (${verifiedCount})`}
+                </button>
+              )}
+            </div>
+            {group.questions.map((question) => (
+              <PendingCard key={question.id} question={question} onApprove={approve} onReject={reject} onSave={save} />
+            ))}
+          </div>
+        );
+      })}
     </div>
   );
 }

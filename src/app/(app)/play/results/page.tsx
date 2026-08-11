@@ -28,6 +28,8 @@ export default function ResultsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [levelUpInfo, setLevelUpInfo] = useState<{ newLevel: number; newLevelName: string } | null>(null);
   const [displayScore, setDisplayScore] = useState(0);
+  const [confirmedPoints, setConfirmedPoints] = useState<number | null>(null);
+  const [premiumBonusApplied, setPremiumBonusApplied] = useState(false);
   const [unlockedAchievements, setUnlockedAchievements] = useState<(AchievementDef & { toastId: string })[]>(
     []
   );
@@ -60,6 +62,10 @@ export default function ResultsPage() {
       .then((response) => response.json())
       .then((data) => {
         completeGame(data.sessionId ?? null);
+        if (typeof data.trvePointsEarned === "number") {
+          setConfirmedPoints(data.trvePointsEarned);
+          setPremiumBonusApplied(!!data.premiumBonusApplied);
+        }
         if (data.levelUp) {
           setLevelUpInfo({ newLevel: data.newLevel, newLevelName: data.newLevelName });
         }
@@ -79,6 +85,8 @@ export default function ResultsPage() {
       .finally(() => setIsSubmitting(false));
   }, [phase, sessionId, mode, genre, answers, startTime, completeGame]);
 
+  const targetScore = confirmedPoints ?? score;
+
   useEffect(() => {
     if (phase !== "complete") return;
     const duration = 900;
@@ -88,13 +96,13 @@ export default function ResultsPage() {
     function tick() {
       const elapsed = Date.now() - startedAt;
       const progress = Math.min(elapsed / duration, 1);
-      setDisplayScore(Math.round(score * progress));
+      setDisplayScore(Math.round(targetScore * progress));
       if (progress < 1) frame = requestAnimationFrame(tick);
     }
 
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [phase, score]);
+  }, [phase, targetScore]);
 
   if (phase !== "complete" || questions.length === 0) return null;
 
@@ -152,6 +160,9 @@ export default function ResultsPage() {
       <h1 className="font-metal text-3xl text-text">RESULTS</h1>
 
       <div className="font-metal text-5xl text-gold">{displayScore.toLocaleString()} TP</div>
+      {premiumBonusApplied && (
+        <p className="-mt-4 text-xs font-bold tracking-wide text-gold">⚡ TRVE PASS BONUS +15% APPLIED</p>
+      )}
 
       <p className="text-lg font-semibold text-text">
         {correctCount} / {questions.length} CORRECT

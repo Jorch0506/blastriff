@@ -18,6 +18,28 @@
   --color-warning: #ff6d00;
 }
 
+/* TRVE PASS profile accents — premium-only, selected via profiles.profile_theme */
+[data-theme="frost"] {
+  --color-primary: #2563eb;
+  --color-primary-hover: #3b82f6;
+  --color-gold: #7dd3fc;
+  --color-gold-dim: #38bdf8;
+}
+
+[data-theme="venom"] {
+  --color-primary: #16a34a;
+  --color-primary-hover: #22c55e;
+  --color-gold: #a3e635;
+  --color-gold-dim: #65a30d;
+}
+
+[data-theme="ash"] {
+  --color-primary: #6b7280;
+  --color-primary-hover: #9ca3af;
+  --color-gold: #e5e5e5;
+  --color-gold-dim: #a3a3a3;
+}
+
 * {
   box-sizing: border-box;
 }

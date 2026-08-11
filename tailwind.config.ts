@@ -15,12 +15,12 @@ const config: Config = {
         "surface-elevated": "#1A1A1A",
         border: "#2A2A2A",
         primary: {
-          DEFAULT: "#CC0000",
-          hover: "#FF0000",
+          DEFAULT: "var(--color-primary)",
+          hover: "var(--color-primary-hover)",
         },
         gold: {
-          DEFAULT: "#FFD700",
-          dim: "#B8860B",
+          DEFAULT: "var(--color-gold)",
+          dim: "var(--color-gold-dim)",
         },
         text: {
           DEFAULT: "#F5F5F5",
