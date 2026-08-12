@@ -6,6 +6,7 @@ import { flagEmoji, ONBOARDING_GENRES } from "@/lib/onboarding";
 import { getJoinUrl } from "@/lib/referral";
 import { InviteSection } from "@/components/profile/InviteSection";
 import { ThemeSelector } from "@/components/profile/ThemeSelector";
+import { SignOutButton } from "@/components/profile/SignOutButton";
 
 function formatDate(value: string | null): string {
   if (!value) return "—";
@@ -120,6 +121,8 @@ export default async function ProfilePage() {
         <Link href="/leaderboard" className="text-sm font-semibold text-primary hover:underline">
           {rankEntry ? `YOU'RE #${rankEntry.rank} WORLDWIDE` : "Not ranked yet — play to climb the ranks"}
         </Link>
+
+        <SignOutButton />
       </section>
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
