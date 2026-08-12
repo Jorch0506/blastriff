@@ -47,13 +47,20 @@ export function BottomNav({ pendingChallengeCount, isPremium }: BottomNavProps) 
         );
       })}
 
-      <a
-        href={isPremium ? "/profile" : "/api/billing/checkout"}
-        className="flex flex-1 flex-col items-center gap-1 py-2 text-xs font-semibold text-gold"
-      >
-        <span className="text-lg">{isPremium ? "🔥" : "⚡"}</span>
-        {isPremium ? "KVLT" : "TRVE PASS"}
-      </a>
+      {isPremium ? (
+        <span className="flex flex-1 flex-col items-center gap-1 py-2 text-xs font-semibold text-gold">
+          <span className="text-lg">🔥</span>
+          KVLT
+        </span>
+      ) : (
+        <a
+          href="/api/billing/checkout"
+          className="flex flex-1 flex-col items-center gap-1 py-2 text-xs font-semibold text-gold"
+        >
+          <span className="text-lg">⚡</span>
+          TRVE PASS
+        </a>
+      )}
 
       {TABS.slice(3).map((tab) => {
         const isActive = pathname?.startsWith(tab.href) ?? false;
