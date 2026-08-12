@@ -8,6 +8,7 @@ import { useGameStore } from "@/stores/gameStore";
 import { ACHIEVEMENTS, type AchievementDef, type AchievementKey } from "@/lib/achievements";
 import { AchievementToast } from "@/components/game/AchievementToast";
 import { useAuth } from "@/hooks/useAuth";
+import { track } from "@/lib/analytics/client";
 
 export default function ResultsPage() {
   const router = useRouter();
@@ -44,7 +45,12 @@ export default function ResultsPage() {
     if (submittedRef.current) return;
     if (phase !== "complete") return;
     if (sessionId !== null) return;
-    if (mode === "practice") return;
+
+    if (mode === "practice") {
+      submittedRef.current = true;
+      track("game_completed", { score, trve_points_earned: 0, genre, mode });
+      return;
+    }
 
     submittedRef.current = true;
     setIsSubmitting(true);
@@ -65,6 +71,12 @@ export default function ResultsPage() {
         if (typeof data.trvePointsEarned === "number") {
           setConfirmedPoints(data.trvePointsEarned);
           setPremiumBonusApplied(!!data.premiumBonusApplied);
+          track("game_completed", {
+            score: data.trvePointsEarned,
+            trve_points_earned: data.trvePointsEarned,
+            genre,
+            mode,
+          });
         }
         if (data.levelUp) {
           setLevelUpInfo({ newLevel: data.newLevel, newLevelName: data.newLevelName });
@@ -83,7 +95,7 @@ export default function ResultsPage() {
         }
       })
       .finally(() => setIsSubmitting(false));
-  }, [phase, sessionId, mode, genre, answers, startTime, completeGame]);
+  }, [phase, sessionId, mode, genre, answers, startTime, completeGame, score]);
 
   const targetScore = confirmedPoints ?? score;
 

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ChallengePlay } from "@/components/challenges/ChallengePlay";
+import { track } from "@/lib/analytics/client";
 import type { AnswerRecord, ClientQuestion } from "@/types/game";
 import type { QuestionDifficulty } from "@/types/database";
 
@@ -176,7 +177,10 @@ export default function ChallengeLandingPage({ params }: { params: { token: stri
       {!showComparison && !showWaitingForOpponent && viewer.isAuthenticated && viewer.canPlay && data.questions && (
         <button
           type="button"
-          onClick={() => setStage("playing")}
+          onClick={() => {
+            track("game_started", { mode: "challenge", genre: challenge.genre, difficulty: challenge.difficulty });
+            setStage("playing");
+          }}
           className="rounded-lg bg-primary py-4 font-metal text-xl tracking-wide text-text transition-colors hover:bg-primary-hover"
         >
           {viewer.playingAs === "challenger" ? "PLAY YOUR TURN" : "START THE BATTLE"}

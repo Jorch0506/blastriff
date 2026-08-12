@@ -5,6 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { scoreChallengeAnswers } from "@/lib/challenges";
 import { notifyUser } from "@/lib/notifications";
 import { getLevelFromPoints } from "@/lib/game/levels";
+import { trackServer } from "@/lib/analytics/server";
 
 const answerSchema = z.object({
   questionId: z.string(),
@@ -110,12 +111,14 @@ export async function POST(request: NextRequest, { params }: { params: { token: 
 
   const { data: profiles } = await admin
     .from("profiles")
-    .select("id, trve_points")
+    .select("id, trve_points, level")
     .in("id", [challenge.challenger_id, user.id]);
 
-  const profileMap = new Map((profiles ?? []).map((profile) => [profile.id, profile.trve_points]));
-  const challengerPoints = profileMap.get(challenge.challenger_id) ?? 0;
-  const challengedPoints = profileMap.get(user.id) ?? 0;
+  const profileMap = new Map((profiles ?? []).map((profile) => [profile.id, profile]));
+  const challengerPoints = profileMap.get(challenge.challenger_id)?.trve_points ?? 0;
+  const challengedPoints = profileMap.get(user.id)?.trve_points ?? 0;
+  const preChallengerLevel = profileMap.get(challenge.challenger_id)?.level ?? 1;
+  const preChallengedLevel = profileMap.get(user.id)?.level ?? 1;
 
   let newChallengerPoints = challengerPoints;
   let newChallengedPoints = challengedPoints;
@@ -128,16 +131,29 @@ export async function POST(request: NextRequest, { params }: { params: { token: 
     newChallengedPoints = Math.max(0, challengedPoints - challenge.points_at_stake);
   }
 
+  const newChallengerLevel = getLevelFromPoints(newChallengerPoints);
+  const newChallengedLevel = getLevelFromPoints(newChallengedPoints);
+
   await Promise.all([
     admin
       .from("profiles")
-      .update({ trve_points: newChallengerPoints, level: getLevelFromPoints(newChallengerPoints) })
+      .update({ trve_points: newChallengerPoints, level: newChallengerLevel })
       .eq("id", challenge.challenger_id),
     admin
       .from("profiles")
-      .update({ trve_points: newChallengedPoints, level: getLevelFromPoints(newChallengedPoints) })
+      .update({ trve_points: newChallengedPoints, level: newChallengedLevel })
       .eq("id", user.id),
   ]);
+
+  if (newChallengerLevel > preChallengerLevel) {
+    trackServer(challenge.challenger_id, "level_up", {
+      from_level: preChallengerLevel,
+      to_level: newChallengerLevel,
+    });
+  }
+  if (newChallengedLevel > preChallengedLevel) {
+    trackServer(user.id, "level_up", { from_level: preChallengedLevel, to_level: newChallengedLevel });
+  }
 
   const { error: updateError } = await admin
     .from("challenges")
@@ -163,7 +179,23 @@ export async function POST(request: NextRequest, { params }: { params: { token: 
     .maybeSingle();
 
   const won = winnerId === user.id;
-  const pointsWon = winnerId === null ? 0 : won ? challenge.points_at_stake : -challenge.points_at_stake;
+  const isDraw = winnerId === null;
+  const pointsWon = isDraw ? 0 : won ? challenge.points_at_stake : -challenge.points_at_stake;
+
+  trackServer(user.id, "challenge_completed", {
+    genre: challenge.genre,
+    difficulty: challenge.difficulty,
+    won,
+    is_draw: isDraw,
+    points_won: pointsWon,
+  });
+  trackServer(challenge.challenger_id, "challenge_completed", {
+    genre: challenge.genre,
+    difficulty: challenge.difficulty,
+    won: winnerId === challenge.challenger_id,
+    is_draw: isDraw,
+    points_won: isDraw ? 0 : winnerId === challenge.challenger_id ? challenge.points_at_stake : -challenge.points_at_stake,
+  });
 
   await notifyUser(
     admin,

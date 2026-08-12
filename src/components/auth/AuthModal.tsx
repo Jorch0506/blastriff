@@ -10,6 +10,7 @@ import { Loader2, X } from "lucide-react";
 import { cn, sanitizeRedirect } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { createClient } from "@/lib/supabase/client";
+import { track } from "@/lib/analytics/client";
 
 type AuthTab = "signup" | "login";
 
@@ -72,7 +73,12 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           .eq("id", data.session.user.id)
           .single();
 
-        const destination = profile?.username?.startsWith("metalhead_")
+        const isNewUser = profile?.username?.startsWith("metalhead_") ?? false;
+        if (tab === "signup" && isNewUser) {
+          track("user_registered", { method: "email" });
+        }
+
+        const destination = isNewUser
           ? `/onboarding?redirectTo=${encodeURIComponent(redirectTo)}`
           : redirectTo;
 

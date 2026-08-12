@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics/client";
 
 const TABS = [
   { href: "/play", label: "Play", emoji: "⚡" },
@@ -55,6 +56,7 @@ export function BottomNav({ pendingChallengeCount, isPremium }: BottomNavProps) 
       ) : (
         <a
           href="/api/billing/checkout"
+          onClick={() => track("premium_cta_clicked", { location: "bottomnav" })}
           className="flex flex-1 flex-col items-center gap-1 py-2 text-xs font-semibold text-gold"
         >
           <span className="text-lg">⚡</span>

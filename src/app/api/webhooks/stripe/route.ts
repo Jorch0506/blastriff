@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { trackServer } from "@/lib/analytics/server";
 
 export const runtime = "nodejs"; // necesitamos el body crudo para verificar la firma; no funciona en Edge
 
@@ -117,6 +118,9 @@ async function handleCheckoutCompleted(
   await upsertSubscription(admin, userId, subscription);
 
   await admin.from("profiles").update({ stripe_customer_id: subscription.customer as string }).eq("id", userId);
+
+  const lookupKey = subscription.items.data[0]?.price.lookup_key ?? "unknown";
+  trackServer(userId, "premium_subscribed", { plan: lookupKey });
 }
 
 async function handleSubscriptionWrite(

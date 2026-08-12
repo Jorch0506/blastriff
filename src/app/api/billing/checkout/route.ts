@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
+import { trackServer } from "@/lib/analytics/server";
 
 // ENDPOINT DE PRUEBA MÍNIMO — únicamente para generar un checkout.session.completed
 // real (con card 4242...) y verificar el webhook de Stripe end-to-end.
@@ -51,6 +52,8 @@ export async function GET(req: NextRequest) {
   if (!session.url) {
     return NextResponse.json({ error: "Stripe no devolvió una URL de checkout." }, { status: 500 });
   }
+
+  trackServer(user.id, "premium_checkout_started", { plan: "trve_pass_monthly" });
 
   return NextResponse.redirect(session.url, { status: 303 });
 }

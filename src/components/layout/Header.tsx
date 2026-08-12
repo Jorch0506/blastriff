@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { NotificationBell } from "@/components/ui/NotificationBell";
+import { track } from "@/lib/analytics/client";
 
 interface HeaderProps {
   username: string;
@@ -54,6 +55,7 @@ export function Header({ username, trvePoints, pendingChallengeCount, isPremium 
         ) : (
           <a
             href="/api/billing/checkout"
+            onClick={() => track("premium_cta_clicked", { location: "header" })}
             className="animate-pulse-gold rounded-full bg-gold px-3 py-1 text-xs font-bold tracking-wide text-background transition-colors hover:bg-gold-dim"
           >
             ⚡ GET TRVE PASS

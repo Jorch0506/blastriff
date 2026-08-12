@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { LEVEL_THRESHOLDS, getLevelName, getNextLevelThreshold } from "@/lib/game/levels";
 import { StreakCard } from "@/components/dashboard/StreakCard";
+import { PremiumCTA } from "@/components/dashboard/PremiumCTA";
 
 const GENRES = [
   { id: "thrash", label: "Thrash Metal", emoji: "⚡" },
@@ -67,6 +68,8 @@ export default async function DashboardPage() {
       </section>
 
       <StreakCard currentStreak={profile.current_streak} longestStreak={profile.longest_streak} />
+
+      {!profile.is_premium && <PremiumCTA />}
 
       <section>
         <h2 className="mb-3 font-metal text-lg text-text">QUICK PLAY</h2>

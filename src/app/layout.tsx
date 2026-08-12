@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Metal_Mania } from "next/font/google";
+import { PostHogProvider } from "@/components/providers/PostHogProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,7 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${metalMania.variable}`}>
-      <body className="bg-background font-sans text-text antialiased">{children}</body>
+      <body className="bg-background font-sans text-text antialiased">
+        <PostHogProvider>{children}</PostHogProvider>
+      </body>
     </html>
   );
 }

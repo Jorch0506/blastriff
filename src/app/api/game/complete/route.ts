@@ -7,6 +7,7 @@ import { calculateStreak } from "@/lib/streak";
 import { checkAchievements, ACHIEVEMENTS, type AchievementKey } from "@/lib/achievements";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { notifyUser } from "@/lib/notifications";
+import { trackServer } from "@/lib/analytics/server";
 import type { GameMode, GameSessionQuestion, QuestionDifficulty } from "@/types/database";
 
 const answerSchema = z.object({
@@ -127,11 +128,19 @@ export async function POST(request: NextRequest) {
   const now = new Date();
   const lastPlayed = profile.last_played_at ? new Date(profile.last_played_at) : null;
   const previousDailyStreak = profile.current_streak;
-  const { newStreak: newDailyStreak } = calculateStreak(lastPlayed, profile.current_streak);
+  const { newStreak: newDailyStreak, streakBroken } = calculateStreak(lastPlayed, profile.current_streak);
+
+  if (streakBroken) {
+    trackServer(user.id, "streak_broken", { previous_streak: previousDailyStreak });
+  }
 
   const newTotalPoints = profile.trve_points + trvePointsEarned;
   const newLevel = getLevelFromPoints(newTotalPoints);
   const levelUp = newLevel > profile.level;
+
+  if (levelUp) {
+    trackServer(user.id, "level_up", { from_level: profile.level, to_level: newLevel });
+  }
 
   const { data: updatedProfile } = await supabase
     .from("profiles")

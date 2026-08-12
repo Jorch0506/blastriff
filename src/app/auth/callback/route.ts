@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { sanitizeRedirect } from "@/lib/utils";
+import { trackServer } from "@/lib/analytics/server";
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -19,6 +20,8 @@ export async function GET(request: NextRequest) {
         .single();
 
       if (profile?.username?.startsWith("metalhead_")) {
+        trackServer(data.user.id, "user_registered", { method: "google" });
+
         const onboardingUrl = new URL("/onboarding", origin);
         onboardingUrl.searchParams.set("redirectTo", redirectTo);
         return NextResponse.redirect(onboardingUrl);

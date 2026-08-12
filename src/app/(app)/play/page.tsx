@@ -6,6 +6,7 @@ import { useGameStore } from "@/stores/gameStore";
 import { ScoreBar } from "@/components/game/ScoreBar";
 import { QuestionCard } from "@/components/game/QuestionCard";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics/client";
 import type { ClientQuestion, GameMode } from "@/types/game";
 
 const GENRES: { id: string; label: string; emoji: string }[] = [
@@ -51,6 +52,7 @@ export default function PlayPage() {
         setLoadError("No questions available for this genre yet.");
         return;
       }
+      track("game_started", { mode: selectedMode, genre: selectedGenre });
       startGame(selectedGenre, selectedMode, data.questions);
     } catch {
       setLoadError("Couldn't load questions. Try again.");

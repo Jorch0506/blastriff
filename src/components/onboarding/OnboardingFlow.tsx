@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { USERNAME_REGEX } from "@/lib/onboarding";
+import { track } from "@/lib/analytics/client";
 import { StepGenres } from "@/components/onboarding/StepGenres";
 import { StepIdentity, type UsernameStatus } from "@/components/onboarding/StepIdentity";
 import { StepWelcome } from "@/components/onboarding/StepWelcome";
@@ -102,6 +103,7 @@ export function OnboardingFlow({ userId, redirectTo }: OnboardingFlowProps) {
   }
 
   function handleEnter() {
+    track("onboarding_completed", {});
     router.push(redirectTo);
   }
 

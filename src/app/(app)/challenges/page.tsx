@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { POINTS_AT_STAKE_OPTIONS } from "@/lib/challenges";
 import { ChallengePlay } from "@/components/challenges/ChallengePlay";
 import { ShareChallengeModal } from "@/components/challenges/ShareChallengeModal";
+import { track } from "@/lib/analytics/client";
 import type { AnswerRecord, ClientQuestion } from "@/types/game";
 import type { QuestionDifficulty } from "@/types/database";
 
@@ -126,6 +127,9 @@ export default function ChallengesPage() {
         setCreateError(data.error ?? "Could not create challenge");
         return;
       }
+      track("challenge_sent", { genre, difficulty, points_at_stake: pointsAtStake });
+      track("game_started", { mode: "challenge", genre, difficulty });
+
       setActiveChallenge({
         shareToken: data.shareToken,
         shareUrl: data.shareUrl,
